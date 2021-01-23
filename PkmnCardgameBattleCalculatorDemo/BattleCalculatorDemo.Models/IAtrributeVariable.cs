@@ -2,39 +2,27 @@
 
 namespace BattleCalculatorDemo.Models
 {
-    public interface IAtrributeVariable
+    public interface IValueVariable 
     {
-        public AttributeTriggers TriggerAttributeOn { get; }
+        AttributeTriggers TriggerAttributeOn { get; }
+        void Affect(IVariableParameter parameter);
     }
-    public interface IOneSidedAttributeVariable : IAtrributeVariable
+    public interface IValueVariable<in T>: IValueVariable where T:IVariableParameter
     {
-        void Affects(ICard attacker);
+        void Affect(T parameter);
+
+        void IValueVariable.Affect(IVariableParameter parameter)
+        {
+            Affect((T)parameter);
+        }
+            
     }
-
-    public interface ITwoSidedAttributeVariable : IAtrributeVariable
-    {
-        void Affects(ICard attacker, ICard defender);
-    }
-
-
-    public interface IVariableValueWithScaling
-    {
-        public byte Value { get; set; }
-        public ScaleType ScaleType { get; set; }
-    }
-
-    public class VariableValueWithScaling : IVariableValueWithScaling
-    {
-        public byte Value { get; set; }
-        public ScaleType ScaleType { get; set; }
-    }
-
 
     /*
       CallUp: Deal 2 damage to an enemy unit
                Deal 4 damage to an enemy unit
      */
-    public class HardShellAttribute : IOneSidedAttributeVariable
+    public class HardShellAttribute : IValueVariable<SelfCardParameter>
     {
         private ushort _value;
 
@@ -44,12 +32,16 @@ namespace BattleCalculatorDemo.Models
         }
 
         public AttributeTriggers TriggerAttributeOn { get; } = AttributeTriggers.AfterDefence;
-
-        public void Affects(ICard card)
-        {
-            card.Hp += (ushort)(card.Hp * _value / 100);
-        }
-
         
+        public void Affect(SelfCardParameter parameter)
+        {
+            parameter.Self.Hp += _value;
+        }
     }
+    
+    public interface IVariableParameter{}
+
+    public record SelfCardParameter(Card Self) : IVariableParameter;
+
+    public record DoubleCardParameter(Card Attacker, Card Defender) : IVariableParameter;
 }

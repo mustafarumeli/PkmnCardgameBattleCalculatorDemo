@@ -11,17 +11,16 @@ namespace BattleCalculatorDemo.Test
         [SetUp]
         public void Setup()
         {
-            CardAttribute hardShell = new CardAttribute();
-            hardShell.Name = "Hard Shell";
-            hardShell.Description = "When {Name} survives an attack Restore {0}% of Health";
-            hardShell.AttributeVariables.Add(new AttributeVariable()
-            {
-                CardPropertyToAffect = "Hp",
-                Value = 25,
-                TriggerAttributeOn = AttributeTriggers.AfterDefence,
-                ScaleType = ScaleType.Ratio
-            });
-            _attackerCard.Attributes.Add(hardShell);
+            var hardShell = new HardShellAttribute(25);
+            // hardShell.Name = "Hard Shell";
+            // hardShell.Description = "When {Name} survives an attack Restore {0}% of Health";
+            // hardShell.AttributeVariables.Add(new AttributeVariable()
+            // {
+            //     CardPropertyToAffect = "Hp",
+            //     Value = 25,
+            //     TriggerAttributeOn = AttributeTriggers.AfterDefence,
+            //     ScaleType = ScaleType.Ratio
+            // });
 
 
             _attackerCard = new Card()
@@ -38,7 +37,7 @@ namespace BattleCalculatorDemo.Test
                 Hp = 50,
                 Def = 125
             };
-
+            _attackerCard.Attributes.Add(hardShell);
             _defenderCard.Attributes.Add(hardShell);
 
         }
@@ -68,16 +67,16 @@ namespace BattleCalculatorDemo.Test
         [SetUp]
         public void SetUp()
         {
-            CardAttribute hardShell = new CardAttribute();
-            hardShell.Name = "Hard Shell";
-            hardShell.Description = "When {Name} survives an attack Restore {0}% of Health";
-            hardShell.AttributeVariables.Add(new AttributeVariable()
-            {
-                CardPropertyToAffect = "Hp",
-                Value = 25,
-                TriggerAttributeOn = AttributeTriggers.BeforeAttack,
-                ScaleType = ScaleType.Direct
-            });
+            var hardShell = new HardShellAttribute(25);
+            // hardShell.Name = "Hard Shell";
+            // hardShell.Description = "When {Name} survives an attack Restore {0}% of Health";
+            // hardShell.AttributeVariables.Add(new AttributeVariable()
+            // {
+            //     CardPropertyToAffect = "Hp",
+            //     Value = 25,
+            //     TriggerAttributeOn = AttributeTriggers.AfterDefence,
+            //     ScaleType = ScaleType.Ratio
+            // });
 
 
             _attackerCard = new Card()

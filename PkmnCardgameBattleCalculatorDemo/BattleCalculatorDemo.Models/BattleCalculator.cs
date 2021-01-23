@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BattleCalculatorDemo.Models
 {
     public static class BattleCalculator
     {
-
         private const ushort ATTACKDEFENCERATIOMULTIPLER = 50;
+
         public static void Attacks(this Card attacker, Card defender)
         {
             CalculateBeforeEffects(attacker, defender);
@@ -15,6 +16,7 @@ namespace BattleCalculatorDemo.Models
             defender.Hp -= damage;
             CalculateAfterEffects(attacker, defender);
         }
+
         // Damage = IsCritical X Random(1,1.25) X Type Modifier X ((A.Attack / D.Defence) *50)
         private static ushort CalculateDamage(Card attacker, Card defender)
         {
@@ -22,9 +24,10 @@ namespace BattleCalculatorDemo.Models
             ushort criticalMultiplier = 1;
             Random rnd = new Random();
             CalculateCriticalMultipler(attacker, canHitCritical, rnd, ref criticalMultiplier);
-            ushort randomMultiplier = (ushort)(rnd.Next(100, 125) / 100);
+            ushort randomMultiplier = (ushort) (rnd.Next(100, 125) / 100);
             ushort typeMultiplier = GetTypeMultiplier(attacker, defender);
-            return (ushort)(criticalMultiplier * randomMultiplier * typeMultiplier * (attacker.Atk / defender.Def * ATTACKDEFENCERATIOMULTIPLER);
+            return (ushort) (criticalMultiplier * randomMultiplier * typeMultiplier *
+                             (attacker.Atk / defender.Def * ATTACKDEFENCERATIOMULTIPLER));
         }
 
         private static byte GetTypeMultiplier(Card attacker, Card defender)
@@ -32,7 +35,8 @@ namespace BattleCalculatorDemo.Models
             return 1;
         }
 
-        private static void CalculateCriticalMultipler(Card attacker, bool canHitCritical, Random rnd, ref ushort criticalMultiplier)
+        private static void CalculateCriticalMultipler(Card attacker, bool canHitCritical, Random rnd,
+            ref ushort criticalMultiplier)
         {
             if (canHitCritical)
             {
@@ -52,6 +56,19 @@ namespace BattleCalculatorDemo.Models
             }
         }
 
+        public static IEnumerable<IValueVariable> GetWhereEnumHas(this IEnumerable<IValueVariable> list,
+            params AttributeTriggers[] attributeTriggers)
+        {
+            var mainEnum = attributeTriggers[0];
+            for (var i = 1; i < attributeTriggers.Length; i++)
+            {
+                mainEnum |= attributeTriggers[i];
+            }
+
+
+            return list.Where(x => x.TriggerAttributeOn.HasFlag(mainEnum));
+        }
+
         private static bool CalculateCanHitCritical(Card attacker)
         {
             return attacker.HitChance > 0 && attacker.CriticalChance > 0;
@@ -59,56 +76,70 @@ namespace BattleCalculatorDemo.Models
 
         private static void CalculateAfterEffects(Card attacker, Card defender)
         {
-            var afterAttackAttributesOfAttacker = attacker.Attributes.Where(x =>
-                    x.AttributeVariables.Any(y => y.TriggerAttributeOn == AttributeTriggers.AfterAttack))
-                .SelectMany(x => x.AttributeVariables);
-            var afterDefenceAttributesOfDefender = attacker.Attributes.Where(x =>
-                    x.AttributeVariables.Any(y => y.TriggerAttributeOn == AttributeTriggers.AfterDefence))
-                .SelectMany(x => x.AttributeVariables);
-            var cardType = typeof(Card);
+            foreach (IValueVariable attackerAttribute in attacker.Attributes.Where(x =>
+                x.TriggerAttributeOn == AttributeTriggers.AfterAttack ||
+                x.TriggerAttributeOn == AttributeTriggers.AfterDefence))
+            {
+                IVariableParameter parameter = attackerAttribute switch
+                {
+                    IValueVariable<SelfCardParameter> => new SelfCardParameter(attacker),
+                    IValueVariable<DoubleCardParameter> => new DoubleCardParameter(attacker, defender)
+                };
+                attackerAttribute.Affect(parameter);
+            }
 
-            foreach (var attribute in afterAttackAttributesOfAttacker)
-            {
-                var propertyToAffect = cardType.GetProperty(attribute.CardPropertyToAffect)?.GetValue(attacker);
-                var toAffect = (ushort)propertyToAffect;
-                CalculateEffect(ref toAffect, attribute.ScaleType, attribute.Value);
-                cardType.GetProperty(attribute.CardPropertyToAffect)?.SetValue(attacker, toAffect);
-            }
-            foreach (var attribute in afterDefenceAttributesOfDefender)
-            {
-                var propertyToAffect = cardType.GetProperty(attribute.CardPropertyToAffect)?.GetValue(defender);
-                var toAffect = (ushort)propertyToAffect;
-                CalculateEffect(ref toAffect, attribute.ScaleType, attribute.Value);
-                cardType.GetProperty(attribute.CardPropertyToAffect)?.SetValue(defender, toAffect);
-            }
+            //TODO
+            // var afterAttackAttributesOfAttacker = attacker.Attributes.Where(x =>
+            //         x.AttributeVariables.Any(y => y.TriggerAttributeOn == AttributeTriggers.AfterAttack))
+            //     .SelectMany(x => x.AttributeVariables);
+            // var afterDefenceAttributesOfDefender = attacker.Attributes.Where(x =>
+            //         x.AttributeVariables.Any(y => y.TriggerAttributeOn == AttributeTriggers.AfterDefence))
+            //     .SelectMany(x => x.AttributeVariables);
+            // var cardType = typeof(Card);
+            //
+            // foreach (var attribute in afterAttackAttributesOfAttacker)
+            // {
+            //     var propertyToAffect = cardType.GetProperty(attribute.CardPropertyToAffect)?.GetValue(attacker);
+            //     var toAffect = (ushort) propertyToAffect;
+            //     CalculateEffect(ref toAffect, attribute.ScaleType, attribute.Value);
+            //     cardType.GetProperty(attribute.CardPropertyToAffect)?.SetValue(attacker, toAffect);
+            // }
+            //
+            // foreach (var attribute in afterDefenceAttributesOfDefender)
+            // {
+            //     var propertyToAffect = cardType.GetProperty(attribute.CardPropertyToAffect)?.GetValue(defender);
+            //     var toAffect = (ushort) propertyToAffect;
+            //     CalculateEffect(ref toAffect, attribute.ScaleType, attribute.Value);
+            //     cardType.GetProperty(attribute.CardPropertyToAffect)?.SetValue(defender, toAffect);
+            // }
         }
 
         private static void CalculateBeforeEffects(Card attacker, Card defender)
         {
-            var beforeAttackAttributesOfAttacker = attacker.Attributes.Where(x =>
-                    x.AttributeVariables.Any(y => y.TriggerAttributeOn == AttributeTriggers.BeforeAttack))
-                .SelectMany(x => x.AttributeVariables);
-
-            var beforeDefenceAttributesOfDefender = attacker.Attributes.Where(x =>
-                    x.AttributeVariables.Any(y => y.TriggerAttributeOn == AttributeTriggers.BeforeDefence))
-                .SelectMany(x => x.AttributeVariables);
-            var cardType = typeof(Card);
-
-            foreach (var attribute in beforeAttackAttributesOfAttacker)
-            {
-                var propertyToAffect = cardType.GetProperty(attribute.CardPropertyToAffect)?.GetValue(attacker);
-                var toAffect = (ushort)propertyToAffect;
-                CalculateEffect(ref toAffect, attribute.ScaleType, attribute.Value);
-                cardType.GetProperty(attribute.CardPropertyToAffect)?.SetValue(attacker, toAffect);
-            }
-
-            foreach (var attribute in beforeDefenceAttributesOfDefender)
-            {
-                var propertyToAffect = cardType.GetProperty(attribute.CardPropertyToAffect)?.GetValue(defender);
-                var toAffect = (ushort)propertyToAffect;
-                CalculateEffect(ref toAffect, attribute.ScaleType, attribute.Value);
-                cardType.GetProperty(attribute.CardPropertyToAffect)?.SetValue(defender, toAffect);
-            }
+            // var beforeAttackAttributesOfAttacker = attacker.Attributes.Where(x =>
+            //         x.AttributeVariables.Any(y => y.TriggerAttributeOn == AttributeTriggers.BeforeAttack))
+            //     .SelectMany(x => x.AttributeVariables);
+            //
+            // var beforeDefenceAttributesOfDefender = attacker.Attributes.Where(x =>
+            //         x.AttributeVariables.Any(y => y.TriggerAttributeOn == AttributeTriggers.BeforeDefence))
+            //     .SelectMany(x => x.AttributeVariables);
+            // var cardType = typeof(Card);
+            //
+            // foreach (var attribute in beforeAttackAttributesOfAttacker)
+            // {
+            //     var propertyToAffect = cardType.GetProperty(attribute.CardPropertyToAffect)?.GetValue(attacker);
+            //     var toAffect = (ushort) propertyToAffect;
+            //     CalculateEffect(ref toAffect, attribute.ScaleType, attribute.Value);
+            //     cardType.GetProperty(attribute.CardPropertyToAffect)?.SetValue(attacker, toAffect);
+            // }
+            //
+            // foreach (var attribute in beforeDefenceAttributesOfDefender)
+            // {
+            //     var propertyToAffect = cardType.GetProperty(attribute.CardPropertyToAffect)?.GetValue(defender);
+            //     var toAffect = (ushort) propertyToAffect;
+            //     CalculateEffect(ref toAffect, attribute.ScaleType, attribute.Value);
+            //     cardType.GetProperty(attribute.CardPropertyToAffect)?.SetValue(defender, toAffect);
+            // }
         }
 
         private static void CalculateEffect(ref ushort propertyToAffect, ScaleType scaleType, byte value)
@@ -116,7 +147,7 @@ namespace BattleCalculatorDemo.Models
             switch (scaleType)
             {
                 case ScaleType.Ratio:
-                    propertyToAffect += (ushort)(propertyToAffect * value / 100);
+                    propertyToAffect += (ushort) (propertyToAffect * value / 100);
                     break;
                 case ScaleType.Direct:
                     propertyToAffect += value;

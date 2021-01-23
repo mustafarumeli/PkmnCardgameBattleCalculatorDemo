@@ -29,7 +29,7 @@ namespace BattleCalculatorDemo.Models
             set => _hitChance = value > 100 ? (ushort)100 : value;
         }
 
-        public IList<CardAttribute> Attributes { get; set; } = new List<CardAttribute>();
+        public IList<IValueVariable> Attributes { get; set; } = new List<IValueVariable>();
 
 
         public string Description => this.CreateCardDescription();

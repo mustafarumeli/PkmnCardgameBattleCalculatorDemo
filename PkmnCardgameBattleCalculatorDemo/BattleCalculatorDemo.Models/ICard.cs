@@ -11,7 +11,7 @@ namespace BattleCalculatorDemo.Models
         public ushort Def { get; set; }
         public ushort CriticalChance { get; set; }
         public ushort HitChance { get; set; }
-        public IList<IAtrributeVariable> Attributes { get; set; }
+        public IList<IValueVariable> Attributes { get; set; }
         public string Description { get; }
     }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\OmerC\.nuget\packages\microsoft.net.test.sdk\16.4.0\build\netcoreapp2.1" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="C:\Users\OmerC\.nuget\packages\microsoft.testplatform.testhost\16.4.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
+    <e p="C:\Users\OmerC\.nuget\packages\microsoft.testplatform.testhost\16.4.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
+    <e p="C:\Users\OmerC\.nuget\packages\nunit3testadapter\3.17.0\build\netcoreapp2.1\nunit.engine.api.dll" t="Include" />
+    <e p="C:\Users\OmerC\.nuget\packages\nunit3testadapter\3.17.0\build\netcoreapp2.1\nunit.engine.core.dll" t="Include" />
+    <e p="C:\Users\OmerC\.nuget\packages\nunit3testadapter\3.17.0\build\netcoreapp2.1\nunit.engine.dll" t="Include" />
+    <e p="C:\Users\OmerC\.nuget\packages\nunit3testadapter\3.17.0\build\netcoreapp2.1\NUnit3.TestAdapter.dll" t="Include" />
+    <e p="C:\Users\OmerC\.nuget\packages\nunit3testadapter\3.17.0\build\netcoreapp2.1\NUnit3.TestAdapter.pdb" t="Include" />
+    <e p="C:\Users\OmerC\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\OmerC\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_PkmnCardgameBattleCalculatorDemo.-1617256433.00" t="ExcludeRecursive" />
+    <e p="C:\Users\OmerC\AppData\Roaming\JetBrains\Rider2020.3\consoles\db" t="IncludeRecursive" />
+    <e p="C:\Users\OmerC\AppData\Roaming\JetBrains\Rider2020.3\extensions" t="IncludeRecursive" />
+    <e p="C:\Users\OmerC\AppData\Roaming\JetBrains\Rider2020.3\scratches" t="IncludeRecursive" />
+    <e p="F:\Projects\PkmnCardgameBattleCalculatorDemo\PkmnCardgameBattleCalculatorDemo" t="IncludeFlat">
+      <e p="BattleCalculatorDemo.Models" t="IncludeRecursive">
+        <e p="AffectableCardPropertyAttribute.cs" t="Include" />
+        <e p="AttributeTriggers.cs" t="Include" />
+        <e p="AttributeVariable.cs" t="Include" />
+        <e p="BattleCalculator.cs" t="Include" />
+        <e p="BattleCalculatorDemo.Models.csproj" t="IncludeRecursive" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Card.cs" t="Include" />
+        <e p="CardAttribute.cs" t="Include" />
+        <e p="Helpers.cs" t="Include" />
+        <e p="IAtrributeVariable.cs" t="Include" />
+        <e p="ICard.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net5.0" t="Include">
+              <e p="BattleCalculatorDemo.Models.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="ScaleType.cs" t="Include" />
+      </e>
+      <e p="BattleCalculatorDemo.Test" t="IncludeRecursive">
+        <e p="BattleCalculatorDemo.Test.csproj" t="IncludeRecursive" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net5.0" t="Include">
+              <e p="BattleCalculatorDemo.Test.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="UnitTest1.cs" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="PkmnCardgameBattleCalculatorDemo.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>
