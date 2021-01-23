@@ -3,64 +3,8 @@ using NUnit.Framework;
 
 namespace BattleCalculatorDemo.Test
 {
-    public class Tests
-    {
-        private AttributeVariable attributeVariable;
-        private Card _attackerCard;
-        private Card _defenderCard;
-        [SetUp]
-        public void Setup()
-        {
-            var hardShell = new HardShellAttribute(25);
-            // hardShell.Name = "Hard Shell";
-            // hardShell.Description = "When {Name} survives an attack Restore {0}% of Health";
-            // hardShell.AttributeVariables.Add(new AttributeVariable()
-            // {
-            //     CardPropertyToAffect = "Hp",
-            //     Value = 25,
-            //     TriggerAttributeOn = AttributeTriggers.AfterDefence,
-            //     ScaleType = ScaleType.Ratio
-            // });
-
-
-            _attackerCard = new Card()
-            {
-                Name = "Mountain Ranger",
-                Atk = 25,
-                Hp = 50,
-                Def = 125
-            };
-            _defenderCard = new Card()
-            {
-                Name = "Mountain Ranger",
-                Atk = 25,
-                Hp = 50,
-                Def = 125
-            };
-            _attackerCard.Attributes.Add(hardShell);
-            _defenderCard.Attributes.Add(hardShell);
-
-        }
-
-        [Test]
-        public void IsCardPropertiesCorrect()
-        {
-            Assert.That(attributeVariable.ToString() == "Hp,Atk,Def,CriticalChance,HitChance");
-        }
-
-        [Test]
-        public void IsDescriptionCorrect()
-        {
-            Assert.That(_attackerCard.Description == "Hard Shell 25,");
-        }
-
-
-
-    }
-
     public class BattleTests
     {
-        private AttributeVariable attributeVariable;
         private Card _attackerCard;
         private Card _defenderCard;
 
@@ -68,15 +12,9 @@ namespace BattleCalculatorDemo.Test
         public void SetUp()
         {
             var hardShell = new HardShellAttribute(25);
-            // hardShell.Name = "Hard Shell";
-            // hardShell.Description = "When {Name} survives an attack Restore {0}% of Health";
-            // hardShell.AttributeVariables.Add(new AttributeVariable()
-            // {
-            //     CardPropertyToAffect = "Hp",
-            //     Value = 25,
-            //     TriggerAttributeOn = AttributeTriggers.AfterDefence,
-            //     ScaleType = ScaleType.Ratio
-            // });
+            var sharper = new SharperAttributeVariable();
+            var weightless = new WeightlessAttributeVariable(0, 100);
+            var ironWill = new IronWillAttributeVariable();
 
 
             _attackerCard = new Card()
@@ -93,16 +31,28 @@ namespace BattleCalculatorDemo.Test
                 Hp = 50,
                 Def = 125
             };
-            _attackerCard.Attributes.Add(hardShell);
-            _defenderCard.Attributes.Add(hardShell);
+            _attackerCard.Attributes.Add(sharper);
+            _defenderCard.Attributes.Add(ironWill);
         }
 
         [Test]
         public void ShouldIncreaseAttackersHpBy25()
         {
             _attackerCard.Attacks(_defenderCard);
-            Assert.AreEqual(_attackerCard.Hp, 75);
+            Assert.AreNotEqual(_defenderCard.Hp, 75);
+        }
+        [Test]
+        public void HitChanceShouldRevert()
+        {
+            _attackerCard.Attacks(_defenderCard);
+            Assert.AreEqual(_attackerCard.HitChance, 75);
         }
 
+        [Test]
+        public void ShouldTakeNoDamage()
+        {
+            _attackerCard.Attacks(_defenderCard);
+            Assert.AreEqual(50, _defenderCard.Hp);
+        }
     }
 }

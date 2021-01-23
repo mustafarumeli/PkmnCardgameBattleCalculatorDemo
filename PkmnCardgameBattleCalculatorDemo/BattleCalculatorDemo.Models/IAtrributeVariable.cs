@@ -2,12 +2,24 @@
 
 namespace BattleCalculatorDemo.Models
 {
-    public interface IValueVariable 
+    public interface IRevertableValueVariable
+    {
+        void Revert(IVariableParameter parameter);
+    }
+    public interface IRevertableValueVariable<in T> : IRevertableValueVariable where T : IVariableParameter
+    {
+        void Revert(T parameter);
+        void IRevertableValueVariable.Revert(IVariableParameter parameter)
+        {
+            Revert((T)parameter);
+        }
+    }
+    public interface IValueVariable
     {
         AttributeTriggers TriggerAttributeOn { get; }
         void Affect(IVariableParameter parameter);
     }
-    public interface IValueVariable<in T>: IValueVariable where T:IVariableParameter
+    public interface IValueVariable<in T> : IValueVariable where T : IVariableParameter
     {
         void Affect(T parameter);
 
@@ -15,7 +27,7 @@ namespace BattleCalculatorDemo.Models
         {
             Affect((T)parameter);
         }
-            
+
     }
 
     /*
@@ -24,24 +36,24 @@ namespace BattleCalculatorDemo.Models
      */
     public class HardShellAttribute : IValueVariable<SelfCardParameter>
     {
-        private ushort _value;
+        private short _value;
 
-        public HardShellAttribute(ushort value)
+        public HardShellAttribute(short value)
         {
             _value = value;
         }
 
         public AttributeTriggers TriggerAttributeOn { get; } = AttributeTriggers.AfterDefence;
-        
+
         public void Affect(SelfCardParameter parameter)
         {
             parameter.Self.Hp += _value;
         }
     }
-    
-    public interface IVariableParameter{}
+
+    public interface IVariableParameter { }
 
     public record SelfCardParameter(Card Self) : IVariableParameter;
-
     public record DoubleCardParameter(Card Attacker, Card Defender) : IVariableParameter;
+    public record DuringCardParameter(Card Self, DuringEffectInfo DuringEffectInfo) : IVariableParameter;
 }

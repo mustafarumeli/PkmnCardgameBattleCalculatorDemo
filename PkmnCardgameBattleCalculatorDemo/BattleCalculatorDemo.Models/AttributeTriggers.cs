@@ -8,6 +8,7 @@ namespace BattleCalculatorDemo.Models
         BeforeAttack = 1,
         BeforeDefence = 2,
         AfterAttack = 4,
-        AfterDefence = 8
+        AfterDefence = 8,
+        DuringAttack = 16
     }
 }
