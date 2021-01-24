@@ -1,4 +1,5 @@
 using BattleCalculatorDemo.Models;
+using BattleCalculatorDemo.Models.CardAttributes;
 using NUnit.Framework;
 
 namespace BattleCalculatorDemo.Test
@@ -11,10 +12,10 @@ namespace BattleCalculatorDemo.Test
         [SetUp]
         public void SetUp()
         {
-            var hardShell = new HardShellAttribute(25);
-            var sharper = new SharperAttributeVariable();
-            var weightless = new WeightlessAttributeVariable(0, 100);
-            var ironWill = new IronWillAttributeVariable();
+            var hardShell = new HardShellCardAttribute(25);
+            var sharper = new SharperCardAttribute();
+            var weightless = new WeightlessCardAttribute(0, 100);
+            var ironWill = new IronWillCardAttribute();
 
 
             _attackerCard = new Card()
@@ -31,8 +32,8 @@ namespace BattleCalculatorDemo.Test
                 Hp = 50,
                 Def = 125
             };
-            _attackerCard.Attributes.Add(sharper);
-            _defenderCard.Attributes.Add(ironWill);
+            _attackerCard.Attributes.Add(hardShell);
+            _defenderCard.Attributes.Add(weightless);
         }
 
         [Test]

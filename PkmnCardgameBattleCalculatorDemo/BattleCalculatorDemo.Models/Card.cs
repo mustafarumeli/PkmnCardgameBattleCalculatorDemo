@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using BattleCalculatorDemo.Models.CardAttributes;
 
 namespace BattleCalculatorDemo.Models
 {
-    public record Card : ICard
+    public class Card : ICard
     {
 
         private short _criticalChance = 50;
@@ -23,8 +25,20 @@ namespace BattleCalculatorDemo.Models
             set => _hitChance = value > 100 ? (short)100 : value;
         }
 
-        public IList<IValueVariable> Attributes { get; set; } = new List<IValueVariable>();
+        public IList<ICardAttributeAffectVariable> Attributes { get; set; } = new List<ICardAttributeAffectVariable>();
 
-        public string Description => this.CreateCardDescription();
+        public string Description
+        {
+            get
+            {
+                var attributeDesc = CreateCardDescription();
+                return string.Join(",", attributeDesc);
+            }
+        }
+
+        private IEnumerable<string> CreateCardDescription()
+        {
+            return Attributes.Select(cardAttribute => cardAttribute.Name);
+        }
     }
 }

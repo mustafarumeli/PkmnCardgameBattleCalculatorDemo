@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BattleCalculatorDemo.Models.CardAttributes;
 
 namespace BattleCalculatorDemo.Models
 {
@@ -11,7 +12,7 @@ namespace BattleCalculatorDemo.Models
         public short Def { get; set; }
         public short CriticalChance { get; set; }
         public short HitChance { get; set; }
-        public IList<IValueVariable> Attributes { get; set; }
+        public IList<ICardAttributeAffectVariable> Attributes { get; set; }
         public string Description { get; }
     }
 }

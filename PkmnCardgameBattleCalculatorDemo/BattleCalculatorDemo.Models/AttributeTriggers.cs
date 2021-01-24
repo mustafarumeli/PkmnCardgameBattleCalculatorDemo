@@ -6,9 +6,9 @@ namespace BattleCalculatorDemo.Models
     public enum AttributeTriggers
     {
         BeforeAttack = 1,
-        BeforeDefence = 2,
+        BeforeDefense = 2,
         AfterAttack = 4,
-        AfterDefence = 8,
+        AfterDefense = 8,
         DuringAttack = 16
     }
 }
