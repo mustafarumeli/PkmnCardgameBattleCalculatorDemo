@@ -1,13 +1,14 @@
 using BattleCalculatorDemo.Models;
 using BattleCalculatorDemo.Models.CardAttributes;
 using NUnit.Framework;
+using BattleCalculatorDemo.Models.MonsterTypes;
 
 namespace BattleCalculatorDemo.Test
 {
     public class BattleTests
     {
-        private Card _attackerCard;
-        private Card _defenderCard;
+        private MonsterCard _attackerMonsterCard;
+        private MonsterCard _defenderMonsterCard;
 
         [SetUp]
         public void SetUp()
@@ -18,42 +19,53 @@ namespace BattleCalculatorDemo.Test
             var ironWill = new IronWillCardAttribute();
 
 
-            _attackerCard = new Card()
+            _attackerMonsterCard = new MonsterCard()
             {
                 Name = "Mountain Ranger",
                 Atk = 25,
                 Hp = 50,
                 Def = 125
             };
-            _defenderCard = new Card()
+            _defenderMonsterCard = new MonsterCard()
             {
                 Name = "Mountain Ranger",
                 Atk = 25,
                 Hp = 50,
                 Def = 125
             };
-            _attackerCard.Attributes.Add(hardShell);
-            _defenderCard.Attributes.Add(weightless);
+            _attackerMonsterCard.Attributes.Add(hardShell);
+            _defenderMonsterCard.Attributes.Add(weightless);
+
+            _attackerMonsterCard.AddTypes(new PaperMonsterType(), new RockMonsterType());
+            _defenderMonsterCard.AddTypes(new ScissorsMonsterType(), new PaperMonsterType());
+
+            var d = MonsterTypeMultiplierCalculator.GetMultiplier(_attackerMonsterCard, _defenderMonsterCard);
         }
 
         [Test]
         public void ShouldIncreaseAttackersHpBy25()
         {
-            _attackerCard.Attacks(_defenderCard);
-            Assert.AreNotEqual(_defenderCard.Hp, 75);
+            _attackerMonsterCard.Attacks(_defenderMonsterCard);
+            Assert.AreNotEqual(_defenderMonsterCard.Hp, 75);
         }
         [Test]
         public void HitChanceShouldRevert()
         {
-            _attackerCard.Attacks(_defenderCard);
-            Assert.AreEqual(_attackerCard.HitChance, 75);
+            _attackerMonsterCard.Attacks(_defenderMonsterCard);
+            Assert.AreEqual(_attackerMonsterCard.HitChance, 75);
         }
 
         [Test]
         public void ShouldTakeNoDamage()
         {
-            _attackerCard.Attacks(_defenderCard);
-            Assert.AreEqual(50, _defenderCard.Hp);
+            _attackerMonsterCard.Attacks(_defenderMonsterCard);
+            Assert.AreEqual(50, _defenderMonsterCard.Hp);
+        }
+
+        [Test]
+        public void TypeNameShouldBeCorrect()
+        {
+            Assert.AreEqual("Paper,Rock", _attackerMonsterCard.GetTypeNames());
         }
     }
 }

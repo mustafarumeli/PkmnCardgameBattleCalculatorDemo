@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BattleCalculatorDemo.Models.CardAttributes;
+using BattleCalculatorDemo.Models.MonsterTypes;
 
 namespace BattleCalculatorDemo.Models
 {
@@ -9,7 +10,7 @@ namespace BattleCalculatorDemo.Models
     {
         private const double AttackDefenseRatioMultiplier = 50;
 
-        public static BattleResult Attacks(this Card attacker, Card defender)
+        public static BattleResult Attacks(this MonsterCard attacker, MonsterCard defender)
         {
             CalculateBeforeCombatEffects(attacker, defender);
             BattleResult battleResult = CalculateInCombatEffects(attacker, defender);
@@ -19,7 +20,7 @@ namespace BattleCalculatorDemo.Models
 
         #region private Methods
 
-        private static void CalculateAfterCombatEffects(Card attacker, Card defender, BattleResult battleResult)
+        private static void CalculateAfterCombatEffects(MonsterCard attacker, MonsterCard defender, BattleResult battleResult)
         {
             CalculateEffects(attacker, defender, AttributeTriggers.AfterAttack);
 
@@ -36,7 +37,7 @@ namespace BattleCalculatorDemo.Models
             RevertEffects(defender, attacker, AttributeTriggers.BeforeDefense);
         }
 
-        private static BattleResult CalculateInCombatEffects(Card attacker, Card defender)
+        private static BattleResult CalculateInCombatEffects(MonsterCard attacker, MonsterCard defender)
         {
             BattleResult battleResult = CalculateDamage(attacker, defender);
             defender.Hp -= battleResult.DamageDealt;
@@ -45,13 +46,13 @@ namespace BattleCalculatorDemo.Models
             return battleResult;
         }
 
-        private static void CalculateBeforeCombatEffects(Card attackerCopy, Card defenderCopy)
+        private static void CalculateBeforeCombatEffects(MonsterCard attackerCopy, MonsterCard defenderCopy)
         {
             CalculateEffects(attackerCopy, defenderCopy, AttributeTriggers.BeforeAttack);
             CalculateEffects(defenderCopy, attackerCopy, AttributeTriggers.BeforeDefense);
         }
 
-        private static void RevertEffects(Card attacker, Card defender, AttributeTriggers trigger)
+        private static void RevertEffects(MonsterCard attacker, MonsterCard defender, AttributeTriggers trigger)
         {
             foreach (ICardAttributeRevertableVariable attackerAttribute in attacker.Attributes.Where(x => x.TriggerAttributeOn == trigger && x is ICardAttributeRevertableVariable))
             {
@@ -64,14 +65,14 @@ namespace BattleCalculatorDemo.Models
             }
         }
 
-        private static BattleResult CalculateDamage(Card attacker, Card defender)
+        private static BattleResult CalculateDamage(MonsterCard attacker, MonsterCard defender)
         {
             bool canHitCritical = CalculateCanHitCritical(attacker);
             short criticalMultiplier = 1;
             Random rnd = new Random();
             CalculateCriticalMultiplier(attacker, canHitCritical, rnd, ref criticalMultiplier);
             double randomMultiplier = (rnd.Next(100, 125) / 100d);
-            short typeMultiplier = GetTypeMultiplier(attacker, defender);
+            double typeMultiplier = GetTypeMultiplier(attacker, defender);
             double calculated = (attacker.Atk / (double)defender.Def * AttackDefenseRatioMultiplier);
 
             BattleResult dei = new BattleResult
@@ -82,13 +83,12 @@ namespace BattleCalculatorDemo.Models
             return dei;
         }
 
-        private static byte GetTypeMultiplier(Card attacker, Card defender)
+        private static double GetTypeMultiplier(MonsterCard attacker, MonsterCard defender)
         {
-            //todo
-            return 1;
+            return MonsterTypeMultiplierCalculator.GetMultiplier(attacker, defender);
         }
 
-        private static void CalculateCriticalMultiplier(Card attacker, bool canHitCritical, Random rnd,
+        private static void CalculateCriticalMultiplier(MonsterCard attacker, bool canHitCritical, Random rnd,
             ref short criticalMultiplier)
         {
 
@@ -110,11 +110,11 @@ namespace BattleCalculatorDemo.Models
             }
         }
 
-        private static bool CalculateCanHitCritical(Card attacker)
+        private static bool CalculateCanHitCritical(MonsterCard attacker)
         {
             return attacker.HitChance > 0 && attacker.CriticalChance > 0;
         }
-        private static void CalculateEffects(Card attacker, Card defender, AttributeTriggers trigger, BattleResult dei = null)
+        private static void CalculateEffects(MonsterCard attacker, MonsterCard defender, AttributeTriggers trigger, BattleResult dei = null)
         {
             foreach (ICardAttributeAffectVariable attackerAttribute in attacker.Attributes.Where(x => x.TriggerAttributeOn == trigger))
             {

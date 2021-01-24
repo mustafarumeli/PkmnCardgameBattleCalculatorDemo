@@ -2,7 +2,7 @@
 {
     public interface IVariableParameter { }
 
-    public record SelfCardParameter(Card Self) : IVariableParameter;
-    public record DoubleCardParameter(Card Attacker, Card Defender) : IVariableParameter;
-    public record DuringCardParameter(Card Self, BattleResult BattleResult) : IVariableParameter;
+    public record SelfCardParameter(MonsterCard Self) : IVariableParameter;
+    public record DoubleCardParameter(MonsterCard Attacker, MonsterCard Defender) : IVariableParameter;
+    public record DuringCardParameter(MonsterCard Self, BattleResult BattleResult) : IVariableParameter;
 }

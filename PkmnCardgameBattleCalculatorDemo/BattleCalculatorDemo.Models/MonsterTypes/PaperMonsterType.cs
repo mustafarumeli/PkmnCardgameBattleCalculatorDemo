@@ -1,21 +1,23 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace BattleCalculatorDemo.Models.MonsterTypes
 {
-    class PaperMonsterType : IMonsterType
+    public class PaperMonsterType : IMonsterType
     {
-        public string Name { get; } = "Rock";
+        public string Name { get; } = "Paper";
         public string Icon { get; } = "rock.png";
-        public ArrayList TypeAgainst { get; }
+        public ArrayList TypeAgainst { get; } = new ArrayList();
 
+        public IList<MonsterTypeMultiplier> MultiplierAgainstTypes { get; } = new List<MonsterTypeMultiplier>();
 
         public PaperMonsterType()
         {
-            TypeAgainst.Add(new MonsterTypeMultiplier<RockMonsterType>(2.0d));
-            TypeAgainst.Add(new MonsterTypeMultiplier<PaperMonsterType>(1.0d));
-            TypeAgainst.Add(new MonsterTypeMultiplier<ScissorsMonsterType>(0.0d));
-            TypeAgainst.Add(new MonsterTypeMultiplier<GlassMonsterType>(2.0d));
-            TypeAgainst.Add(new MonsterTypeMultiplier<SoundMonsterType>(1.5d));
+            MultiplierAgainstTypes.Add(MonsterTypeMultiplier.CreateInstance<RockMonsterType>(2.0d));
+            MultiplierAgainstTypes.Add(MonsterTypeMultiplier.CreateInstance<PaperMonsterType>(1.0d));
+            MultiplierAgainstTypes.Add(MonsterTypeMultiplier.CreateInstance<ScissorsMonsterType>(0.0d));
+            MultiplierAgainstTypes.Add(MonsterTypeMultiplier.CreateInstance<GlassMonsterType>(2.0d));
+            MultiplierAgainstTypes.Add(MonsterTypeMultiplier.CreateInstance<SoundMonsterType>(1.5d));
         }
     }
 }

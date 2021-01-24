@@ -1,19 +1,24 @@
 ﻿using System;
+using System.Collections;
 
 namespace BattleCalculatorDemo.Models.MonsterTypes
 {
-    public class MonsterTypeMultiplier<TAgainst> where TAgainst : IMonsterType
+
+    public class MonsterTypeMultiplier
     {
-        private double _modifier;
 
-        public new Type GetType()
-        {
-            return typeof(TAgainst);
-        }
-        public MonsterTypeMultiplier(double modifier)
-        {
-            this._modifier = modifier;
-        }
+        public double Modifier { get; }
 
+        public Type OtherMonsterType { get; }
+
+        public MonsterTypeMultiplier(double modifier, Type type)
+        {
+            Modifier = modifier;
+            OtherMonsterType = type;
+        }
+        public static MonsterTypeMultiplier CreateInstance<T>(double modifier) where T : IMonsterType
+        {
+            return new(modifier, typeof(T));
+        }
     }
 }
