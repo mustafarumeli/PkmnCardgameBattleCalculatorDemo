@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Card Generator</title>
+		<link rel="stylesheet" href="cardgenerator.css" />
+		<link rel="stylesheet" href="fontawesome/css/fontawesome.css" />
+		<script src="h2c.js"></script>
+	</head>
+	<body>
+		<form>
+			<label for="cname">Card Name:</label><br />
+			<input type="text" id="cname" name="cname" /><br />
+			<label for="cardAttack">Card Attack:</label><br />
+			<input type="text" id="cardAttack" name="cardAttack" /><br />
+			<label for="cardDef">Card Defence:</label><br />
+			<input type="text" id="cardDef" name="cardDef" /><br />
+			<label for="cardHp">Card HP:</label><br />
+			<input type="text" id="cardHp" name="cardHp" /><br />
+			<label for="cardDesc">Card Desc:</label><br />
+			<input type="text" id="cardDesc" name="cardDesc" /><br />
+      <select id="cardAttributes" onchange="createCardVariableInputs()"></select>
+      <div id="cardAttributeVariableContainer">
+
+      </div>
+			<input id="btnGenerate" type="button" role="button" value="Generate" />
+		</form>
+		<div id="container"></div>
+		<div class="template">
+			<div id="{card-name}" class="card-shell">
+				<div class="card-upper-info">
+					<div class="card-type">
+						<i class="card-type-main fas fa-hand-scissors {main-card-type}"></i>
+						<i class="card-type-secondary fas fa-hand-rock {secondary-card-type}"></i>
+					</div>
+					<div class="card-name">{card-name}</div>
+				</div>
+				<div class="card-image">
+					<img src="cards/mountain-watcher.jpg" />
+				</div>
+				<div class="card-description">{card-desc}</div>
+				<div class="card-lower-info">
+					<div class="card-attack">{card-attack}</div>
+					<div class="card-health">{card-health}</div>
+					<div class="card-defence">{card-defence}</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="cardgenerator.js"></script>
+	</body>
+</html>

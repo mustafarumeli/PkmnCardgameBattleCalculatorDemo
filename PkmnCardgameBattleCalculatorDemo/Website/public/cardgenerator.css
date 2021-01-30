@@ -1,0 +1,106 @@
+* {
+  box-sizing: border-box;
+}
+.template {
+  display: none;
+}
+#container {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
+}
+.card-shell {
+  width: 300px;
+  height: 500px;
+  border: 4px solid bisque;
+  border-radius: 10px;
+  background: url(cards/card-background.png) center center no-repeat;
+}
+.card-upper-info {
+  height: 10%;
+  padding: 5px;
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.card-type {
+  width: 20%;
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: center;
+}
+.card-type .card-type-main {
+  font-size: 24px;
+  border: 1px solid black;
+}
+.card-type .card-type-secondary {
+  font-size: 24px;
+  border: 1px solid black;
+}
+.card-name {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+}
+.card-image {
+  width: 100%;
+  height: 65%;
+}
+.card-image img {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+}
+.card-lower-info {
+  height: 10%;
+  padding: 5px;
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.card-lower-info div {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: white;
+  justify-content: space-around;
+}
+.card-lower-info .card-attack {
+  width: 45px;
+  height: 45px;
+  background: url(icons/sword.png) center center no-repeat;
+  background-size: 100% 100%;
+  font-weight: 900;
+}
+.card-lower-info .card-health {
+  width: 45px;
+  height: 45px;
+  background: url(icons/hp.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+.card-lower-info .card-defence {
+  width: 45px;
+  height: 45px;
+  background: url(icons/shield.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+.card-description {
+  border: 1px solid black;
+  background-color: rgba(90, 2, 4, 0.493);
+  color: whitesmoke;
+  height: 15%;
+  padding: 10px;
+}
