@@ -1,6 +1,6 @@
 namespace BattleCalculatorDemo.Models.CardAttributes
 {
-    [CardAttributeStatus(isBeta: false)]
+    [CardAttributeStatus(isBeta: false, variableCount: 0, name: "Iron Will")]
     public class IronWillCardAttribute : ICardAttributeAffectVariable<DuringCardParameter>
     {
         public string Name => "Iron Will";
@@ -11,7 +11,7 @@ namespace BattleCalculatorDemo.Models.CardAttributes
         {
             parameter.Self.HitChance = 100;
             if (parameter.CombatResult.WasCritical)
-                parameter.Self.Hp += (short)(parameter.CombatResult.DamageDealt / 2);
+                parameter.Self.Hp += (int)(parameter.CombatResult.DamageDealt / 2);
         }
 
     }

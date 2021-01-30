@@ -2,15 +2,15 @@ using System;
 
 namespace BattleCalculatorDemo.Models.CardAttributes
 {
-    [CardAttributeStatus(isBeta: false)]
+    [CardAttributeStatus(isBeta: false, variableCount: 2, name: "Weigthless")]
     public class WeightlessCardAttribute : ICardAttributeAffectVariable<DuringCardParameter>
     {
         public AttributeTriggers TriggerAttributeOn { get; } = AttributeTriggers.DuringAttack;
-        public readonly short _chance;
-        private readonly short _ratio;
+        public readonly int _chance;
+        private readonly int _ratio;
         public string Name => $"Weightless {_chance} {_ratio}";
 
-        public WeightlessCardAttribute(short chance, short ratio)
+        public WeightlessCardAttribute(int chance, int ratio)
         {
             _chance = chance;
             _ratio = ratio;
@@ -21,7 +21,7 @@ namespace BattleCalculatorDemo.Models.CardAttributes
             parameter.Self.HitChance = 100;
             bool isFrigged = IsTriggered();
             if (isFrigged)
-                parameter.Self.Hp += (short)(parameter.CombatResult.DamageDealt * 100 / _ratio);
+                parameter.Self.Hp += (int)(parameter.CombatResult.DamageDealt * 100 / _ratio);
         }
 
         private bool IsTriggered()

@@ -14,11 +14,11 @@ namespace BattleCalculatorDemo.Models
 
     public interface IMonsterCard : ICard
     {
-        public short Hp { get; set; }
-        public short Atk { get; set; }
-        public short Def { get; set; }
-        public short CriticalChance { get; set; }
-        public short HitChance { get; set; }
+        public int Hp { get; set; }
+        public int Atk { get; set; }
+        public int Def { get; set; }
+        public int CriticalChance { get; set; }
+        public int HitChance { get; set; }
         public IList<ICardAttributeAffectVariable> Attributes { get; set; }
         public IList<IMonsterType> Types { get; set; }
     }

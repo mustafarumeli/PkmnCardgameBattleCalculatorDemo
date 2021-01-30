@@ -88,7 +88,7 @@ namespace BattleCalculatorDemo.Test
         [Test]
         public void GuiHelperTest()
         {
-            Assert.AreEqual(GuiHelpers.GetCardAttributes().Count(), 4);
+            Assert.AreEqual(CardAttributeHelper.GetCardAttributes().Count(), 4);
         }
     }
 }

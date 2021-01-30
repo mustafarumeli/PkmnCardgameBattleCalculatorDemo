@@ -63,7 +63,7 @@ namespace BattleCalculatorDemo.Models
         private static CombatResult CalculateDamage(MonsterCard attacker, MonsterCard defender)
         {
             bool canHitCritical = CalculateCanHitCritical(attacker);
-            short criticalMultiplier = 1;
+            int criticalMultiplier = 1;
             Random rnd = new Random();
             CalculateCriticalMultiplier(attacker, canHitCritical, rnd, ref criticalMultiplier);
             double randomMultiplier = (rnd.Next(100, 125) / 100d);
@@ -72,7 +72,7 @@ namespace BattleCalculatorDemo.Models
 
             CombatResult dei = new CombatResult
             {
-                DamageDealt = (short)(criticalMultiplier * randomMultiplier * typeMultiplier * calculated),
+                DamageDealt = (int)(criticalMultiplier * randomMultiplier * typeMultiplier * calculated),
                 WasCritical = criticalMultiplier == 2
             };
             return dei;
@@ -83,7 +83,7 @@ namespace BattleCalculatorDemo.Models
         }
 
         private static void CalculateCriticalMultiplier(MonsterCard attacker, bool canHitCritical, Random rnd,
-            ref short criticalMultiplier)
+            ref int criticalMultiplier)
         {
 
             if (canHitCritical)

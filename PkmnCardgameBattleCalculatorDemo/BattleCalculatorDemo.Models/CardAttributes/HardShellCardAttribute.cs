@@ -1,11 +1,11 @@
 ﻿namespace BattleCalculatorDemo.Models.CardAttributes
 {
-    [CardAttributeStatus(isBeta: false)]
+    [CardAttributeStatus(isBeta: false, variableCount: 1, name: "Hard Shell")]
     public class HardShellCardAttribute : ICardAttributeAffectVariable<SelfCardParameter>
     {
-        private readonly short _value;
+        private readonly int _value;
         public string Name => "HardShell " + _value;
-        public HardShellCardAttribute(short value)
+        public HardShellCardAttribute(int value)
         {
             _value = value;
         }
