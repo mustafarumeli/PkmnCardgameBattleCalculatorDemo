@@ -1,5 +1,6 @@
 namespace BattleCalculatorDemo.Models.CardAttributes
 {
+    [CardAttributeStatus(isBeta: false)]
     public class SharperCardAttribute : ICardAttributeAffectVariable<SelfCardParameter>, ICardAttributeRevertableVariable<SelfCardParameter>
     {
         public AttributeTriggers TriggerAttributeOn { get; } = AttributeTriggers.BeforeAttack;
@@ -11,8 +12,6 @@ namespace BattleCalculatorDemo.Models.CardAttributes
             _previousValue = parameter.Self.HitChance;
             parameter.Self.HitChance = 100;
         }
-
-
 
         public void Revert(SelfCardParameter parameter)
         {

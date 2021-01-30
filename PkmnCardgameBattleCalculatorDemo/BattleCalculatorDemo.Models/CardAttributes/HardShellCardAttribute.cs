@@ -1,5 +1,6 @@
 ﻿namespace BattleCalculatorDemo.Models.CardAttributes
 {
+    [CardAttributeStatus(isBeta: false)]
     public class HardShellCardAttribute : ICardAttributeAffectVariable<SelfCardParameter>
     {
         private readonly short _value;

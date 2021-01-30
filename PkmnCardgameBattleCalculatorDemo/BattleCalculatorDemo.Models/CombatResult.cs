@@ -1,6 +1,6 @@
 namespace BattleCalculatorDemo.Models
 {
-    public class BattleResult
+    public class CombatResult
     {
         public short DamageDealt { get; set; }
         public bool WasCritical { get; set; }

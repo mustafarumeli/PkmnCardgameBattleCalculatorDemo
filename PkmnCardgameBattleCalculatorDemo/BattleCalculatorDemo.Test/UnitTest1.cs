@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using BattleCalculatorDemo.Models;
 using BattleCalculatorDemo.Models.CardAttributes;
 using NUnit.Framework;
@@ -10,9 +15,21 @@ namespace BattleCalculatorDemo.Test
         private MonsterCard _attackerMonsterCard;
         private MonsterCard _defenderMonsterCard;
 
+        public static IEnumerable<Type> GetTypesWithMyAttribute(Assembly assembly)
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (Attribute.IsDefined(type, typeof(CardAttributeStatusAttribute)))
+                    yield return type;
+            }
+        }
         [SetUp]
         public void SetUp()
         {
+            var asmbly = Assembly.GetExecutingAssembly();
+
+            var types = GetTypesWithMyAttribute(asmbly);
+            types.ToArray();
             var hardShell = new HardShellCardAttribute(25);
             var sharper = new SharperCardAttribute();
             var weightless = new WeightlessCardAttribute(0, 100);
@@ -66,6 +83,12 @@ namespace BattleCalculatorDemo.Test
         public void TypeNameShouldBeCorrect()
         {
             Assert.AreEqual("Paper,Rock", _attackerMonsterCard.GetTypeNames());
+        }
+
+        [Test]
+        public void GuiHelperTest()
+        {
+            Assert.AreEqual(GuiHelpers.GetCardAttributes().Count(), 4);
         }
     }
 }
