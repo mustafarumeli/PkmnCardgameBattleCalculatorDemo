@@ -32,3 +32,5 @@ Polymorph: If two monster shars an type you can polymorph them together their st
 Monsters evolve every 4 turn while they are on board
 
 
+Languages : .net5 c#9 node15.8
+
