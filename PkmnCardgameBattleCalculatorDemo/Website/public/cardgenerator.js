@@ -5,12 +5,17 @@ $('#btnGenerate').on('click', () => {
 	var cardHp = $('#cardHp').val();
 	var cardDesc = $('#cardDesc').val();
 	var template = $('.template').html();
+	var cardTypes = '';
+	typeIconPaths.forEach((element) => {
+		cardTypes += `<img src='${element}' />`;
+	});
 	template = template.replaceAll('{card-name}', name);
 	template = template.replace('{card-attack}', cardAttack);
 	template = template.replace('{card-health}', cardHp);
 	template = template.replace('{card-defence}', cardDef);
 	template = template.replace('{card-desc}', cardDesc);
-
+	template = template.replace('{card-image}', imgSrc);
+	template = template.replace('{card-types}', cardTypes);
 	$('#container').append(template);
 	sendImage(name);
 
@@ -24,7 +29,6 @@ $('#btnGenerate').on('click', () => {
 		types: types,
 	};
 });
-
 let attributes = [];
 $('#btnSaveAttribute').on('click', () => {
 	var text = '';
@@ -43,15 +47,21 @@ $('#btnSaveAttribute').on('click', () => {
 	$('#cardAttributes :selected').remove();
 	$('#cardAttributeVariableContainer').html('');
 });
-
 let types = [];
+let typeIconPaths = [];
 $('#btnAddCardType').on('click', () => {
 	var type = $('#cardTypes :selected').text();
+	console.log(type);
+	if (type.toLowerCase().indexOf('glass') > -1) typeIconPaths.push('icons/glass.png');
+	if (type.toLowerCase().indexOf('rock') > -1) typeIconPaths.push('icons/rock.png');
+	if (type.toLowerCase().indexOf('paper') > -1) typeIconPaths.push('icons/paper.png');
+	if (type.toLowerCase().indexOf('sound') > -1) typeIconPaths.push('icons/sound.png');
+	if (type.toLowerCase().indexOf('scissors') > -1) typeIconPaths.push('icons/scissors.png');
+
 	types.push({ TypeName: type });
 	$('#typeHolder').append(`<li>${type}</li>`);
 	$('#cardTypes :selected').remove();
 });
-
 let card = {};
 function sendImage(name) {
 	html2canvas(document.getElementById(name)).then((canvas) => {
@@ -73,6 +83,7 @@ function sendImage(name) {
 $().ready(GetCards);
 $().ready(getCardAttributes);
 $().ready(getCardTypes);
+
 function getCardTypes() {
 	$('#cardTypes').html('');
 	$.ajax({
@@ -137,15 +148,20 @@ function GetCards() {
 		success: function (data) {
 			if (data) {
 				data.forEach((element) => {
-					var template = $('.template').html();
-					template = template.replaceAll('{card-name}', element.name);
-					template = template.replace('{card-attack}', element.atk);
-					template = template.replace('{card-health}', element.hp);
-					template = template.replace('{card-defence}', element.def);
-					template = template.replace('{card-desc}', element.description);
-					$('#container').append(template);
+					$('#container').append(`<img src='generatedCardImages/${element.image}' />`);
 				});
 			}
 		},
 	});
+}
+let imgSrc = '';
+function onFileSelected(event) {
+	var selectedFile = event.target.files[0];
+	var reader = new FileReader();
+	var imgtag = document.getElementById('cardImage');
+	reader.onload = function (event) {
+		imgSrc = event.target.result;
+	};
+
+	reader.readAsDataURL(selectedFile);
 }

@@ -9,39 +9,59 @@
 		<script src="h2c.js"></script>
 	</head>
 	<body>
-		<form>
-			<label for="cname">Card Name:</label><br />
-			<input type="text" id="cname" name="cname" /><br />
-			<label for="cardAttack">Card Attack:</label><br />
-			<input type="text" id="cardAttack" name="cardAttack" /><br />
-			<label for="cardDef">Card Defence:</label><br />
-			<input type="text" id="cardDef" name="cardDef" /><br />
-			<label for="cardHp">Card HP:</label><br />
-			<input type="text" id="cardHp" name="cardHp" /><br />
-			<label for="cardDesc">Card Desc:</label><br />
-			<input type="text" id="cardDesc" name="cardDesc" /><br />
-			<select id="cardTypes"></select>
-			<button id="btnAddCardType" type="button" role="button">Add Type</button>
-			<ul id="typeHolder"></ul>
-			<select id="cardAttributes" onchange="createCardVariableInputs()"></select>
-			<div id="cardAttributeVariableContainer"></div>
-			<ul id="attributeHolder"></ul>
-			<button id="btnSaveAttribute" type="button" role="button">Add Attribute</button>
-			
-			<input id="btnGenerate" type="button" role="button" value="Generate" />
-		</form>
-		<div id="container"></div>
+		<div class="form-container">
+			<form class="card-form">
+				<div>
+					<label for="cname">Card Name:</label>
+					<input type="text" id="cname" name="cname" />
+				</div>
+				<div>
+					<label for="cardAttack">Card Attack:</label>
+					<input type="text" id="cardAttack" name="cardAttack" />
+				</div>
+				<div>
+					<label for="cardDef">Card Defence:</label>
+					<input type="text" id="cardDef" name="cardDef" />
+				</div>
+				<div>
+					<label for="cardHp">Card HP:</label>
+					<input type="text" id="cardHp" name="cardHp" />
+				</div>
+				<div>
+					<label for="cardDesc">Card Desc:</label>
+					<input type="text" id="cardDesc" name="cardDesc" />
+				</div>
+				<div>
+					<label for="cardImage">Card Image:</label>
+					<input id="cardImage" type="file" accept="image/*" onchange="onFileSelected(event)" />
+				</div>
+				<div>
+					<label for="cardImage">Card Types:</label>
+					<select id="cardTypes"></select>
+					<button id="btnAddCardType" type="button" role="button">Add Type</button>
+					<ul id="typeHolder"></ul>
+				</div>
+				<div>
+					<label for="cardImage">Card Attributes:</label>
+					<select id="cardAttributes" onchange="createCardVariableInputs()"></select>
+					<button id="btnSaveAttribute" type="button" role="button">Add Attribute</button>
+					<div id="cardAttributeVariableContainer"></div>
+					<ul id="attributeHolder"></ul>
+				</div>
+
+				<input id="btnGenerate" type="button" role="button" value="Generate" />
+			</form>
+			<div id="container"></div>
+		</div>
+
 		<div class="template">
 			<div id="{card-name}" class="card-shell">
 				<div class="card-upper-info">
-					<div class="card-type">
-						<i class="card-type-main fas fa-hand-scissors {main-card-type}"></i>
-						<i class="card-type-secondary fas fa-hand-rock {secondary-card-type}"></i>
-					</div>
+					<div class="card-type">{card-types}</div>
 					<div class="card-name">{card-name}</div>
 				</div>
 				<div class="card-image">
-					<img src="cards/mountain-watcher.jpg" />
+					<img src="{card-image}" />
 				</div>
 				<div class="card-description">{card-desc}</div>
 				<div class="card-lower-info">
