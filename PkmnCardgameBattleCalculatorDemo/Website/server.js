@@ -15,11 +15,20 @@ const axiosFacade = axios.create({
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.raw({ limit: '50mb' }));
 app.use(express.static('public'));
+app.use(express.static('public/cardgenerator'));
+app.use(express.static('public/battle-calculator'));
 //#endregion
-
 app.get('/', function (req, res) {
-	res.sendFile(path.join(__dirname + '/public/cardgenerator.html'));
+	res.sendFile(path.join(__dirname + '/public/default.html'));
 });
+app.get('/card-generator', function (req, res) {
+	res.sendFile(path.join(__dirname + '/public/cardgenerator/cardgenerator.html'));
+});
+app.get('/battle-calculator', function (req, res) {
+	res.sendFile(path.join(__dirname + '/public/battle-calculator/battle-calculator.html'));
+});
+
+
 
 app.get('/cards', function (req, res) {
 	fetch('/').then(data);
