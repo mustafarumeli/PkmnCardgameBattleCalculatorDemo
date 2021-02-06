@@ -1,12 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    WIP
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="battle-calculator.css" />
+	</head>
+	<body>
+		<div class="attacker">
+			<div>
+				<label>Attacker</label>
+				<select>
+					<option>Mountain Watcher</option>
+					<option>Mountain Ranger</option>
+					<option>The Mountain</option>
+				</select>
+			</div>
+			<div>
+				<label for="cardAttack">Card Attack:</label>
+				<input type="text" id="cardAttack" name="cardAttack" />
+			</div>
+			<div>
+				<label for="cardDef">Card Defence:</label>
+				<input type="text" id="cardDef" name="cardDef" />
+			</div>
+			<div>
+				<label for="cardHp">Card HP:</label>
+				<input type="text" id="cardHp" name="cardHp" />
+			</div>
+		</div>
+		<div class="defender">
+			<div>
+				<label>Defender</label>
+				<select>
+					<option>Mountain Watcher</option>
+					<option>Mountain Ranger</option>
+					<option>The Mountain</option>
+				</select>
+			</div>
+			<div>
+				<label for="cardAttack">Card Attack:</label>
+				<input type="text" id="cardAttack" name="cardAttack" />
+			</div>
+			<div>
+				<label for="cardDef">Card Defence:</label>
+				<input type="text" id="cardDef" name="cardDef" />
+			</div>
+			<div>
+				<label for="cardHp">Card HP:</label>
+				<input type="text" id="cardHp" name="cardHp" />
+			</div>
+		</div>
+        <div class="result"></div>
+		<button id="btnCalculate" role="button" type="button">Calculate</button>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="battle-calculator.js"></script>
+	</body>
 </html>
