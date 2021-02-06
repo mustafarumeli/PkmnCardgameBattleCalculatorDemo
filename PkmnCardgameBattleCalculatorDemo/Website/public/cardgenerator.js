@@ -28,39 +28,48 @@ $('#btnGenerate').on('click', () => {
 		attr: attributes,
 		types: types,
 	};
+	attributes = [];
+	typeIconPaths = [];
+	types = [];
+	getCardAttributes();
+	getCardTypes();
+	GetCards();
 });
 let attributes = [];
 $('#btnSaveAttribute').on('click', () => {
 	var text = '';
 	var attributeName = $('#cardAttributes :selected').text();
-	text += attributeName;
-	var AttributeValues = [];
-	$('.variable').each((index, item) => {
-		AttributeValues.push($(item).val());
-		text += $(item).val() + ' ';
-	});
-	attributes.push({
-		attributeName,
-		AttributeValues,
-	});
-	$('#attributeHolder').append(`<li>${text}</li>`);
-	$('#cardAttributes :selected').remove();
-	$('#cardAttributeVariableContainer').html('');
+	if (attributeName != 'None') {
+		text += attributeName;
+		var AttributeValues = [];
+		$('.variable').each((index, item) => {
+			AttributeValues.push($(item).val());
+			text += $(item).val() + ' ';
+		});
+		attributes.push({
+			attributeName,
+			AttributeValues,
+		});
+		$('#attributeHolder').append(`<li>${text}</li>`);
+		$('#cardAttributes :selected').remove();
+		$('#cardAttributeVariableContainer').html('');
+	}
 });
 let types = [];
 let typeIconPaths = [];
 $('#btnAddCardType').on('click', () => {
 	var type = $('#cardTypes :selected').text();
-	console.log(type);
-	if (type.toLowerCase().indexOf('glass') > -1) typeIconPaths.push('icons/glass.png');
-	if (type.toLowerCase().indexOf('rock') > -1) typeIconPaths.push('icons/rock.png');
-	if (type.toLowerCase().indexOf('paper') > -1) typeIconPaths.push('icons/paper.png');
-	if (type.toLowerCase().indexOf('sound') > -1) typeIconPaths.push('icons/sound.png');
-	if (type.toLowerCase().indexOf('scissors') > -1) typeIconPaths.push('icons/scissors.png');
+	if (type != 'None') {
+		if (type.toLowerCase().indexOf('glass') > -1) typeIconPaths.push('icons/glass.png');
+		if (type.toLowerCase().indexOf('rock') > -1) typeIconPaths.push('icons/rock.png');
+		if (type.toLowerCase().indexOf('paper') > -1) typeIconPaths.push('icons/paper.png');
+		if (type.toLowerCase().indexOf('sound') > -1) typeIconPaths.push('icons/sound.png');
+		if (type.toLowerCase().indexOf('scissors') > -1) typeIconPaths.push('icons/scissors.png');
 
-	types.push({ TypeName: type });
-	$('#typeHolder').append(`<li>${type}</li>`);
-	$('#cardTypes :selected').remove();
+		types.push({ TypeName: type });
+		$('#typeHolder').append(`<li>${type}</li>`);
+		$('#cardTypes :selected').remove();
+	}
 });
 let card = {};
 function sendImage(name) {
