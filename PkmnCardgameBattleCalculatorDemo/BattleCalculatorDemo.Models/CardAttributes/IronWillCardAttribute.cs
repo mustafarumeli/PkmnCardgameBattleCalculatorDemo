@@ -1,9 +1,18 @@
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace BattleCalculatorDemo.Models.CardAttributes
 {
     [CardAttributeStatus(isBeta: false, variableCount: 0, name: "Iron Will")]
     public class IronWillCardAttribute : ICardAttributeAffectVariable<DuringCardParameter>
     {
-        public string Name => "Iron Will";
+        [BsonElement]
+        private string _name = "Iron Will";
+
+        public string Name
+        {
+            get => _name;
+            set => _name = value;
+        }
 
         public AttributeTriggers TriggerAttributeOn { get; } = AttributeTriggers.DuringAttack;
 

@@ -104,3 +104,6 @@
   height: 15%;
   padding: 10px;
 }
+#btnAddCardType{
+  display: inline-block;
+}

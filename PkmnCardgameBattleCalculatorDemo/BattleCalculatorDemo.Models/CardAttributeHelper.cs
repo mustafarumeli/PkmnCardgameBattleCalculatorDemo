@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BattleCalculatorDemo.Models.CardAttributes;
+using BattleCalculatorDemo.Models.MonsterTypes;
 
 namespace BattleCalculatorDemo.Models
 {
@@ -11,13 +12,6 @@ namespace BattleCalculatorDemo.Models
     {
         public static IEnumerable<CardAttributeModel> GetCardAttributes()
         {
-            var cachedValue = RedisFacade.GetFromJson<IEnumerable<CardAttributeModel>>("cardAttributes");
-            if (cachedValue != null)
-            {
-                return cachedValue;
-            }
-
-
             var types = GetTypesInNamespace(Assembly.GetExecutingAssembly(),
                 "BattleCalculatorDemo.Models.CardAttributes");
             List<CardAttributeModel> retList = new List<CardAttributeModel>();
@@ -25,16 +19,16 @@ namespace BattleCalculatorDemo.Models
             {
                 var releasedAttribute =
                     type.CustomAttributes.FirstOrDefault(x => x.ConstructorArguments.Any(y => y.ArgumentType == typeof(bool) && !(bool)y.Value));
+                if (releasedAttribute != null)
+                {
+                    var variableCount = (int)releasedAttribute.ConstructorArguments.FirstOrDefault(x => x.ArgumentType == typeof(int))
+                        .Value;
 
-                var variableCount = (int)releasedAttribute.ConstructorArguments.FirstOrDefault(x => x.ArgumentType == typeof(int))
-                    .Value;
-                var name = (string)releasedAttribute.ConstructorArguments.FirstOrDefault(x => x.ArgumentType == typeof(string))
-                    .Value;
-                retList.Add(new CardAttributeModel(name, variableCount, type));
+                    var name = (string)releasedAttribute.ConstructorArguments.FirstOrDefault(x => x.ArgumentType == typeof(string))
+                        .Value;
+                    retList.Add(new CardAttributeModel(name, variableCount, type));
+                }
             }
-
-
-            RedisFacade.SetAsJson("cardAttributes", retList);
             return retList;
         }
         private static IEnumerable<Type> GetTypesInNamespace(Assembly assembly, string nameSpace)
@@ -45,18 +39,51 @@ namespace BattleCalculatorDemo.Models
                             Attribute.IsDefined(t, typeof(CardAttributeStatusAttribute)
                             ));
         }
-
         public static ICardAttributeAffectVariable GetCardAttributeTypeByName(string name, params object[] constructorValues)
         {
             var cardAttribute = GetCardAttributes().FirstOrDefault(x => x.Name == name);
             if (cardAttribute.VariableCount > 0)
             {
-                return (ICardAttributeAffectVariable)Activator.CreateInstance(cardAttribute.type, args: constructorValues);
+                return (ICardAttributeAffectVariable)Activator.CreateInstance(cardAttribute.Type, args: constructorValues);
             }
 
-            return (ICardAttributeAffectVariable)Activator.CreateInstance(cardAttribute.type);
+            return (ICardAttributeAffectVariable)Activator.CreateInstance(cardAttribute.Type);
+        }
+        public static ICardAttributeAffectVariable GetCardAttributeTypeByNameDirect(string name, object[] constructorValues)
+        {
+            var cardAttribute = GetCardAttributes().FirstOrDefault(x => x.Name == name);
+            if (cardAttribute.VariableCount > 0)
+            {
+                return (ICardAttributeAffectVariable)Activator.CreateInstance(cardAttribute.Type, args: constructorValues);
+            }
+
+            return (ICardAttributeAffectVariable)Activator.CreateInstance(cardAttribute.Type);
         }
 
     }
 
+    public static class CardTypeHelper
+    {
+        public static IEnumerable<CardTypeModel> GetCardTypes()
+        {
+            var types = GetTypesInNamespace(Assembly.GetExecutingAssembly(),
+                "BattleCalculatorDemo.Models.MonsterTypes");
+
+            return types.Select(x => new CardTypeModel(x.Name, x));
+        }
+        private static IEnumerable<Type> GetTypesInNamespace(Assembly assembly, string nameSpace)
+        {
+            return assembly.GetTypes()
+                .Where(t => string.Equals(t.Namespace, nameSpace, StringComparison.Ordinal)
+                            && t.IsAssignableTo(typeof(IMonsterType))
+                            && t.IsClass
+                            );
+        }
+        public static IMonsterType GetByName(string name)
+        {
+            var cardType = GetCardTypes().FirstOrDefault(x => x.Name == name);
+            return (IMonsterType)Activator.CreateInstance(cardType.Type);
+        }
+
+    }
 }

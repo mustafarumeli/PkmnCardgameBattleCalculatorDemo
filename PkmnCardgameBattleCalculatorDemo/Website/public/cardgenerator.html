@@ -20,10 +20,14 @@
 			<input type="text" id="cardHp" name="cardHp" /><br />
 			<label for="cardDesc">Card Desc:</label><br />
 			<input type="text" id="cardDesc" name="cardDesc" /><br />
-      <select id="cardAttributes" onchange="createCardVariableInputs()"></select>
-      <div id="cardAttributeVariableContainer">
-
-      </div>
+			<select id="cardTypes"></select>
+			<button id="btnAddCardType" type="button" role="button">Add Type</button>
+			<ul id="typeHolder"></ul>
+			<select id="cardAttributes" onchange="createCardVariableInputs()"></select>
+			<div id="cardAttributeVariableContainer"></div>
+			<ul id="attributeHolder"></ul>
+			<button id="btnSaveAttribute" type="button" role="button">Add Attribute</button>
+			
 			<input id="btnGenerate" type="button" role="button" value="Generate" />
 		</form>
 		<div id="container"></div>

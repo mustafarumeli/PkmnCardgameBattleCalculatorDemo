@@ -13,7 +13,7 @@
 
     public interface ICardAttributeAffectVariable
     {
-        string Name { get; }
+        string Name { get; set; }
         AttributeTriggers TriggerAttributeOn { get; }
         void Affect(IVariableParameter parameter);
     }

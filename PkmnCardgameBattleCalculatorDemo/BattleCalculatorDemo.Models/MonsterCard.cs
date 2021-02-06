@@ -2,10 +2,11 @@
 using System.Linq;
 using BattleCalculatorDemo.Models.CardAttributes;
 using BattleCalculatorDemo.Models.MonsterTypes;
+using MongoORM4NetCore.Interfaces;
 
 namespace BattleCalculatorDemo.Models
 {
-    public class MonsterCard : IMonsterCard
+    public class MonsterCard : DbObjectSD, IMonsterCard
     {
 
         private int _criticalChance = 50;
@@ -27,14 +28,9 @@ namespace BattleCalculatorDemo.Models
         }
         public IList<ICardAttributeAffectVariable> Attributes { get; set; } = new List<ICardAttributeAffectVariable>();
         public IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
-        public string Description
-        {
-            get
-            {
-                var attributeDesc = CreateCardDescription();
-                return string.Join(",", attributeDesc);
-            }
-        }
+        public string Description { get; set; }
+        public string CardDescription => !string.IsNullOrWhiteSpace(Description) ? Description : string.Join(",", CreateCardDescription());
+
         private IEnumerable<string> CreateCardDescription()
         {
             return Attributes.Select(cardAttribute => cardAttribute.Name);

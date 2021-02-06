@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MongoORM4NetCore.Interfaces;
 
 namespace BattleCalculatorDemo.Models.MonsterTypes
 {
-    public class SoundMonsterType : IMonsterType
+    public class SoundMonsterType : DbObject, IMonsterType
     {
         public string Name { get; } = "Sound";
         public string Icon { get; } = "rock.png";

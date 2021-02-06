@@ -5,8 +5,12 @@ namespace BattleCalculatorDemo.Models.CardAttributes
     {
         public AttributeTriggers TriggerAttributeOn { get; } = AttributeTriggers.BeforeAttack;
         int PreviousValue { get; set; }
-        public string Name => "Sharper ";
-
+        private string _name = "Sharper ";
+        public string Name
+        {
+            get => _name;
+            set => _name = value;
+        }
         public void Affect(SelfCardParameter parameter)
         {
             PreviousValue = parameter.Self.HitChance;

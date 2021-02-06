@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MongoORM4NetCore.Interfaces;
 
 namespace BattleCalculatorDemo.Models.MonsterTypes
 {
-    public class ScissorsMonsterType : IMonsterType
+    public class ScissorsMonsterType : DbObject, IMonsterType
     {
         public string Name { get; } = "Scissors";
         public string Icon { get; } = "rock.png";

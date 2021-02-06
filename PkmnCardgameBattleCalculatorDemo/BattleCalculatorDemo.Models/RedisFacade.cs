@@ -28,7 +28,7 @@ namespace BattleCalculatorDemo.Models
             {
                 return JsonConvert.DeserializeObject<T>(_distributedCache.GetString(key));
             }
-            catch (Exception e)
+            catch
             {
                 return default(T);
             }

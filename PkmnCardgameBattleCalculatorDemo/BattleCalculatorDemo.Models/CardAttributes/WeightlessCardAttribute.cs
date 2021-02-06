@@ -6,19 +6,22 @@ namespace BattleCalculatorDemo.Models.CardAttributes
     public class WeightlessCardAttribute : ICardAttributeAffectVariable<DuringCardParameter>
     {
         public AttributeTriggers TriggerAttributeOn { get; } = AttributeTriggers.DuringAttack;
-        public readonly int _chance;
-        private readonly int _ratio;
-        public string Name => $"Weightless {_chance} {_ratio}";
-
+        public int _chance;
+        public int _ratio;
+        public string Name { get; set; }
         public WeightlessCardAttribute(int chance, int ratio)
         {
             _chance = chance;
             _ratio = ratio;
+            Name = $"Weightless {_chance} {_ratio}";
         }
 
+        public WeightlessCardAttribute()
+        {
+                
+        }
         public void Affect(DuringCardParameter parameter)
         {
-            parameter.Self.HitChance = 100;
             bool isFrigged = IsTriggered();
             if (isFrigged)
                 parameter.Self.Hp += (int)(parameter.CombatResult.DamageDealt * 100 / _ratio);
