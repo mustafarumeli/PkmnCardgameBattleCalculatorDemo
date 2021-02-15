@@ -49,7 +49,11 @@ namespace BattleCalculatorDemo.API.Controllers
             _crud.Insert(card);
             return true;
         }
-
+        [HttpGet("test")]
+        public bool Test()
+        {
+            return false;
+        }
 
     }
 

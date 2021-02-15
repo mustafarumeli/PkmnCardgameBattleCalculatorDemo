@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+    bapi:
+        build: BattleCalculatorDemo.API/.
+        ports:
+            - '5005:80'
+    website:
+        build: Website/.
+        ports:
+            - '3230:3230'

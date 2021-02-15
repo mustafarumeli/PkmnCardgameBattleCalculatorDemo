@@ -28,6 +28,7 @@ app.get('/battle-calculator', function (req, res) {
 	res.sendFile(path.join(__dirname + '/public/battle-calculator/battle-calculator.html'));
 });
 
+const BASEURL = "http://bapi:80";
 
 
 app.get('/cards', function (req, res) {
@@ -52,7 +53,7 @@ app.post('/saveCard', function (req, res) {
 	};
 	var config = {
 		method: 'post',
-		url: 'https://localhost:5001/api/Gui/SaveCard',
+		url: BASEURL+'/api/Gui/SaveCard',
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -65,7 +66,7 @@ app.post('/saveCard', function (req, res) {
 
 app.post('/GetCardAttributes', function (req, res) {
 	axiosFacade
-		.get('https://localhost:5001/api/Gui/GetCardAttributes')
+		.get(BASEURL+'/api/Gui/GetCardAttributes')
 		.then((response) => {
 			res.send(response.data);
 		})
@@ -76,7 +77,7 @@ app.post('/GetCardAttributes', function (req, res) {
 
 app.post('/GetCardTypes', function (req, res) {
 	axiosFacade
-		.get('https://localhost:5001/api/Gui/GetCardTypes')
+		.get(BASEURL+'/api/Gui/GetCardTypes')
 		.then((response) => {
 			res.send(response.data);
 		})
@@ -88,7 +89,7 @@ app.post('/GetCardTypes', function (req, res) {
 
 app.post('/GetCards', function (req, res) {
 	axiosFacade
-		.get('https://localhost:5001/api/Gui/GetCards')
+		.get(BASEURL+'/api/Gui/GetCards')
 		.then((response) => {
 			res.send(response.data);
 		})

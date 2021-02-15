@@ -1,1 +1,177 @@
-$("#btnGenerate").on("click",()=>{var e=$("#cname").val(),t=$("#cardAttack").val(),a=$("#cardDef").val(),r=$("#cardHp").val(),n=$("#cardDesc").val(),s=$(".template").html(),c="";typeIconPaths.forEach(e=>{c+=`<img src='${e}' />`}),s=(s=(s=(s=(s=(s=(s=s.replaceAll("{card-name}",e)).replace("{card-attack}",t)).replace("{card-health}",r)).replace("{card-defence}",a)).replace("{card-desc}",n)).replace("{card-image}",imgSrc)).replace("{card-types}",c),$("#container").append(s),sendImage(e),card={name:e,str:t,def:a,hp:r,desc:n,attr:attributes,types:types},attributes=[],typeIconPaths=[],types=[],getCardAttributes(),getCardTypes(),GetCards()});let attributes=[];$("#btnSaveAttribute").on("click",()=>{var e="",t=$("#cardAttributes :selected").text();if("None"!=t){e+=t;var a=[];$(".variable").each((t,r)=>{a.push($(r).val()),e+=$(r).val()+" "}),attributes.push({attributeName:t,AttributeValues:a}),$("#attributeHolder").append(`<li>${e}</li>`),$("#cardAttributes :selected").remove(),$("#cardAttributeVariableContainer").html("")}});let types=[],typeIconPaths=[];$("#btnAddCardType").on("click",()=>{var e=$("#cardTypes :selected").text();"None"!=e&&(e.toLowerCase().indexOf("glass")>-1&&typeIconPaths.push("/icons/glass.png"),e.toLowerCase().indexOf("rock")>-1&&typeIconPaths.push("/icons/rock.png"),e.toLowerCase().indexOf("paper")>-1&&typeIconPaths.push("/icons/paper.png"),e.toLowerCase().indexOf("sound")>-1&&typeIconPaths.push("/icons/sound.png"),e.toLowerCase().indexOf("scissors")>-1&&typeIconPaths.push("/icons/scissors.png"),types.push({TypeName:e}),$("#typeHolder").append(`<li>${e}</li>`),$("#cardTypes :selected").remove())});let card={};function sendImage(e){html2canvas(document.getElementById(e)).then(e=>{var t=e.toDataURL("image/png");card.image=t,$.ajax({url:"/saveCard",type:"POST",contentType:"application/json; charset=utf-8",data:JSON.stringify({card:card}),dataType:"json",error:function(e){console.log(e.responseText)},success:function(e){}})})}function getCardTypes(){$("#cardTypes").html(""),$.ajax({url:"/GetCardTypes",type:"POST",contentType:"application/json; charset=utf-8",dataType:"json",error:function(e){console.log(e.responseText)},success:function(e){if(e){var t="<option>None</option>";e.forEach(e=>{t+=`<option>${e.name}</option>`}),$("#cardTypes").html(t)}}})}function getCardAttributes(){$("#cardAttributes").html(""),$.ajax({url:"/GetCardAttributes",type:"POST",contentType:"application/json; charset=utf-8",dataType:"json",error:function(e){console.log(e.responseText)},success:function(e){if(e){var t='<option variableCount="0">None</option>';e.forEach(e=>{t+=`<option variableCount='${e.variableCount}'>${e.name}</option>`}),$("#cardAttributes").html(t)}}})}function createCardVariableInputs(){var e=$("#cardAttributes option:selected").attr("variableCount"),t=$("#cardAttributeVariableContainer");t.html("");for(var a=0;a<e;a++)t.append("<input type='number' class='variable' />")}function GetCards(){$.ajax({url:"/GetCards",type:"POST",contentType:"application/json; charset=utf-8",dataType:"json",error:function(e){console.log(e.responseText)},success:function(e){e&&e.forEach(e=>{$("#container").append(`<img src='/public/generatedCardImages/${e.image}' />`)})}})}$().ready(GetCards),$().ready(getCardAttributes),$().ready(getCardTypes);let imgSrc="";function onFileSelected(e){var t=e.target.files[0],a=new FileReader;document.getElementById("cardImage");a.onload=function(e){imgSrc=e.target.result},a.readAsDataURL(t)}
+$('#btnGenerate').on('click', () => {
+	var name = $('#cname').val();
+	var cardAttack = $('#cardAttack').val();
+	var cardDef = $('#cardDef').val();
+	var cardHp = $('#cardHp').val();
+	var cardDesc = $('#cardDesc').val();
+	var template = $('.template').html();
+	var cardTypes = '';
+	typeIconPaths.forEach((element) => {
+		cardTypes += `<img src='${element}' />`;
+	});
+	template = template.replaceAll('{card-name}', name);
+	template = template.replace('{card-attack}', cardAttack);
+	template = template.replace('{card-health}', cardHp);
+	template = template.replace('{card-defence}', cardDef);
+	template = template.replace('{card-desc}', cardDesc);
+	template = template.replace('{card-image}', imgSrc);
+	template = template.replace('{card-types}', cardTypes);
+	$('#container').append(template);
+	sendImage(name);
+
+	card = {
+		name: name,
+		str: cardAttack,
+		def: cardDef,
+		hp: cardHp,
+		desc: cardDesc,
+		attr: attributes,
+		types: types,
+	};
+	attributes = [];
+	typeIconPaths = [];
+	types = [];
+	getCardAttributes();
+	getCardTypes();
+	GetCards();
+});
+let attributes = [];
+$('#btnSaveAttribute').on('click', () => {
+	var text = '';
+	var attributeName = $('#cardAttributes :selected').text();
+	if (attributeName != 'None') {
+		text += attributeName;
+		var AttributeValues = [];
+		$('.variable').each((index, item) => {
+			AttributeValues.push($(item).val());
+			text += $(item).val() + ' ';
+		});
+		attributes.push({
+			attributeName,
+			AttributeValues,
+		});
+		$('#attributeHolder').append(`<li>${text}</li>`);
+		$('#cardAttributes :selected').remove();
+		$('#cardAttributeVariableContainer').html('');
+	}
+});
+let types = [];
+let typeIconPaths = [];
+$('#btnAddCardType').on('click', () => {
+	var type = $('#cardTypes :selected').text();
+	if (type != 'None') {
+		if (type.toLowerCase().indexOf('glass') > -1) typeIconPaths.push('icons/glass.png');
+		if (type.toLowerCase().indexOf('rock') > -1) typeIconPaths.push('icons/rock.png');
+		if (type.toLowerCase().indexOf('paper') > -1) typeIconPaths.push('icons/paper.png');
+		if (type.toLowerCase().indexOf('sound') > -1) typeIconPaths.push('icons/sound.png');
+		if (type.toLowerCase().indexOf('scissors') > -1) typeIconPaths.push('icons/scissors.png');
+
+		types.push({ TypeName: type });
+		$('#typeHolder').append(`<li>${type}</li>`);
+		$('#cardTypes :selected').remove();
+	}
+});
+let card = {};
+function sendImage(name) {
+	html2canvas(document.getElementById(name)).then((canvas) => {
+		var data = canvas.toDataURL('image/png');
+		card.image = data;
+		$.ajax({
+			url: '/saveCard',
+			type: 'POST',
+			contentType: 'application/json; charset=utf-8',
+			data: JSON.stringify({ card }),
+			dataType: 'json',
+			error: function (m) {
+				console.log(m.responseText);
+			},
+			success: function (data) { },
+		});
+	});
+}
+$().ready(GetCards);
+$().ready(getCardAttributes);
+$().ready(getCardTypes);
+
+function getCardTypes() {
+	$('#cardTypes').html('');
+	$.ajax({
+		url: '/GetCardTypes',
+		type: 'POST',
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		error: function (m) {
+			console.log(m.responseText);
+		},
+		success: function (data) {
+			if (data) {
+				var lis = '<option>None</option>';
+				data.forEach((element) => {
+					lis += `<option>${element.name}</option>`;
+				});
+				$('#cardTypes').html(lis);
+			}
+		},
+	});
+}
+
+function getCardAttributes() {
+	$('#cardAttributes').html('');
+	$.ajax({
+		url: '/GetCardAttributes',
+		type: 'POST',
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		error: function (m) {
+			console.log(m.responseText);
+		},
+		success: function (data) {
+			if (data) {
+				var lis = '<option variableCount="0">None</option>';
+				data.forEach((element) => {
+					lis += `<option variableCount='${element.variableCount}'>${element.name}</option>`;
+				});
+				$('#cardAttributes').html(lis);
+			}
+		},
+	});
+}
+function createCardVariableInputs() {
+	var count = $('#cardAttributes option:selected').attr('variableCount');
+	var $cardAttributeVariableContainer = $('#cardAttributeVariableContainer');
+	$cardAttributeVariableContainer.html('');
+	for (var i = 0; i < count; i++) {
+		$cardAttributeVariableContainer.append("<input type='number' class='variable' />");
+	}
+}
+
+function GetCards() {
+	$.ajax({
+		url: '/GetCards',
+		type: 'POST',
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		error: function (m) {
+			console.log(m.responseText);
+		},
+		success: function (data) {
+			if (data) {
+				data.forEach((element) => {
+					$('#container').append(`<img src='generatedCardImages/${element.image}' />`);
+				});
+			}
+		},
+	});
+}
+let imgSrc = '';
+function onFileSelected(event) {
+	var selectedFile = event.target.files[0];
+	var reader = new FileReader();
+	var imgtag = document.getElementById('cardImage');
+	reader.onload = function (event) {
+		imgSrc = event.target.result;
+	};
+
+	reader.readAsDataURL(selectedFile);
+}
+
