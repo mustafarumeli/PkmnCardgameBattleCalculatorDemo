@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <Reference Include="MongoORM4NetCore">
-      <HintPath>..\..\..\MongoORM4NetCore\bin\Debug\net5.0\MongoORM4NetCore.dll</HintPath>
+      <HintPath>..\MongoORM4NetCore.dll</HintPath>
     </Reference>
   </ItemGroup>
 
