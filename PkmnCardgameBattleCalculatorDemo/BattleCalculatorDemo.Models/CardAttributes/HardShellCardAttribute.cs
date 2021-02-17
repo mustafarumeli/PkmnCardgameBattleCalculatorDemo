@@ -3,7 +3,7 @@
 namespace BattleCalculatorDemo.Models.CardAttributes
 {
     [CardAttributeStatus(isBeta: false, variableCount: 1, name: "Hard Shell")]
-    public class HardShellCardAttribute : ICardAttributeAffectVariable<SelfCardParameter>
+    public class HardShellCardAttribute : ICardAttributeAffectVariable<SelfCardParameter>, IAttributeComparer<HardShellCardAttribute>
     {
         public int _value;
         private string _name = "Hard Shell ";
@@ -28,6 +28,11 @@ namespace BattleCalculatorDemo.Models.CardAttributes
         public void Affect(SelfCardParameter parameter)
         {
             parameter.Self.Hp += _value;
+        }
+
+        public int CompareTo(HardShellCardAttribute other)
+        {
+            return _value.CompareTo(other._value);
         }
     }
 }

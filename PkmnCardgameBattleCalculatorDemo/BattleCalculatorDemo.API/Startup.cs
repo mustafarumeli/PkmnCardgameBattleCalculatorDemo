@@ -33,20 +33,25 @@ namespace BattleCalculatorDemo.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            BsonRegister();
+
+            services.AddSingleton<MonsterCrud>();
+            services.AddSwaggerGen();
+
+        }
+
+        private static void BsonRegister()
+        {
             BsonClassMap.RegisterClassMap<HardShellCardAttribute>();
             BsonClassMap.RegisterClassMap<IronWillCardAttribute>();
             BsonClassMap.RegisterClassMap<SharperCardAttribute>();
             BsonClassMap.RegisterClassMap<WeightlessCardAttribute>();
-
             BsonClassMap.RegisterClassMap<GlassMonsterType>();
             BsonClassMap.RegisterClassMap<RockMonsterType>();
             BsonClassMap.RegisterClassMap<PaperMonsterType>();
             BsonClassMap.RegisterClassMap<SoundMonsterType>();
             BsonClassMap.RegisterClassMap<ScissorsMonsterType>();
-
-            services.AddSingleton<MonsterCrud>();
-            services.AddSwaggerGen();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

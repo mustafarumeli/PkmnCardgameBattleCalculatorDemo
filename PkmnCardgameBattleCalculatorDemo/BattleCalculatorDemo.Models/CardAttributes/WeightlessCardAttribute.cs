@@ -3,7 +3,7 @@ using System;
 namespace BattleCalculatorDemo.Models.CardAttributes
 {
     [CardAttributeStatus(isBeta: false, variableCount: 2, name: "Weigthless")]
-    public class WeightlessCardAttribute : ICardAttributeAffectVariable<DuringCardParameter>
+    public class WeightlessCardAttribute : ICardAttributeAffectVariable<DuringCardParameter>, IAttributeComparer<WeightlessCardAttribute>
     {
         public AttributeTriggers TriggerAttributeOn { get; } = AttributeTriggers.DuringAttack;
         public int _chance;
@@ -18,7 +18,7 @@ namespace BattleCalculatorDemo.Models.CardAttributes
 
         public WeightlessCardAttribute()
         {
-                
+
         }
         public void Affect(DuringCardParameter parameter)
         {
@@ -32,6 +32,13 @@ namespace BattleCalculatorDemo.Models.CardAttributes
             var rnd = new Random();
             var randVal = rnd.Next(0, 100);
             return _chance >= randVal;
+        }
+
+        public int CompareTo(WeightlessCardAttribute other)
+        {
+            var thisVal = _ratio * 0.5 + _chance * 0.5;
+            var otherVal = other._ratio * 0.5 + other._chance * 0.5;
+            return thisVal.CompareTo(otherVal);
         }
     }
 }

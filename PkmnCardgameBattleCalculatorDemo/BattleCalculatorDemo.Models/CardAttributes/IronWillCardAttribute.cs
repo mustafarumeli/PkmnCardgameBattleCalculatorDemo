@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace BattleCalculatorDemo.Models.CardAttributes
 {
     [CardAttributeStatus(isBeta: false, variableCount: 0, name: "Iron Will")]
-    public class IronWillCardAttribute : ICardAttributeAffectVariable<DuringCardParameter>
+    public class IronWillCardAttribute : ICardAttributeAffectVariable<DuringCardParameter>, IAttributeComparer<IronWillCardAttribute>
     {
         [BsonElement]
         private string _name = "Iron Will";
@@ -23,5 +23,9 @@ namespace BattleCalculatorDemo.Models.CardAttributes
                 parameter.Self.Hp += (int)(parameter.CombatResult.DamageDealt / 2);
         }
 
+        public int CompareTo(IronWillCardAttribute other)
+        {
+            return 0;
+        }
     }
 }

@@ -16,4 +16,10 @@
     <ProjectReference Include="..\BattleCalculatorDemo.Models\BattleCalculatorDemo.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="MongoORM4NetCore">
+      <HintPath>..\MongoORM4NetCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

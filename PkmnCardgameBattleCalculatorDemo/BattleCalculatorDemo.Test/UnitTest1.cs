@@ -7,6 +7,7 @@ using BattleCalculatorDemo.Models;
 using BattleCalculatorDemo.Models.CardAttributes;
 using NUnit.Framework;
 using BattleCalculatorDemo.Models.MonsterTypes;
+using BattleCalculatorDemo.Models.Polymorph;
 
 namespace BattleCalculatorDemo.Test
 {
@@ -14,7 +15,9 @@ namespace BattleCalculatorDemo.Test
     {
         private MonsterCard _attackerMonsterCard;
         private MonsterCard _defenderMonsterCard;
-
+        private Polymorpher _polymorpher;
+        private Depolymorpher _depolymorpher;
+        private PolymorphedMonsterCard _polymorphedMonster;
         public static IEnumerable<Type> GetTypesWithMyAttribute(Assembly assembly)
         {
             foreach (Type type in assembly.GetTypes())
@@ -31,6 +34,7 @@ namespace BattleCalculatorDemo.Test
             var types = GetTypesWithMyAttribute(asmbly);
             types.ToArray();
             var hardShell = new HardShellCardAttribute(25);
+            var hardShell2 = new HardShellCardAttribute(50);
             var sharper = new SharperCardAttribute();
             var weightless = new WeightlessCardAttribute(0, 100);
             var ironWill = new IronWillCardAttribute();
@@ -52,11 +56,13 @@ namespace BattleCalculatorDemo.Test
             };
             _attackerMonsterCard.Attributes.Add(hardShell);
             _defenderMonsterCard.Attributes.Add(weightless);
+            _defenderMonsterCard.Attributes.Add(hardShell2);
 
             _attackerMonsterCard.AddTypes(new PaperMonsterType(), new RockMonsterType());
             _defenderMonsterCard.AddTypes(new ScissorsMonsterType(), new PaperMonsterType());
-
-            var d = MonsterTypeMultiplierCalculator.GetMultiplier(_attackerMonsterCard, _defenderMonsterCard);
+            _polymorpher = new Polymorpher();
+            _depolymorpher = new Depolymorpher();
+            _polymorphedMonster = _polymorpher.PolyMorph(_attackerMonsterCard, _defenderMonsterCard);
         }
 
         [Test]
@@ -89,6 +95,20 @@ namespace BattleCalculatorDemo.Test
         public void GuiHelperTest()
         {
             Assert.AreEqual(CardAttributeHelper.GetCardAttributes().Count(), 4);
+        }
+
+        [Test]
+        public void ShouldPolymorph()
+        {
+            var polymorphedCard = _polymorpher.PolyMorph(_attackerMonsterCard, _defenderMonsterCard);
+            Assert.That(polymorphedCard != null);
+        }
+
+        [Test]
+        public void ShouldDepolymorph()
+        {
+            var depolyMorphed = _depolymorpher.Depolymorph(ref _polymorphedMonster);
+            Assert.That(depolyMorphed != null);
         }
     }
 }
