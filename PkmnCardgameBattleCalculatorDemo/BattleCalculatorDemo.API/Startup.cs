@@ -12,6 +12,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using BattleCalculatorDemo.Crud;
 using BattleCalculatorDemo.Models;
+using BattleCalculatorDemo.Models.CardAttributes;
+using BattleCalculatorDemo.Models.MonsterTypes;
+using MongoDB.Bson.Serialization;
 using MongoORM4NetCore;
 using StackExchange.Redis;
 
@@ -30,6 +33,17 @@ namespace BattleCalculatorDemo.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            BsonClassMap.RegisterClassMap<HardShellCardAttribute>();
+            BsonClassMap.RegisterClassMap<IronWillCardAttribute>();
+            BsonClassMap.RegisterClassMap<SharperCardAttribute>();
+            BsonClassMap.RegisterClassMap<WeightlessCardAttribute>();
+
+            BsonClassMap.RegisterClassMap<GlassMonsterType>();
+            BsonClassMap.RegisterClassMap<RockMonsterType>();
+            BsonClassMap.RegisterClassMap<PaperMonsterType>();
+            BsonClassMap.RegisterClassMap<SoundMonsterType>();
+            BsonClassMap.RegisterClassMap<ScissorsMonsterType>();
+
             services.AddSingleton<MonsterCrud>();
             services.AddSwaggerGen();
 
