@@ -59,10 +59,10 @@ namespace BattleCalculatorDemo.Test
             _defenderMonsterCard.Attributes.Add(hardShell2);
 
             _attackerMonsterCard.AddTypes(new PaperMonsterType(), new RockMonsterType());
-            _defenderMonsterCard.AddTypes(new ScissorsMonsterType(), new PaperMonsterType());
+            _defenderMonsterCard.AddTypes(new ScissorsMonsterType());
             _polymorpher = new Polymorpher();
             _depolymorpher = new Depolymorpher();
-            _polymorphedMonster = _polymorpher.PolyMorph(_attackerMonsterCard, _defenderMonsterCard);
+            _polymorphedMonster = _polymorpher.Polymorph(_attackerMonsterCard, _defenderMonsterCard);
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace BattleCalculatorDemo.Test
         [Test]
         public void ShouldPolymorph()
         {
-            var polymorphedCard = _polymorpher.PolyMorph(_attackerMonsterCard, _defenderMonsterCard);
+            var polymorphedCard = _polymorpher.Polymorph(_attackerMonsterCard, _defenderMonsterCard);
             Assert.That(polymorphedCard != null);
         }
 
