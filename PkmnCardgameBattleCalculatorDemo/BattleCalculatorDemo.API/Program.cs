@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BattleCalculatorDemo.Models;
 using BattleCalculatorDemo.Models.CardAttributes;
+using BattleCalculatorDemo.Models.Evolve;
 using BattleCalculatorDemo.Models.MonsterTypes;
 using MongoORM4NetCore;
 
@@ -20,7 +21,11 @@ namespace BattleCalculatorDemo.API
             var result = MongoDbConnection.InitializeAndStartConnection(
                 "mongodb+srv://dbusr:TgFbMteUpmbWuQKv@cluster0.zvps8.mongodb.net/pkmndb?retryWrites=true&w=majority",
                 "pkmndb");
-            //var crud = new Crud<MonsterCard>();
+            var crud = new Crud<MonsterCard>();
+            crud.Insert(new MountainRangerCard());
+            var monsterCards = crud.GetAll();
+            var evolvable = monsterCards.First() as IEvolvable;
+            var monsterCard = evolvable.Evolve();
             //var card = new MonsterCard()
             //{
             //    Name = "Mountain Ranger",

@@ -30,7 +30,6 @@ namespace BattleCalculatorDemo.Test
         public void SetUp()
         {
             var asmbly = Assembly.GetExecutingAssembly();
-
             var types = GetTypesWithMyAttribute(asmbly);
             types.ToArray();
             var hardShell = new HardShellCardAttribute(25);

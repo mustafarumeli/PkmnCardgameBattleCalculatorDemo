@@ -1,21 +1,41 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BattleCalculatorDemo.Models.CardAttributes;
+using BattleCalculatorDemo.Models.Evolve;
 using BattleCalculatorDemo.Models.MonsterTypes;
 using MongoORM4NetCore.Interfaces;
 
 namespace BattleCalculatorDemo.Models
 {
+    public class TheMountainCard : MonsterCard, IDevolve<MountainRangerCard>
+    {
+        public override string Name { get; set; } = "The Mountain";
+
+        public MountainRangerCard Devolve()
+        {
+            return new ();
+        }
+    }
+
+    public class MountainRangerCard : MonsterCard, IEvolve<TheMountainCard>
+    {
+        public override string Name { get; set; } = "Mountain Ranger";
+
+        public TheMountainCard Evolve()
+        {
+            return new();
+        }
+    }
     public class MonsterCard : DbObjectSD, IMonsterCard
     {
 
         private int _criticalChance = 50;
         private int _hitChance = 75;
-        public string Name { get; set; }
-        public string Image { get; set; }
-        public int Hp { get; set; } = 0;
-        public int Atk { get; set; } = 0;
-        public int Def { get; set; } = 0;
+        public virtual string Name { get; set; }
+        public virtual string Image { get; set; }
+        public virtual int Hp { get; set; } = 0;
+        public virtual int Atk { get; set; } = 0;
+        public virtual int Def { get; set; } = 0;
         public int CriticalChance
         {
             get => _criticalChance;
