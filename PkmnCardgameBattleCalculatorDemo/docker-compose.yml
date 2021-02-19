@@ -8,3 +8,7 @@ services:
         build: Website/.
         ports:
             - '3230:3230'
+volumes:
+      - .:/usr/app
+      - /app	
+      - /usr/app/node_modules
