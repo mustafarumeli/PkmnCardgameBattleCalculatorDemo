@@ -1,17 +1,10 @@
 version: '3.9'
 services:
     bapi:
-        build: BattleCalculatorDemo.API/.
+        build: .
         ports:
             - '5005:80'
-        volumes:
-            - /usr/app
-            - /app	
     website:
         build: Website/.
         ports:
             - '3230:3230'
-    	volumes:
-          - /usr/app
-          - /app
- 
