@@ -4,9 +4,9 @@ services:
         build: BattleCalculatorDemo.API/.
         ports:
             - '5005:80'
-	    volumes:
-             - /usr/app
-             - /app	
+	volumes:
+            - /usr/app
+            - /app	
     website:
         build: Website/.
         ports:
