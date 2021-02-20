@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BattleCalculatorDemo.Models;
-using BattleCalculatorDemo.Models.CardAttributes;
-using BattleCalculatorDemo.Models.Models;
+using System.Reflection;
+using BattleCalculatorDemo.Cards.CardAttributes;
+using BattleCalculatorDemo.Cards.MonsterCards;
+using BattleCalculatorDemo.Cards.MonsterType;
 using MongoORM4NetCore.Interfaces;
+using BattleCalculatorDemo.Models;
 
 namespace BattleCalculatorDemo.Crud
 {
@@ -41,4 +43,6 @@ namespace BattleCalculatorDemo.Crud
             });
         }
     }
+   
+  
 }

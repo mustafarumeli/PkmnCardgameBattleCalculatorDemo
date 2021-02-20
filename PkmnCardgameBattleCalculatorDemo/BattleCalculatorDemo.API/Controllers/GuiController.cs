@@ -1,16 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BattleCalculatorDemo.Crud;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BattleCalculatorDemo.API.Controllers;
-using BattleCalculatorDemo.Crud;
 using BattleCalculatorDemo.Models;
-using BattleCalculatorDemo.Models.Models;
-using Microsoft.Extensions.Caching.Distributed;
-using MongoORM4NetCore;
-using MongoORM4NetCore.Interfaces;
+using BattleCalculatorDemo.Models.Helpers;
 
 namespace BattleCalculatorDemo.API.Controllers
 {
@@ -29,7 +25,8 @@ namespace BattleCalculatorDemo.API.Controllers
         [HttpGet("GetCardAttributes")]
         public IEnumerable<CardAttributeModelWithoutType> GetCardAttributes()
         {
-            return CardAttributeHelper.GetCardAttributes().Select(x => new CardAttributeModelWithoutType(x.Name, x.VariableCount));
+            return CardAttributeHelper.GetCardAttributes()
+                .Select(x => new CardAttributeModelWithoutType(x.Name, x.VariableCount));
         }
 
         [HttpGet("GetCardTypes")]
@@ -37,6 +34,7 @@ namespace BattleCalculatorDemo.API.Controllers
         {
             return CardTypeHelper.GetCardTypes().Select(x => new CardTypeModelWithoutType(x.Name));
         }
+
         [HttpGet("GetCards")]
         public IEnumerable<CardReadModel> GetCards()
         {
@@ -49,6 +47,7 @@ namespace BattleCalculatorDemo.API.Controllers
             _crud.Insert(card);
             return true;
         }
+
         [HttpGet("test")]
         public bool Test()
         {
@@ -56,5 +55,4 @@ namespace BattleCalculatorDemo.API.Controllers
         }
 
     }
-
 }

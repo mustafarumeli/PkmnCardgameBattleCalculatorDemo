@@ -1,5 +1,7 @@
-﻿using BattleCalculatorDemo.Models;
-using BattleCalculatorDemo.Models.CardAttributes;
+﻿using BattleCalculatorDemo.Cards;
+using BattleCalculatorDemo.Cards.CardAttributes;
+using BattleCalculatorDemo.Cards.ItemCards;
+using BattleCalculatorDemo.Cards.MonsterCards;
 using NUnit.Framework;
 
 namespace BattleCalculatorDemo.Test

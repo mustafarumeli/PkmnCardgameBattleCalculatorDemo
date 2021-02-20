@@ -10,13 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BattleCalculatorDemo.Cards.CardAttributes;
+using BattleCalculatorDemo.Cards.MonsterType;
 using BattleCalculatorDemo.Crud;
-using BattleCalculatorDemo.Models;
-using BattleCalculatorDemo.Models.CardAttributes;
-using BattleCalculatorDemo.Models.MonsterTypes;
 using MongoDB.Bson.Serialization;
-using MongoORM4NetCore;
-using StackExchange.Redis;
 
 namespace BattleCalculatorDemo.API
 {
