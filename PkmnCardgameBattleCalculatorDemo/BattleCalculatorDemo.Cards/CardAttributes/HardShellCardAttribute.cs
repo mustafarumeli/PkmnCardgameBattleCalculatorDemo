@@ -1,16 +1,17 @@
-﻿namespace BattleCalculatorDemo.Cards.CardAttributes
+﻿using System;
+
+namespace BattleCalculatorDemo.Cards.CardAttributes
 {
     [CardAttributeStatus(isBeta: false, variableCount: 1, name: "Hard Shell")]
-    public class HardShellCardAttribute : ICardAttributeAffectVariable<SelfCardParameter>, IAttributeComparer<HardShellCardAttribute>
+    public class HardShellCardAttribute :
+        CardAttribute,
+        ICardAttributeAffectVariable<SelfCardParameter>,
+        IAttributeComparer<HardShellCardAttribute>
     {
         public int _value;
-        private string _name = "Hard Shell ";
 
-        public string Name
-        {
-            get => _name;
-            set => _name = value;
-        }
+        public override string Name { get; set; } = "Hard Shell ";
+        //protected override Type Type { get; set; } = typeof(HardShellCardAttribute);
 
         public HardShellCardAttribute(int value)
         {

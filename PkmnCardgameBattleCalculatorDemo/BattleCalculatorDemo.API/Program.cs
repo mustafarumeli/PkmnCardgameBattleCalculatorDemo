@@ -14,9 +14,7 @@ namespace BattleCalculatorDemo.API
     {
         public static void Main(string[] args)
         {
-            var result = MongoDbConnection.InitializeAndStartConnection(
-                "mongodb+srv://dbusr:TgFbMteUpmbWuQKv@cluster0.zvps8.mongodb.net/pkmndb?retryWrites=true&w=majority",
-                "pkmndb");
+        
             CreateHostBuilder(args).Build().Run();
         }
 

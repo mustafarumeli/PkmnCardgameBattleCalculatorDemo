@@ -16,7 +16,9 @@ namespace BattleCalculatorDemo.Cards.ItemCards.Polymorph
                 return new()
                 {
                     Atk = leftCard.Atk + rightCard.Atk,
-                    Attributes = CombineAttributes(leftCard.Attributes, rightCard.Attributes),
+                    Attributes = (IList<CardAttribute>)CombineAttributes(
+                       leftCard.Attributes.Select(x => x as ICardAttributeAffectVariable).ToList(),
+                       rightCard.Attributes.Select(x => x as ICardAttributeAffectVariable).ToList()),
                     CriticalChance = Math.Max(leftCard.CriticalChance, rightCard.CriticalChance),
                     Def = leftCard.Def + rightCard.Def,
                     HitChance = Math.Max(leftCard.HitChance, rightCard.HitChance),

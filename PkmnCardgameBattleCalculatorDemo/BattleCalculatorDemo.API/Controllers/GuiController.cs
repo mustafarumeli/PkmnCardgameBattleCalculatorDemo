@@ -5,8 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BattleCalculatorDemo.Models;
-using BattleCalculatorDemo.Models.Helpers;
+using BattleCalculatorDemo.Cards.CardAttributes;
+using BattleCalculatorDemo.Cards.MonsterCards;
+using MongoORM4NetCore;
 
 namespace BattleCalculatorDemo.API.Controllers
 {
@@ -15,44 +16,42 @@ namespace BattleCalculatorDemo.API.Controllers
     public class GuiController : ControllerBase
     {
         private MonsterCrud _crud;
+        private Crud<CardAttribute> _cardAttributeCrud;
 
-        public GuiController(MonsterCrud crud)
+        public GuiController(MonsterCrud crud, Crud<CardAttribute> cardAttributeCrud)
         {
             _crud = crud;
-        }
+            _cardAttributeCrud = cardAttributeCrud;
 
+            if (_cardAttributeCrud.Count == 0)
+            {
+                _cardAttributeCrud.Insert(new IronWillCardAttribute());
+                _cardAttributeCrud.Insert(new SharperCardAttribute());
+                _cardAttributeCrud.Insert(new WeightlessCardAttribute());
+                _cardAttributeCrud.Insert(new HardShellCardAttribute());
+            }
+            _crud.Insert(new MountainRangerCard());
+        }
 
         [HttpGet("GetCardAttributes")]
-        public IEnumerable<CardAttributeModelWithoutType> GetCardAttributes()
+        public IEnumerable<CardAttribute> GetCardAttributes()
         {
-            return CardAttributeHelper.GetCardAttributes()
-                .Select(x => new CardAttributeModelWithoutType(x.Name, x.VariableCount));
-        }
-
-        [HttpGet("GetCardTypes")]
-        public IEnumerable<CardTypeModelWithoutType> GetCardTypes()
-        {
-            return CardTypeHelper.GetCardTypes().Select(x => new CardTypeModelWithoutType(x.Name));
+            return _cardAttributeCrud.GetAll();
         }
 
         [HttpGet("GetCards")]
-        public IEnumerable<CardReadModel> GetCards()
+        public IEnumerable<MonsterCard> GetCards()
         {
-            return _crud.GetAll();
+            var t = _crud.GetAll();
+            return t;
         }
 
+
         [HttpPost("SaveCard")]
-        public bool SaveCard(CardModel card)
+        public bool SaveCard(MonsterCard card)
         {
             _crud.Insert(card);
             return true;
         }
-
-        [HttpGet("test")]
-        public bool Test()
-        {
-            return false;
-        }
-
     }
 }

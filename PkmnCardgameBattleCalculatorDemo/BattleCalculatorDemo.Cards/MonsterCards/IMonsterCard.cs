@@ -11,7 +11,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
         public int Def { get; set; }
         public int CriticalChance { get; set; }
         public int HitChance { get; set; }
-        public IList<ICardAttributeAffectVariable> Attributes { get; set; }
+        public IList<CardAttribute> Attributes { get; set; }
         public IList<IMonsterType> Types { get; set; }
     }
 }

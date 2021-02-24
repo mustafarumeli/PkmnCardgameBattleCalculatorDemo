@@ -28,6 +28,8 @@ app.get('/battle-calculator', function (req, res) {
 	res.sendFile(path.join(__dirname + '/public/battle-calculator/battle-calculator.html'));
 });
 
+
+
 const BASEURL = "http://bapi:80";
 
 
@@ -37,10 +39,6 @@ app.get('/cards', function (req, res) {
 
 app.post('/saveCard', function (req, res) {
 	var data = req.body.card;
-	var imgSrc = __dirname + '/public/generatedCardImages/' + data.name + '.png';
-	require('fs').writeFile(imgSrc, data.image.replace(/^data:image\/png;base64,/, ''), 'base64', function (err) {
-		console.log(err);
-	});
 	var card = {
 		Name: data.name,
 		Atk: data.str,

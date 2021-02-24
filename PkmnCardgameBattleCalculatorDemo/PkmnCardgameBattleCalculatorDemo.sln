@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleCalculatorDemo.Crud",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleCalculatorDemo.Cards", "BattleCalculatorDemo.Cards\BattleCalculatorDemo.Cards.csproj", "{61AC202C-6BB9-413E-8389-92A6F8EBD5E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleCalculatorDemo.API", "BattleCalculatorDemo.API\BattleCalculatorDemo.API.csproj", "{D6A6AC76-6505-400B-81FB-5D8DADD07864}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleCalculatorDemo.API", "BattleCalculatorDemo.API\BattleCalculatorDemo.API.csproj", "{D6A6AC76-6505-400B-81FB-5D8DADD07864}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleCalculatorDemo.Models", "BattleCalculatorDemo.Models\BattleCalculatorDemo.Models.csproj", "{486C8288-2861-4376-B325-0D58113FB6BD}"
 EndProject

@@ -2,15 +2,12 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["BattleCalculatorDemo.API/BattleCalculatorDemo.API.csproj", "BattleCalculatorDemo.API/"]
-COPY ["BattleCalculatorDemo.Crud/BattleCalculatorDemo.Crud.csproj", "BattleCalculatorDemo.Crud/"]
 COPY ["BattleCalculatorDemo.Models/BattleCalculatorDemo.Models.csproj", "BattleCalculatorDemo.Models/"]
-COPY ["BattleCalculatorDemo.Cards/BattleCalculatorDemo.Cards.csproj", "BattleCalculatorDemo.Cards/"]
+COPY ["BattleCalculatorDemo.Crud/BattleCalculatorDemo.Crud.csproj", "BattleCalculatorDemo.Crud/"]
 RUN dotnet restore "BattleCalculatorDemo.API/BattleCalculatorDemo.API.csproj"
 COPY . .
 WORKDIR "/src/BattleCalculatorDemo.API"

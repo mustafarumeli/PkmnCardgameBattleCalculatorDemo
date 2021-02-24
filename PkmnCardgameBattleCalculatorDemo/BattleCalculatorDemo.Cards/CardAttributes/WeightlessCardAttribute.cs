@@ -3,12 +3,17 @@
 namespace BattleCalculatorDemo.Cards.CardAttributes
 {
     [CardAttributeStatus(isBeta: false, variableCount: 2, name: "Weigthless")]
-    public class WeightlessCardAttribute : ICardAttributeAffectVariable<DuringCardParameter>, IAttributeComparer<WeightlessCardAttribute>
+    public class WeightlessCardAttribute :
+        CardAttribute,
+        ICardAttributeAffectVariable<DuringCardParameter>,
+        IAttributeComparer<WeightlessCardAttribute>
     {
         public AttributeTriggers TriggerAttributeOn { get; } = AttributeTriggers.DuringAttack;
         public int _chance;
         public int _ratio;
-        public string Name { get; set; }
+        public override string Name { get; set; } = "Weightless";
+        //protected override Type Type { get; set; } = typeof(WeightlessCardAttribute);
+
         public WeightlessCardAttribute(int chance, int ratio)
         {
             _chance = chance;

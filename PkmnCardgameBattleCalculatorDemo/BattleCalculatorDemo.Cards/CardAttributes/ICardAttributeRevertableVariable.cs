@@ -9,7 +9,7 @@
         }
     }
 
-    public interface ICardAttributeRevertableVariable
+    public interface ICardAttributeRevertableVariable 
     {
         void Revert(IVariableParameter parameter);
 

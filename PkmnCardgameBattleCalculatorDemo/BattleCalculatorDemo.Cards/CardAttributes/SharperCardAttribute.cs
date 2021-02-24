@@ -1,18 +1,19 @@
-﻿namespace BattleCalculatorDemo.Cards.CardAttributes
+﻿using System;
+
+namespace BattleCalculatorDemo.Cards.CardAttributes
 {
     [CardAttributeStatus(isBeta: false, variableCount: 0, name: "Sharper")]
-    public class SharperCardAttribute : ICardAttributeAffectVariable<SelfCardParameter>,
+    public class SharperCardAttribute :
+        CardAttribute,
+        ICardAttributeAffectVariable<SelfCardParameter>,
         ICardAttributeRevertableVariable<SelfCardParameter>,
         IAttributeComparer<SharperCardAttribute>
     {
         public AttributeTriggers TriggerAttributeOn { get; } = AttributeTriggers.BeforeAttack;
         int PreviousValue { get; set; }
-        private string _name = "Sharper ";
-        public string Name
-        {
-            get => _name;
-            set => _name = value;
-        }
+        public override string Name { get; set; } = "Sharper ";
+        //protected override Type Type { get; set; } = typeof(SharperCardAttribute);
+
         public void Affect(SelfCardParameter parameter)
         {
             PreviousValue = parameter.Self.HitChance;

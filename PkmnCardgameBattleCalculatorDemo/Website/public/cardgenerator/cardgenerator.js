@@ -85,7 +85,7 @@ function sendImage(name) {
 			error: function (m) {
 				console.log(m.responseText);
 			},
-			success: function (data) { },
+			success: function (data) {},
 		});
 	});
 }
@@ -174,4 +174,3 @@ function onFileSelected(event) {
 
 	reader.readAsDataURL(selectedFile);
 }
-

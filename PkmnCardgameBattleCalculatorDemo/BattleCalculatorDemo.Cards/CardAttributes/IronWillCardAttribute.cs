@@ -1,19 +1,16 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using System;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace BattleCalculatorDemo.Cards.CardAttributes
 {
     [CardAttributeStatus(isBeta: false, variableCount: 0, name: "Iron Will")]
-    public class IronWillCardAttribute : ICardAttributeAffectVariable<DuringCardParameter>, IAttributeComparer<IronWillCardAttribute>
+    public class IronWillCardAttribute :
+        CardAttribute,
+        ICardAttributeAffectVariable<DuringCardParameter>,
+        IAttributeComparer<IronWillCardAttribute>
     {
-        [BsonElement]
-        private string _name = "Iron Will";
-
-        public string Name
-        {
-            get => _name;
-            set => _name = value;
-        }
-
+        public override string Name { get; set; } = "Iron Will";
+        //protected override Type Type { get; set; } = typeof(IronWillCardAttribute);
         public AttributeTriggers TriggerAttributeOn { get; } = AttributeTriggers.DuringAttack;
 
         public void Affect(DuringCardParameter parameter)

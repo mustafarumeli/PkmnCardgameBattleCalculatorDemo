@@ -11,9 +11,8 @@
 
     }
 
-    public interface ICardAttributeAffectVariable
+    public interface ICardAttributeAffectVariable 
     {
-        string Name { get; set; }
         AttributeTriggers TriggerAttributeOn { get; }
         void Affect(IVariableParameter parameter);
     }
