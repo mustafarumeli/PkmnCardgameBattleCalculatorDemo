@@ -12,7 +12,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using BattleCalculatorDemo.Cards.CardAttributes;
 using BattleCalculatorDemo.Cards.MonsterType;
-using BattleCalculatorDemo.Crud;
 using MongoDB.Bson.Serialization;
 using MongoORM4NetCore;
 
@@ -36,7 +35,6 @@ namespace BattleCalculatorDemo.API
             MongoDbConnection.InitializeAndStartConnection(
                 "mongodb+srv://dbusr:TgFbMteUpmbWuQKv@cluster0.zvps8.mongodb.net/pkmndb?retryWrites=true&w=majority",
                 "pkmndb");
-            services.AddSingleton<MonsterCrud>();
             services.AddSingleton<Crud<CardAttribute>>();
             services.AddSwaggerGen();
         }

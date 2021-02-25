@@ -10,7 +10,7 @@ using MongoORM4NetCore.Interfaces;
 
 namespace BattleCalculatorDemo.Crud
 {
-    public class MonsterCrud : Crud<MonsterCard>
-    {
-    }
+    // public class MonsterCrud : Crud<MonsterCard>
+    // {
+    // }
 }

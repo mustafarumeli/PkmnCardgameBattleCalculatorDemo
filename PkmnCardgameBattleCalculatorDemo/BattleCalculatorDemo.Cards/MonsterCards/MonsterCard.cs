@@ -6,16 +6,16 @@ using MongoORM4NetCore.Interfaces;
 
 namespace BattleCalculatorDemo.Cards.MonsterCards
 {
-    public class MonsterCard : DbObjectSD, IMonsterCard
+    public abstract class MonsterCard : IMonsterCard
     {
 
         private int _criticalChance = 50;
         private int _hitChance = 75;
-        public virtual string Name { get; set; }
-        public virtual ICardImages CardImages { get; set; }
-        public virtual int Hp { get; set; } = 0;
-        public virtual int Atk { get; set; } = 0;
-        public virtual int Def { get; set; } = 0;
+        public abstract string Name { get; set; }
+        public abstract ICardImages CardImages { get; set; }
+        public abstract int Hp { get; set; }
+        public abstract int Atk { get; set; }
+        public abstract int Def { get; set; }
         public int CriticalChance
         {
             get => _criticalChance;
@@ -26,8 +26,8 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
             get => _hitChance;
             set => _hitChance = value > 100 ? (int)100 : value;
         }
-        public virtual IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
-        public virtual IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
+        public abstract IList<ICardAttribute> Attributes { get; set; }
+        public abstract IList<IMonsterType> Types { get; set; }
         public string Description { get; set; }
         public string CardDescription => !string.IsNullOrWhiteSpace(Description) ? Description : string.Join(",", CreateCardDescription());
 

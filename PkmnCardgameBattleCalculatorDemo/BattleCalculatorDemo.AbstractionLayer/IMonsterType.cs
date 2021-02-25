@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using BattleCalculatorDemo.AbstractionLayer.Utils;
 
 namespace BattleCalculatorDemo.AbstractionLayer
 {
-    public interface IMonsterType
+    public interface IAttribute
+    {
+         string Name { get; set; }
+    }
+    public interface IMonsterType : IDeepCloneable
     {
         string Name { get; }
         string Icon { get; }

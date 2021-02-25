@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BattleCalculatorDemo.BoardManager\BattleCalculatorDemo.BoardManager.csproj" />
+      <ProjectReference Include="..\BattleCalculatorDemo.Cards\BattleCalculatorDemo.Cards.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Autofac" Version="6.1.0" />
+      <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="7.1.0" />
+    </ItemGroup>
+
+</Project>

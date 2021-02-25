@@ -39,16 +39,14 @@ namespace BattleCalculatorDemo.Test
             var ironWill = new IronWillCardAttribute();
 
 
-            _attackerMonsterCard = new MonsterCard()
+            _attackerMonsterCard = new MountainRangerCard()
             {
-                Name = "Mountain Ranger",
                 Atk = 25,
                 Hp = 50,
                 Def = 125
             };
-            _defenderMonsterCard = new MonsterCard()
+            _defenderMonsterCard = new MountainRangerCard()
             {
-                Name = "Mountain Ranger",
                 Atk = 25,
                 Hp = 50,
                 Def = 125

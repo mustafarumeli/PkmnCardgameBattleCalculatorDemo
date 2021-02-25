@@ -38,6 +38,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleCalculatorDemo.BoardM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleCalculatorDemo.AbstractionLayer", "BattleCalculatorDemo.AbstractionLayer\BattleCalculatorDemo.AbstractionLayer.csproj", "{448869D9-EA48-40E1-A488-ED153D146819}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleCalculatorDemo.Game", "BattleCalculatorDemo.Game\BattleCalculatorDemo.Game.csproj", "{D265FB76-66EF-455A-B5AB-29B5E18F9031}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleCalculatorDemo.CQ", "BattleCalculatorDemo.CQ\BattleCalculatorDemo.CQ.csproj", "{C97CEB06-0FDF-4065-B4F9-DBA1D2912E4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +79,14 @@ Global
 		{448869D9-EA48-40E1-A488-ED153D146819}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{448869D9-EA48-40E1-A488-ED153D146819}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{448869D9-EA48-40E1-A488-ED153D146819}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D265FB76-66EF-455A-B5AB-29B5E18F9031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D265FB76-66EF-455A-B5AB-29B5E18F9031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D265FB76-66EF-455A-B5AB-29B5E18F9031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D265FB76-66EF-455A-B5AB-29B5E18F9031}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C97CEB06-0FDF-4065-B4F9-DBA1D2912E4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C97CEB06-0FDF-4065-B4F9-DBA1D2912E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C97CEB06-0FDF-4065-B4F9-DBA1D2912E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C97CEB06-0FDF-4065-B4F9-DBA1D2912E4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

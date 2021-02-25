@@ -9,7 +9,6 @@ namespace BattleCalculatorDemo.Cards.MonsterType
     {
         public string Name { get; } = "Paper";
         public string Icon { get; } = "rock.png";
-        public ArrayList TypeAgainst { get; } = new ArrayList();
 
         public IList<IMonsterTypeMultiplier> MultiplierAgainstTypes { get; } = new List<IMonsterTypeMultiplier>();
 

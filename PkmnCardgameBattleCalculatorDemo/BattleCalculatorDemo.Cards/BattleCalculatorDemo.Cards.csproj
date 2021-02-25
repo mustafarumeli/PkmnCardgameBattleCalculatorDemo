@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BattleCalculatorDemo.AbstractionLayer\BattleCalculatorDemo.AbstractionLayer.csproj" />
+    <ProjectReference Include="..\BattleCalculatorDemo.CQ\BattleCalculatorDemo.CQ.csproj" />
   </ItemGroup>
 
 </Project>

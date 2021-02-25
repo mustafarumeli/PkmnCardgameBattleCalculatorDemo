@@ -6,7 +6,7 @@ using BattleCalculatorDemo.AbstractionLayer;
 
 namespace BattleCalculatorDemo.Cards.MonsterType
 {
-    public class GlassMonsterType : DbObject, IMonsterType
+    public class GlassMonsterType : IMonsterType
     {
         public string Name { get; } = "Glass";
         public string Icon { get; } = "glass.png";

@@ -2,6 +2,6 @@
 {
     public interface IBoardManager
     {
-        
+        void Write(string text);
     }
 }

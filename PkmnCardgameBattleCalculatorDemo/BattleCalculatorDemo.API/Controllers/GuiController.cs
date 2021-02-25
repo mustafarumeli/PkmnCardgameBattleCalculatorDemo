@@ -1,5 +1,4 @@
-﻿using BattleCalculatorDemo.Crud;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,12 +14,10 @@ namespace BattleCalculatorDemo.API.Controllers
     [ApiController]
     public class GuiController : ControllerBase
     {
-        private MonsterCrud _crud;
         private Crud<CardAttribute> _cardAttributeCrud;
 
-        public GuiController(MonsterCrud crud, Crud<CardAttribute> cardAttributeCrud)
+        public GuiController( Crud<CardAttribute> cardAttributeCrud)
         {
-            _crud = crud;
             _cardAttributeCrud = cardAttributeCrud;
 
             if (_cardAttributeCrud.Count == 0)
@@ -30,7 +27,6 @@ namespace BattleCalculatorDemo.API.Controllers
                 _cardAttributeCrud.Insert(new WeightlessCardAttribute());
                 _cardAttributeCrud.Insert(new HardShellCardAttribute());
             }
-            _crud.Insert(new MountainRangerCard());
         }
 
         [HttpGet("GetCardAttributes")]
@@ -38,20 +34,20 @@ namespace BattleCalculatorDemo.API.Controllers
         {
             return _cardAttributeCrud.GetAll();
         }
-
-        [HttpGet("GetCards")]
-        public IEnumerable<MonsterCard> GetCards()
-        {
-            var t = _crud.GetAll();
-            return t;
-        }
-
-
-        [HttpPost("SaveCard")]
-        public bool SaveCard(MonsterCard card)
-        {
-            _crud.Insert(card);
-            return true;
-        }
+        //
+        // [HttpGet("GetCards")]
+        // public IEnumerable<MonsterCard> GetCards()
+        // {
+        //     var t = _crud.GetAll();
+        //     return t;
+        // }
+        //
+        //
+        // [HttpPost("SaveCard")]
+        // public bool SaveCard(MonsterCard card)
+        // {
+        //     _crud.Insert(card);
+        //     return true;
+        // }
     }
 }
