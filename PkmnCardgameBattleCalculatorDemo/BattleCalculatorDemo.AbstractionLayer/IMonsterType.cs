@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace BattleCalculatorDemo.Cards.MonsterType
+namespace BattleCalculatorDemo.AbstractionLayer
 {
     public interface IMonsterType
     {
         string Name { get; }
         string Icon { get; }
-        IList<MonsterTypeMultiplier> MultiplierAgainstTypes { get; }
+        IList<IMonsterTypeMultiplier> MultiplierAgainstTypes { get; }
 
         double GetMultiplierAgainstType<T>() where T : IMonsterType
         {

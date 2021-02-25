@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using BattleCalculatorDemo.Cards.CardAttributes;
-using BattleCalculatorDemo.Cards.MonsterType;
 
-namespace BattleCalculatorDemo.Cards.MonsterCards
+namespace BattleCalculatorDemo.AbstractionLayer
 {
     public interface IMonsterCard : ICard
     {
@@ -11,7 +9,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
         public int Def { get; set; }
         public int CriticalChance { get; set; }
         public int HitChance { get; set; }
-        public IList<CardAttribute> Attributes { get; set; }
+        public IList<ICardAttribute> Attributes { get; set; }
         public IList<IMonsterType> Types { get; set; }
     }
 }
