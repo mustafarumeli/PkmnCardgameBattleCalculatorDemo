@@ -3,6 +3,8 @@ using BattleCalculatorDemo.Cards.CardAttributes;
 using BattleCalculatorDemo.Cards.MonsterCards;
 using BattleCalculatorDemo.Cards.MonsterType;
 using System.Linq;
+using BattleCalculatorDemo.AbstractionLayer;
+using BattleCalculatorDemo.Cards.CardAttributes.CardParamaters;
 
 namespace BattleCalculatorDemo.Cards.Helpers
 {

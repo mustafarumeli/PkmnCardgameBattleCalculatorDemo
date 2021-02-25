@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BattleCalculatorDemo.AbstractionLayer;
 using BattleCalculatorDemo.Cards.CardAttributes;
-using BattleCalculatorDemo.Cards.MonsterType;
 using MongoORM4NetCore.Interfaces;
 
 namespace BattleCalculatorDemo.Cards.MonsterCards
@@ -12,7 +12,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
         private int _criticalChance = 50;
         private int _hitChance = 75;
         public virtual string Name { get; set; }
-        public virtual CardImages CardImages { get; set; }
+        public virtual ICardImages CardImages { get; set; }
         public virtual int Hp { get; set; } = 0;
         public virtual int Atk { get; set; } = 0;
         public virtual int Def { get; set; } = 0;
@@ -26,7 +26,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
             get => _hitChance;
             set => _hitChance = value > 100 ? (int)100 : value;
         }
-        public virtual IList<CardAttribute> Attributes { get; set; } = new List<CardAttribute>();
+        public virtual IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
         public virtual IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
         public string Description { get; set; }
         public string CardDescription => !string.IsNullOrWhiteSpace(Description) ? Description : string.Join(",", CreateCardDescription());

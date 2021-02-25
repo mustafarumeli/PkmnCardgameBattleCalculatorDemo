@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using BattleCalculatorDemo.AbstractionLayer;
 using MongoORM4NetCore.Interfaces;
 
 namespace BattleCalculatorDemo.Cards.MonsterType
@@ -10,7 +11,7 @@ namespace BattleCalculatorDemo.Cards.MonsterType
         public string Icon { get; } = "rock.png";
         public ArrayList TypeAgainst { get; } = new ArrayList();
 
-        public IList<MonsterTypeMultiplier> MultiplierAgainstTypes { get; } = new List<MonsterTypeMultiplier>();
+        public IList<IMonsterTypeMultiplier> MultiplierAgainstTypes { get; } = new List<IMonsterTypeMultiplier>();
 
         public PaperMonsterType()
         {

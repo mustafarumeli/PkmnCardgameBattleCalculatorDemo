@@ -1,12 +1,10 @@
-﻿using BattleCalculatorDemo.Cards.CardAttributes;
-
-namespace BattleCalculatorDemo.Cards.ItemCards
+﻿namespace BattleCalculatorDemo.AbstractionLayer
 {
     public interface IItemCard : ICard
     {
         void Affect(IVariableParameter variableParameter);
     }
-    public interface IItemCard<T> : IItemCard where T : IVariableParameter
+    public interface IItemCard<in T> : IItemCard where T : IVariableParameter
     {
         void Affect(T variableParameter);
 

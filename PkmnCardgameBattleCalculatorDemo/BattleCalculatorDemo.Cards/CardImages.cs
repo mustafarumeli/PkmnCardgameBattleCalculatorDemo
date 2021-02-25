@@ -1,6 +1,8 @@
-﻿namespace BattleCalculatorDemo.Cards
+﻿using BattleCalculatorDemo.AbstractionLayer;
+
+namespace BattleCalculatorDemo.Cards
 {
-    public class CardImages
+    public class CardImages : ICardImages
     {
         public CardImages(string artwork, string cardImage)
         {
@@ -16,4 +18,6 @@
         public string Artwork { get; set; }
 
     }
+
+
 }

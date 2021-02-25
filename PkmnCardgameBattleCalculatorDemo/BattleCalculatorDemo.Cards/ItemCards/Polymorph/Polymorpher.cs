@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BattleCalculatorDemo.AbstractionLayer;
 using BattleCalculatorDemo.Cards.CardAttributes;
 using BattleCalculatorDemo.Cards.MonsterCards;
 
@@ -16,7 +17,7 @@ namespace BattleCalculatorDemo.Cards.ItemCards.Polymorph
                 return new()
                 {
                     Atk = leftCard.Atk + rightCard.Atk,
-                    Attributes = (IList<CardAttribute>)CombineAttributes(
+                    Attributes = (IList<ICardAttribute>)CombineAttributes(
                        leftCard.Attributes.Select(x => x as ICardAttributeAffectVariable).ToList(),
                        rightCard.Attributes.Select(x => x as ICardAttributeAffectVariable).ToList()),
                     CriticalChance = Math.Max(leftCard.CriticalChance, rightCard.CriticalChance),

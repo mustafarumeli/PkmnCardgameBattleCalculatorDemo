@@ -1,8 +1,9 @@
 ﻿using System;
+using BattleCalculatorDemo.AbstractionLayer;
 
 namespace BattleCalculatorDemo.Cards.MonsterType
 {
-    public class MonsterTypeMultiplier
+    public class MonsterTypeMultiplier : IMonsterTypeMultiplier
     {
 
         public double Modifier { get; }
@@ -19,4 +20,6 @@ namespace BattleCalculatorDemo.Cards.MonsterType
             return new(modifier, typeof(T));
         }
     }
+
+ 
 }

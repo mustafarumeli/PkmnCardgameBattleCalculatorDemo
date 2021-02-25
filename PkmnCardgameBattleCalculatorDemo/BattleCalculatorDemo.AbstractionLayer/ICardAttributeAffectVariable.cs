@@ -1,4 +1,4 @@
-﻿namespace BattleCalculatorDemo.Cards.CardAttributes
+﻿namespace BattleCalculatorDemo.AbstractionLayer
 {
     public interface ICardAttributeAffectVariable<in T> : ICardAttributeAffectVariable where T : IVariableParameter
     {

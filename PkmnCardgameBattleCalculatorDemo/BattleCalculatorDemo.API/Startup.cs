@@ -34,11 +34,11 @@ namespace BattleCalculatorDemo.API
 
             BsonRegister();
             MongoDbConnection.InitializeAndStartConnection(
-                "mongodb+srv://dbusr:TgFbMteUpmbWuQKv@cluster0.zvps8.mongodb.net/pkmndb?retryWrites=true&w=majority", "pkmndb");
+                "mongodb+srv://dbusr:TgFbMteUpmbWuQKv@cluster0.zvps8.mongodb.net/pkmndb?retryWrites=true&w=majority",
+                "pkmndb");
             services.AddSingleton<MonsterCrud>();
             services.AddSingleton<Crud<CardAttribute>>();
             services.AddSwaggerGen();
-
         }
 
         private static void BsonRegister()
@@ -61,11 +61,9 @@ namespace BattleCalculatorDemo.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
 
             app.UseHttpsRedirection();
 
@@ -73,10 +71,7 @@ namespace BattleCalculatorDemo.API
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

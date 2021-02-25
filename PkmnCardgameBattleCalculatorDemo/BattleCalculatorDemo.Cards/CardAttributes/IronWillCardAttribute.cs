@@ -1,4 +1,6 @@
 ﻿using System;
+using BattleCalculatorDemo.AbstractionLayer;
+using BattleCalculatorDemo.Cards.CardAttributes.CardParamaters;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace BattleCalculatorDemo.Cards.CardAttributes

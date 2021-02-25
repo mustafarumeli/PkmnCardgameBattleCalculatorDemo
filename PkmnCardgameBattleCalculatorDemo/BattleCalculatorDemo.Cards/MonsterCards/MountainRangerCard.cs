@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using BattleCalculatorDemo.AbstractionLayer;
 using BattleCalculatorDemo.Cards.CardAttributes;
 using BattleCalculatorDemo.Cards.ItemCards.Evolve;
 using BattleCalculatorDemo.Cards.MonsterType;
@@ -36,7 +37,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
         {
             _drawHandler = new MountainRangerCardOnDrawHandler(this);
         }
-        public override IList<CardAttribute> Attributes { get; set; } = new List<CardAttribute>()
+        public override IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>()
         {
             new IronWillCardAttribute(),
             new HardShellCardAttribute(25)

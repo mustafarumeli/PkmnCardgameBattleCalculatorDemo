@@ -15,4 +15,8 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BattleCalculatorDemo.AbstractionLayer\BattleCalculatorDemo.AbstractionLayer.csproj" />
+  </ItemGroup>
+
 </Project>

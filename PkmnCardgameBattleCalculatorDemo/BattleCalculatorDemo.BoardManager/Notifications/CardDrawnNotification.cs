@@ -1,8 +1,11 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using BattleCalculatorDemo.AbstractionLayer;
 using BattleCalculatorDemo.BoardManager.Interfaces;
 using BattleCalculatorDemo.Cards.MonsterCards;
 using MediatR;
+using IBoardManager = BattleCalculatorDemo.BoardManager.Interfaces.IBoardManager;
 
 namespace BattleCalculatorDemo.BoardManager.Notifications
 {
@@ -16,7 +19,7 @@ namespace BattleCalculatorDemo.BoardManager.Notifications
     {
         public Task<Unit> Handle(CardDrawnNotification request, CancellationToken cancellationToken)
         {
-            request.MonsterCard.Attributes.
+            throw new NotImplementedException();
         }
     }
 }

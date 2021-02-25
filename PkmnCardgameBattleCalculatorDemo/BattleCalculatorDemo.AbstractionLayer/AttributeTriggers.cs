@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BattleCalculatorDemo.Cards
+namespace BattleCalculatorDemo.AbstractionLayer
 {
     [Flags]
     public enum AttributeTriggers

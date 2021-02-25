@@ -1,4 +1,4 @@
-﻿namespace BattleCalculatorDemo.Cards.CardAttributes
+﻿namespace BattleCalculatorDemo.AbstractionLayer
 {
     public interface ICardAttributeRevertableVariable<in T> : ICardAttributeRevertableVariable where T : IVariableParameter
     {

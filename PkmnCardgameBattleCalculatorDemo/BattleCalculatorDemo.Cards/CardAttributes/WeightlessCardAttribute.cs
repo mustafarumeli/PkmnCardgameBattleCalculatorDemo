@@ -1,4 +1,6 @@
 ﻿using System;
+using BattleCalculatorDemo.AbstractionLayer;
+using BattleCalculatorDemo.Cards.CardAttributes.CardParamaters;
 
 namespace BattleCalculatorDemo.Cards.CardAttributes
 {

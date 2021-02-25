@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using BattleCalculatorDemo.AbstractionLayer;
 
 namespace BattleCalculatorDemo.Cards.MonsterType
 {
@@ -9,7 +10,7 @@ namespace BattleCalculatorDemo.Cards.MonsterType
     {
         public string Name { get; } = "Glass";
         public string Icon { get; } = "glass.png";
-        public IList<MonsterTypeMultiplier> MultiplierAgainstTypes { get; } = new List<MonsterTypeMultiplier>();
+        public IList<IMonsterTypeMultiplier> MultiplierAgainstTypes { get; } = new List<IMonsterTypeMultiplier>();
 
         public GlassMonsterType()
         {
