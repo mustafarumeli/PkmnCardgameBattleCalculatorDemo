@@ -2,7 +2,9 @@
 {
     public interface ICardAttribute
     {
-        string Name { get; set; }
-        string Description { get; set; }
+        string Name { get;  }
+        string Description { get;  }
+        AttributeTriggers TriggerAttributeOn { get; }
+
     }
 }
