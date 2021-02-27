@@ -9,6 +9,11 @@ namespace BattleCalculatorDemo.Cards.CardAttributes.Utils
 {
     public static class AttributeListExtension
     {
+        public static IList<ICardAttribute> WithBlindEye(this IList<ICardAttribute> list, int ratio)
+        {
+            list.Add(new BlindEyeAttribute(ratio));
+            return list;
+        }
         public static IList<ICardAttribute> WithBold(this IList<ICardAttribute> list)
         {
             list.Add(new BoldCardAttribute());
@@ -22,6 +27,11 @@ namespace BattleCalculatorDemo.Cards.CardAttributes.Utils
         public static IList<ICardAttribute> WithChama(this IList<ICardAttribute> list)
         {
             list.Add(new ChamaCardAttribute());
+            return list;
+        }
+        public static IList<ICardAttribute> WithCoward(this IList<ICardAttribute> list)
+        {
+            list.Add(new CowardCardAttribute());
             return list;
         }
         public static IList<ICardAttribute> WithCradle(this IList<ICardAttribute> list)
@@ -110,9 +120,9 @@ namespace BattleCalculatorDemo.Cards.CardAttributes.Utils
             list.Add(new TargetCardAttribute());
             return list;
         }
-        public static IList<ICardAttribute> WithThinker(this IList<ICardAttribute> list, int thinkerCount,string desc)
+        public static IList<ICardAttribute> WithThinker(this IList<ICardAttribute> list, int thinkerCount, string desc)
         {
-            list.Add(new ThinkerCardAttribute(thinkerCount,desc));
+            list.Add(new ThinkerCardAttribute(thinkerCount, desc));
             return list;
         }
         public static IList<ICardAttribute> WithWeightless(this IList<ICardAttribute> list, int chance, int ratio)

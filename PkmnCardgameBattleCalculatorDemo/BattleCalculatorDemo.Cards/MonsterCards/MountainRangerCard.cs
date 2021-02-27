@@ -479,5 +479,151 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
         }
     }
 
+    public class AhckCard : MonsterCard, IEvolve<JackCard>
+    {
+        public override string Name { get; set; } = "Ahck";
+        public override ICardImages CardImages { get; set; }
+        public override int Hp { get; set; } = 50;
+        public override int Atk { get; set; } = 100;
+        public override int Def { get; set; } = 25;
+        public sealed override IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
+        public sealed override IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
+
+        public AhckCard()
+        {
+            Types.HasScissors();
+        }
+
+        public JackCard Evolve()
+        {
+            return new();
+        }
+
+    }
+    public class JackCard : MonsterCard, IDevolve<AhckCard>, IEvolve<BhansCard>
+    {
+        public override string Name { get; set; } = "Jack";
+        public override ICardImages CardImages { get; set; }
+        public override int Hp { get; set; } = 100;
+        public override int Atk { get; set; } = 200;
+        public override int Def { get; set; } = 25;
+        public sealed override IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
+        public sealed override IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
+
+        public JackCard()
+        {
+            Attributes.WithEarlyBird();
+            Types.HasScissors();
+        }
+
+        public BhansCard Evolve()
+        {
+            return new();
+        }
+        public AhckCard Devolve()
+        {
+            return new();
+        }
+    }
+    public class BhansCard : MonsterCard, IDevolve<JackCard>, INotificationHandler<TurnPassedNotification>
+    {
+        public override string Name { get; set; } = "Bhans";
+        public override ICardImages CardImages { get; set; }
+        public override int Hp { get; set; } = 50;
+        public override int Atk { get; set; } = 400;
+        public override int Def { get; set; } = 25;
+        public sealed override IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
+        public sealed override IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
+
+        public BhansCard()
+        {
+            Attributes.WithLoneWolf("Gain Bold");
+            Types.HasScissors();
+        }
+
+        public JackCard Devolve()
+        {
+            return new();
+        }
+
+        public Task Handle(TurnPassedNotification notification, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class FeMaleCard : MonsterCard, IEvolve<DwayCard>
+    {
+        public override string Name { get; set; } = "Fe Male";
+        public override ICardImages CardImages { get; set; }
+        public override int Hp { get; set; } = 80;
+        public override int Atk { get; set; } = 25;
+        public override int Def { get; set; } = 110;
+        public sealed override IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
+        public sealed override IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
+
+        public FeMaleCard()
+        {
+            Attributes.WithIronWill();
+            Types.HasRock();
+        }
+
+        public DwayCard Evolve()
+        {
+            return new();
+        }
+
+    }
+    public class DwayCard : MonsterCard, IDevolve<FeMaleCard>, IEvolve<JohnsCard>, INotificationHandler<TurnPassedNotification>
+    {
+        public override string Name { get; set; } = "Dway";
+        public override ICardImages CardImages { get; set; }
+        public override int Hp { get; set; } = 150;
+        public override int Atk { get; set; } = 30;
+        public override int Def { get; set; } = 190;
+        public sealed override IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
+        public sealed override IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
+
+        public DwayCard()
+        {
+            Attributes.WithLazy().WithCoward();
+            Types.HasRock();
+        }
+
+        public JohnsCard Evolve()
+        {
+            return new();
+        }
+        public FeMaleCard Devolve()
+        {
+            return new();
+        }
+
+        Task INotificationHandler<TurnPassedNotification>.Handle(TurnPassedNotification notification, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class JohnsCard : MonsterCard, IDevolve<DwayCard>
+    {
+        public override string Name { get; set; } = "Johns";
+        public override ICardImages CardImages { get; set; }
+        public override int Hp { get; set; } = 200;
+        public override int Atk { get; set; } = 30;
+        public override int Def { get; set; } = 450;
+        public sealed override IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
+        public sealed override IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
+
+        public JohnsCard()
+        {
+
+        }
+        public DwayCard Devolve()
+        {
+            return new();
+        }
+    }
+
+
 
 }
