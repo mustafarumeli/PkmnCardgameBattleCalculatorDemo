@@ -6,23 +6,31 @@ using BattleCalculatorDemo.Cards.MonsterType.Utils;
 
 namespace BattleCalculatorDemo.Cards.MonsterCards
 {
-    public class SquamationCard : MonsterCard, IEvolve<AnnulatedCard>
+    public class ShazhCard : MonsterCard, IEvolve<KhorCard>, IDevolve<PapyrCard>
     {
-        public override string Name { get; set; } = "Squamation";
+        public override string Name { get; set; } = "Shazh";
         public override ICardImages CardImages { get; set; }
-        public override int Hp { get; set; } = 100;
+        public override int Hp { get; set; } = 70;
         public override int Atk { get; set; } = 50;
-        public override int Def { get; set; } = 75;
+        public override int Def { get; set; } = 25;
+
         public sealed override IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
+
         public sealed override IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
 
-        public SquamationCard()
+        public ShazhCard()
         {
-            Attributes.WithChama();
-            Types.HasPaper();
+            Attributes.WithEarlyBird().WithWeightless(20, 5);
+            Types.HasPaper().HasGlass();
         }
 
-        public AnnulatedCard Evolve()
+        public KhorCard Evolve()
+        {
+            return new();
+        }
+
+
+        public PapyrCard Devolve()
         {
             return new();
         }

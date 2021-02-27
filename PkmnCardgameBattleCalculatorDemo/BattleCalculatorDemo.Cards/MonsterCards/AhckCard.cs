@@ -1,30 +1,29 @@
 using System.Collections.Generic;
 using BattleCalculatorDemo.AbstractionLayer;
-using BattleCalculatorDemo.Cards.CardAttributes.Utils;
 using BattleCalculatorDemo.Cards.ItemCards.Evolve;
 using BattleCalculatorDemo.Cards.MonsterType.Utils;
 
 namespace BattleCalculatorDemo.Cards.MonsterCards
 {
-    public class SquamationCard : MonsterCard, IEvolve<AnnulatedCard>
+    public class AhckCard : MonsterCard, IEvolve<JackCard>
     {
-        public override string Name { get; set; } = "Squamation";
+        public override string Name { get; set; } = "Ahck";
         public override ICardImages CardImages { get; set; }
-        public override int Hp { get; set; } = 100;
-        public override int Atk { get; set; } = 50;
-        public override int Def { get; set; } = 75;
+        public override int Hp { get; set; } = 50;
+        public override int Atk { get; set; } = 100;
+        public override int Def { get; set; } = 25;
         public sealed override IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
         public sealed override IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
 
-        public SquamationCard()
+        public AhckCard()
         {
-            Attributes.WithChama();
-            Types.HasPaper();
+            Types.HasScissors();
         }
 
-        public AnnulatedCard Evolve()
+        public JackCard Evolve()
         {
             return new();
         }
+
     }
 }

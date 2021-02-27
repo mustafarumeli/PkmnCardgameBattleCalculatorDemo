@@ -6,23 +6,27 @@ using BattleCalculatorDemo.Cards.MonsterType.Utils;
 
 namespace BattleCalculatorDemo.Cards.MonsterCards
 {
-    public class SquamationCard : MonsterCard, IEvolve<AnnulatedCard>
+    public class JackCard : MonsterCard, IDevolve<AhckCard>, IEvolve<BhansCard>
     {
-        public override string Name { get; set; } = "Squamation";
+        public override string Name { get; set; } = "Jack";
         public override ICardImages CardImages { get; set; }
         public override int Hp { get; set; } = 100;
-        public override int Atk { get; set; } = 50;
-        public override int Def { get; set; } = 75;
+        public override int Atk { get; set; } = 200;
+        public override int Def { get; set; } = 25;
         public sealed override IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
         public sealed override IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
 
-        public SquamationCard()
+        public JackCard()
         {
-            Attributes.WithChama();
-            Types.HasPaper();
+            Attributes.WithEarlyBird();
+            Types.HasScissors();
         }
 
-        public AnnulatedCard Evolve()
+        public BhansCard Evolve()
+        {
+            return new();
+        }
+        public AhckCard Devolve()
         {
             return new();
         }

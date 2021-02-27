@@ -20,7 +20,7 @@ namespace BattleCalculatorDemo.Game
             builder.RegisterType<BoardManagerObject>().As<IBoardManager>();
             var container = builder.Build();
             var mountainRangerCard = new MountainRangerCard();
-            var squamation = new Squamation();
+            var squamation = new SquamationCard();
 
             var combatResult = mountainRangerCard.Attacks(squamation);
 
