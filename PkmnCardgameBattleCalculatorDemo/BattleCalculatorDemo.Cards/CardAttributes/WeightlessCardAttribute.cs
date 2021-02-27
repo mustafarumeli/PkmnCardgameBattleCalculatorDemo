@@ -47,5 +47,10 @@ namespace BattleCalculatorDemo.Cards.CardAttributes
             var otherVal = other._ratio * 0.5 + other._chance * 0.5;
             return thisVal.CompareTo(otherVal);
         }
+
+        public override string GetCardSpecificDescription()
+        {
+            return Name + " " + _chance + " " + _ratio;
+        }
     }
 }

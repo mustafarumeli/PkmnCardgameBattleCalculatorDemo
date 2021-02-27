@@ -122,7 +122,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
 
         public MarlCard()
         {
-            Attributes.WithShower();
+            Attributes.WithShower("Attack a random enemy");
             Types.HasScissors().HasGlass();
         }
 
@@ -152,7 +152,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
         public sealed override IList<IMonsterType> Types { get; set; }
         public EnebergCard()
         {
-            Attributes.WithShower();
+            Attributes.WithShower("Attack a random enemy twice");
             Types.HasScissors().HasGlass();
         }
         public MarlCard Devolve()
@@ -274,7 +274,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
 
         public CharshCard()
         {
-            Attributes.WithBold().WithWill();
+            Attributes.WithBold().WithWill("Damage every monster on field by 20");
             Types.HasSound();
         }
 
@@ -339,7 +339,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
         }
 
     }
-    public class FeatherBoyCard : MonsterCard, IEvolve<AngryEagleCard>, IDevolve<SurpriseEggCard>,INotificationHandler<CardPlayedNotification>
+    public class FeatherBoyCard : MonsterCard, IEvolve<AngryEagleCard>, IDevolve<SurpriseEggCard>, INotificationHandler<CardPlayedNotification>
     {
         public override string Name { get; set; } = "Feather Boy";
         public override ICardImages CardImages { get; set; }
@@ -351,7 +351,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
 
         public FeatherBoyCard()
         {
-            Attributes.WithShower();
+            Attributes.WithShower("Evolve a random ally");
             Types.HasGlass();
         }
 
@@ -369,7 +369,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
             throw new NotImplementedException();
         }
     }
-    public class AngryEagleCard : MonsterCard,IDevolve<FeatherBoyCard>,INotificationHandler<CardEvolvedNotification>
+    public class AngryEagleCard : MonsterCard, IDevolve<FeatherBoyCard>, INotificationHandler<CardEvolvedNotification>
     {
         public override string Name { get; set; } = "Angry Eagle";
         public override ICardImages CardImages { get; set; }
@@ -381,10 +381,10 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
 
         public AngryEagleCard()
         {
-            Attributes.WithShower();
+            Attributes.WithShower("Evolve all monsters on board");
             Types.HasGlass().HasRock();
         }
-     
+
         public FeatherBoyCard Devolve()
         {
             return new();
@@ -396,7 +396,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
         }
     }
 
-    public class ReflektorCard : MonsterCard, IEvolve<AbsorberCard> , INotificationHandler<CardPlayedNotification>
+    public class ReflektorCard : MonsterCard, IEvolve<AbsorberCard>, INotificationHandler<CardPlayedNotification>
     {
         public override string Name { get; set; } = "Reflektor";
         public override ICardImages CardImages { get; set; }
@@ -408,7 +408,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
 
         public ReflektorCard()
         {
-            Attributes.WithEarlyBird().WithShower();
+            Attributes.WithEarlyBird().WithShower("Can't Be targeted by monsters");
             Types.HasGlass().HasRock();
         }
 
@@ -422,7 +422,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
             throw new NotImplementedException();
         }
     }
-    public class AbsorberCard : MonsterCard, IEvolve<MatteCard>,IDevolve<ReflektorCard> , INotificationHandler<CardEvolvedNotification>
+    public class AbsorberCard : MonsterCard, IEvolve<MatteCard>, IDevolve<ReflektorCard>, INotificationHandler<CardEvolvedNotification>
     {
         public override string Name { get; set; } = "Absorber";
         public override ICardImages CardImages { get; set; }
@@ -434,7 +434,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
 
         public AbsorberCard()
         {
-            Attributes.WithEarlyBird().WithShower();
+            Attributes.WithEarlyBird().WithShower("Can't Be targeted by monsters");
             Types.HasRock().HasGlass();
         }
 
@@ -452,7 +452,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
             throw new NotImplementedException();
         }
     }
-    public class MatteCard : MonsterCard,IDevolve<AbsorberCard>, INotificationHandler<CardDiedNotification>
+    public class MatteCard : MonsterCard, IDevolve<AbsorberCard>, INotificationHandler<CardDiedNotification>
     {
         public override string Name { get; set; } = "Matte";
         public override ICardImages CardImages { get; set; }
@@ -464,7 +464,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
 
         public MatteCard()
         {
-            Attributes.WithTarget().WithWill();
+            Attributes.WithTarget().WithWill("Give a random ally Target");
             Types.HasRock().HasGlass();
         }
 

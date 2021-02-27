@@ -12,5 +12,9 @@ namespace BattleCalculatorDemo.Cards.CardAttributes
         private readonly int _turnCount;
         public override string Name => "Germaphobe";
         public override string Description => $"Takes {_turnCount} times more damage from items";
+        public override string GetCardSpecificDescription()
+        {
+            return Name + " " + _turnCount;
+        }
     }
 }

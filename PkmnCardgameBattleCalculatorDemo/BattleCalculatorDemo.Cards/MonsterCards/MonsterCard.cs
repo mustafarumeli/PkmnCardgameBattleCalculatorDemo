@@ -28,12 +28,11 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
         }
         public abstract IList<ICardAttribute> Attributes { get; set; }
         public abstract IList<IMonsterType> Types { get; set; }
-        public string Description { get; set; }
-        public string CardDescription => !string.IsNullOrWhiteSpace(Description) ? Description : string.Join(",", CreateCardDescription());
+        public string Description => string.Join(",", CreateCardDescription());
 
         private IEnumerable<string> CreateCardDescription()
         {
-            return Attributes.Select(cardAttribute => cardAttribute.Name);
+            return Attributes.Select(cardAttribute => cardAttribute.GetCardSpecificDescription());
         }
         public void AddTypes(params IMonsterType[] monsterTypes)
         {

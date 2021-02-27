@@ -75,14 +75,14 @@ namespace BattleCalculatorDemo.Cards.CardAttributes.Utils
             list.Add(new LazyCardAttribute());
             return list;
         }
-        public static IList<ICardAttribute> WithLoneWolf(this IList<ICardAttribute> list)
+        public static IList<ICardAttribute> WithLoneWolf(this IList<ICardAttribute> list, string desc)
         {
-            list.Add(new LoneWolfCardAttribute());
+            list.Add(new LoneWolfCardAttribute(desc));
             return list;
         }
-        public static IList<ICardAttribute> WithSecondWind(this IList<ICardAttribute> list)
+        public static IList<ICardAttribute> WithSecondWind(this IList<ICardAttribute> list, int healthThreshold, string desc)
         {
-            list.Add(new LoneWolfCardAttribute());
+            list.Add(new SecondWindCardAttribute(healthThreshold, desc));
             return list;
         }
         public static IList<ICardAttribute> WithSharper(this IList<ICardAttribute> list)
@@ -95,14 +95,14 @@ namespace BattleCalculatorDemo.Cards.CardAttributes.Utils
             list.Add(new ShatteredCardAttribute(ratio));
             return list;
         }
-        public static IList<ICardAttribute> WithShower(this IList<ICardAttribute> list)
+        public static IList<ICardAttribute> WithShower(this IList<ICardAttribute> list, string desc)
         {
-            list.Add(new ShowerCardAttribute());
+            list.Add(new ShowerCardAttribute(desc));
             return list;
         }
-        public static IList<ICardAttribute> WithSociopath(this IList<ICardAttribute> list, int monsterCount)
+        public static IList<ICardAttribute> WithSociopath(this IList<ICardAttribute> list, int monsterCount, string desc)
         {
-            list.Add(new SociopathCardAttribute(monsterCount));
+            list.Add(new SociopathCardAttribute(monsterCount, desc));
             return list;
         }
         public static IList<ICardAttribute> WithTarget(this IList<ICardAttribute> list)
@@ -110,9 +110,9 @@ namespace BattleCalculatorDemo.Cards.CardAttributes.Utils
             list.Add(new TargetCardAttribute());
             return list;
         }
-        public static IList<ICardAttribute> WithThinker(this IList<ICardAttribute> list, int thinkerCount)
+        public static IList<ICardAttribute> WithThinker(this IList<ICardAttribute> list, int thinkerCount,string desc)
         {
-            list.Add(new ThinkerCardAttribute(thinkerCount));
+            list.Add(new ThinkerCardAttribute(thinkerCount,desc));
             return list;
         }
         public static IList<ICardAttribute> WithWeightless(this IList<ICardAttribute> list, int chance, int ratio)
@@ -120,9 +120,9 @@ namespace BattleCalculatorDemo.Cards.CardAttributes.Utils
             list.Add(new WeightlessCardAttribute(chance, ratio));
             return list;
         }
-        public static IList<ICardAttribute> WithWill(this IList<ICardAttribute> list)
+        public static IList<ICardAttribute> WithWill(this IList<ICardAttribute> list, string desc)
         {
-            list.Add(new WillCardAttribute());
+            list.Add(new WillCardAttribute(desc));
             return list;
         }
     }

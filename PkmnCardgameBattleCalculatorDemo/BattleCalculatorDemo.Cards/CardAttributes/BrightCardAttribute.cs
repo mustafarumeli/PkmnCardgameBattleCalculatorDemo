@@ -4,6 +4,7 @@ using BattleCalculatorDemo.Cards.CardAttributes.CardParamaters;
 namespace BattleCalculatorDemo.Cards.CardAttributes
 {
     public class BrightCardAttribute :
+        CardAttribute,
         ICardAttributeRevertableVariable<DoubleCardParameter>,
         ICardAttributeAffectVariable<DoubleCardParameter>
     {
@@ -26,6 +27,11 @@ namespace BattleCalculatorDemo.Cards.CardAttributes
         {
             _attackChanceToRevert = parameter.Other.HitChance;
             parameter.Other.HitChance = (int)parameter.Other.HitChance * _attackChanceRatio / 100;
+        }
+
+        public override string GetCardSpecificDescription()
+        {
+            return Name + " " + _attackChanceRatio;
         }
     }
 }

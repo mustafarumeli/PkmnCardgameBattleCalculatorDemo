@@ -27,5 +27,10 @@ namespace BattleCalculatorDemo.Cards.CardAttributes
         {
             return Ratio.CompareTo(other);
         }
+
+        public override string GetCardSpecificDescription()
+        {
+            return Name + " " + Ratio;
+        }
     }
 }

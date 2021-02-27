@@ -35,5 +35,10 @@ namespace BattleCalculatorDemo.Cards.CardAttributes
         {
             return _value.CompareTo(other._value);
         }
+
+        public override string GetCardSpecificDescription()
+        {
+            return Name + " " + _value;
+        }
     }
 }
