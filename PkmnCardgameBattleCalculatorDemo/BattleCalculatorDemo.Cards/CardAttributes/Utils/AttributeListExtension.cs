@@ -39,6 +39,11 @@ namespace BattleCalculatorDemo.Cards.CardAttributes.Utils
             list.Add(new DeterminedCardAttribute());
             return list;
         }
+        public static IList<ICardAttribute> WithEarlyBird(this IList<ICardAttribute> list)
+        {
+            list.Add(new EarlyBirdCardAttribute());
+            return list;
+        }
         public static IList<ICardAttribute> WithFastFeet(this IList<ICardAttribute> list)
         {
             list.Add(new FastFeetCardAttribute());
@@ -54,6 +59,12 @@ namespace BattleCalculatorDemo.Cards.CardAttributes.Utils
             list.Add(new HardShellCardAttribute(val));
             return list;
         }
+        public static IList<ICardAttribute> WithHyped(this IList<ICardAttribute> list)
+        {
+            list.Add(new HypedCardAttribute());
+            return list;
+        }
+
         public static IList<ICardAttribute> WithIronWill(this IList<ICardAttribute> list)
         {
             list.Add(new IronWillCardAttribute());
@@ -79,6 +90,11 @@ namespace BattleCalculatorDemo.Cards.CardAttributes.Utils
             list.Add(new SharperCardAttribute());
             return list;
         }
+        public static IList<ICardAttribute> WithShattered(this IList<ICardAttribute> list, int ratio)
+        {
+            list.Add(new ShatteredCardAttribute(ratio));
+            return list;
+        }
         public static IList<ICardAttribute> WithShower(this IList<ICardAttribute> list)
         {
             list.Add(new ShowerCardAttribute());
@@ -99,9 +115,9 @@ namespace BattleCalculatorDemo.Cards.CardAttributes.Utils
             list.Add(new ThinkerCardAttribute(thinkerCount));
             return list;
         }
-        public static IList<ICardAttribute> WithWeightless(this IList<ICardAttribute> list)
+        public static IList<ICardAttribute> WithWeightless(this IList<ICardAttribute> list, int chance, int ratio)
         {
-            list.Add(new WeightlessCardAttribute());
+            list.Add(new WeightlessCardAttribute(chance, ratio));
             return list;
         }
         public static IList<ICardAttribute> WithWill(this IList<ICardAttribute> list)

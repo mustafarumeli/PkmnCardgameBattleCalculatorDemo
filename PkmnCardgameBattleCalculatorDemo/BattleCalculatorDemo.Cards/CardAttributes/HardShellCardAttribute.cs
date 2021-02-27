@@ -16,6 +16,7 @@ namespace BattleCalculatorDemo.Cards.CardAttributes
 
         public HardShellCardAttribute(int value)
         {
+
             _value = value;
         }
 

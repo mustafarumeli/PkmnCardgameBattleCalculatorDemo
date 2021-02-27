@@ -4,7 +4,6 @@ using BattleCalculatorDemo.Cards.CardAttributes.CardParamaters;
 
 namespace BattleCalculatorDemo.Cards.CardAttributes
 {
-    [CardAttributeStatus(isBeta: false, variableCount: 0, name: "Sharper")]
     public class SharperCardAttribute :
         CardAttribute,
         ICardAttributeAffectVariable<SelfCardParameter>,

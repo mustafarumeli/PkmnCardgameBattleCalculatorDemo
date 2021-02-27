@@ -27,13 +27,10 @@ namespace BattleCalculatorDemo.Cards.Helpers
 
             if (defender.Hp > 0)
             {
-                CalculateEffects(defender, attacker, AttributeTriggers.AfterDefense);
-            }
-            else
-            {
                 combatResult.DidDefenderDie = true;
             }
 
+            CalculateEffects(defender, attacker, AttributeTriggers.AfterDefense);
             RevertEffects(attacker, defender, AttributeTriggers.BeforeAttack);
             RevertEffects(defender, attacker, AttributeTriggers.BeforeDefense);
         }

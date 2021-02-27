@@ -9,13 +9,6 @@ namespace BattleCalculatorDemo.Cards.CardAttributes
     {
         public virtual string Name { get; set; }
         public virtual string Description { get; set; }
+        public AttributeTriggers TriggerAttributeOn { get; }
     }
-
-
-    public class EarlyBirdCardAttribute : CardAttribute
-    {
-        public override string Name { get; set; } = "Early Bird";
-        public override string Description { get; set; } = "Evolves 1 turn faster";
-    }
-
 }
