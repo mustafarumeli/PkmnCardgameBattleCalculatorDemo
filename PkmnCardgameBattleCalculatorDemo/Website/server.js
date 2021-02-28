@@ -65,6 +65,19 @@ app.post('/GetCards', function (req, res) {
 		});
 });
 
+app.post('/battle', async function (req, res) {
+	var config = {
+		method: 'post',
+		url: BASEURL + '/api/Gui/Battle',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		data: req.body.battleSides,
+	};
+	var t = await axiosFacade(config);
+	res.send(t.data);
+});
+
 app.listen(3230, function () {
 	console.log('Example app listening on port 3230!');
 });

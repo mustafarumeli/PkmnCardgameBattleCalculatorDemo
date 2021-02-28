@@ -14,11 +14,6 @@ namespace BattleCalculatorDemo.Cards.MonsterType
             foreach (var element in elements)
             {
                 var tempMultiplier = GetBasicMultiplier(element, defender.Types);
-                if (tempMultiplier < 0.01)
-                {
-                    return 0;
-                }
-
                 multiplier += tempMultiplier;
             }
 

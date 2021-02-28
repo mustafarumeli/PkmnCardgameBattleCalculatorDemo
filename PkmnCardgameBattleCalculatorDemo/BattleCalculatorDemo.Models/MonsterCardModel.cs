@@ -24,7 +24,7 @@ namespace BattleCalculatorDemo.Models
 
         public MonsterCardModel MapImages(List<CardImageEntity> crud)
         {
-            var cardImageEntity = crud.FirstOrDefault(x => x.CardId == Id);
+            var cardImageEntity = crud?.FirstOrDefault(x => x.CardId == Id);
             if (cardImageEntity != null)
             {
                 CardImage = cardImageEntity.CardImage;
@@ -33,5 +33,11 @@ namespace BattleCalculatorDemo.Models
 
             return this;
         }
+    }
+
+    public class BattleModel
+    {
+        public string AttackerId { get; set; }
+        public string DefenderId { get; set; }
     }
 }

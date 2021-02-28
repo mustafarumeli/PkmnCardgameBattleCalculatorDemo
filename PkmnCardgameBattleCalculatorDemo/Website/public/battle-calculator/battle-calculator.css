@@ -1,0 +1,104 @@
+* {
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+    background-color: rgba(120, 85, 125, 0.9);
+}
+.container {
+	display: flex;
+	flex-direction: row;
+	margin: 0 auto;
+	width: 880px;
+}
+.attacker {
+	width: 420px;
+	color: white;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+.attacker div {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 5px;
+}
+.attacker div label {
+	font-size: 24px;
+	padding-right: 24px;
+	min-width: 200px;
+	max-width: 200px;
+}
+.attacker div select {
+	background-color: black;
+	font-size: 24px;
+	color: white;
+	max-width: 200px;
+	width: 200px;
+	min-width: 200px;
+}
+.attacker div select::-webkit-scrollbar {
+	display: none;
+}
+.attacker div input[type='number'] {
+	background-color: black;
+	font-size: 24px;
+	color: white;
+	max-width: 200px;
+	width: 200px;
+	min-width: 200px;
+}
+.attacker div input[type='number']::-webkit-inner-spin-button,
+.attacker div input[type='number']::-webkit-outer-spin-button {
+	display: none;
+}
+
+.defender {
+	width: 420px;
+	color: white;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+.defender div {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 5px;
+}
+.defender div label {
+	font-size: 24px;
+	padding-right: 24px;
+	min-width: 200px;
+	max-width: 200px;
+}
+.defender div select {
+	background-color: black;
+	font-size: 24px;
+	color: white;
+	max-width: 200px;
+	width: 200px;
+	min-width: 200px;
+}
+.defender div select::-webkit-scrollbar {
+	display: none;
+}
+.defender div input[type='number'] {
+	background-color: black;
+	font-size: 24px;
+	color: white;
+	max-width: 200px;
+	width: 200px;
+	min-width: 200px;
+}
+.defender div input[type='number']::-webkit-inner-spin-button,
+.defender div input[type='number']::-webkit-outer-spin-button {
+	display: none;
+}
+
+#btnCalculate {
+	color: white;
+	background: rgb(20, 160, 60);
+	padding: 15px;
+	border-radius: 5px;
+	font-size: 24pt;
+	margin: 0 auto;
+}

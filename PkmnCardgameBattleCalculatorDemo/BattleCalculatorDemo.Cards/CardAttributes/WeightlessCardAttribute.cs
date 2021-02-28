@@ -14,8 +14,6 @@ namespace BattleCalculatorDemo.Cards.CardAttributes
         public int _chance;
         public int _ratio;
         public override string Name { get; set; } = "Weightless";
-        //protected override Type Type { get; set; } = typeof(WeightlessCardAttribute);
-
         public WeightlessCardAttribute(int chance, int ratio)
         {
             _chance = chance;

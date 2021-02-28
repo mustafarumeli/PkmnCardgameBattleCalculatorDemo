@@ -25,7 +25,7 @@ namespace BattleCalculatorDemo.Cards.Helpers
         {
             CalculateEffects(attacker, defender, AttributeTriggers.AfterAttack);
 
-            if (defender.Hp > 0)
+            if (defender.Hp <= 0)
             {
                 combatResult.DidDefenderDie = true;
             }
@@ -49,7 +49,7 @@ namespace BattleCalculatorDemo.Cards.Helpers
         }
         private static void RevertEffects(MonsterCard attacker, MonsterCard defender, AttributeTriggers trigger)
         {
-            foreach (ICardAttributeRevertableVariable attackerAttribute in attacker.Attributes.Where(x => ((ICardAttributeAffectVariable)x).TriggerAttributeOn == trigger && x is ICardAttributeRevertableVariable))
+            foreach (ICardAttributeRevertableVariable attackerAttribute in attacker.Attributes.Where(x => x.TriggerAttributeOn == trigger && x is ICardAttributeRevertableVariable))
             {
                 IVariableParameter parameter = attackerAttribute switch
                 {
@@ -109,7 +109,7 @@ namespace BattleCalculatorDemo.Cards.Helpers
         }
         private static void CalculateEffects(MonsterCard attacker, MonsterCard defender, AttributeTriggers trigger, CombatResult dei = null)
         {
-            foreach (ICardAttributeAffectVariable attackerAttribute in attacker.Attributes.Where(x => (x as ICardAttributeAffectVariable).TriggerAttributeOn == trigger))
+            foreach (ICardAttributeAffectVariable attackerAttribute in attacker.Attributes.Where(x => x.TriggerAttributeOn == trigger))
             {
                 IVariableParameter parameter = attackerAttribute switch
                 {

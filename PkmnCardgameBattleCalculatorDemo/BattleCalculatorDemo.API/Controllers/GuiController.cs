@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.Internal;
 using BattleCalculatorDemo.Cards.CardAttributes;
+using BattleCalculatorDemo.Cards.Helpers;
 using BattleCalculatorDemo.Cards.MonsterCards;
 using BattleCalculatorDemo.Models;
 using MongoORM4NetCore;
@@ -68,6 +69,13 @@ namespace BattleCalculatorDemo.API.Controllers
                 throw;
             }
             return true;
+        }
+        [HttpPost("Battle")]
+        public CombatResult Battle([FromBody] BattleModel battleModel)
+        {
+            var attacker = _monsterCardEntityCrud.GetOne(battleModel.AttackerId);
+            var defender = _monsterCardEntityCrud.GetOne(battleModel.DefenderId);
+            return BattleCalculator.Attacks((MonsterCard)attacker.CardReference, (MonsterCard)defender.CardReference);
         }
     }
 }

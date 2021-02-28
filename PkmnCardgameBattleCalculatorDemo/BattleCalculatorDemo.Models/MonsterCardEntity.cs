@@ -38,7 +38,7 @@ namespace BattleCalculatorDemo.Models
             var cards = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(t => t.GetTypes())
                 .Where(t => !t.IsAbstract && t.IsAssignableTo(typeof(MonsterCard)))
-                  .Select(x => (IMonsterCard)Activator.CreateInstance(x));
+                .Select(x => (IMonsterCard)Activator.CreateInstance(x));
 
             foreach (var card in cards)
             {
