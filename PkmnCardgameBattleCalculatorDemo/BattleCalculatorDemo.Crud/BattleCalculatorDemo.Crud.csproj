@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BattleCalculatorDemo.Cards\BattleCalculatorDemo.Cards.csproj" />
+    <ProjectReference Include="..\BattleCalculatorDemo.Models\BattleCalculatorDemo.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

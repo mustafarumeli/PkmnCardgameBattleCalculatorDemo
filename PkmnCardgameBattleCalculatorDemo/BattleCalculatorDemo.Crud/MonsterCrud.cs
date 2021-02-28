@@ -6,11 +6,12 @@ using System.Reflection;
 using BattleCalculatorDemo.Cards.CardAttributes;
 using BattleCalculatorDemo.Cards.MonsterCards;
 using BattleCalculatorDemo.Cards.MonsterType;
+using BattleCalculatorDemo.Models;
 using MongoORM4NetCore.Interfaces;
 
 namespace BattleCalculatorDemo.Crud
 {
-    // public class MonsterCrud : Crud<MonsterCard>
-    // {
-    // }
+    public class MonsterCrud : Crud<MonsterCardEntity>
+    {
+    }
 }

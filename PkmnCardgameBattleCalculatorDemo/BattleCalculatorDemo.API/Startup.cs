@@ -9,9 +9,13 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using BattleCalculatorDemo.AbstractionLayer;
 using BattleCalculatorDemo.Cards.CardAttributes;
+using BattleCalculatorDemo.Cards.MonsterCards;
 using BattleCalculatorDemo.Cards.MonsterType;
+using BattleCalculatorDemo.Models;
 using MongoDB.Bson.Serialization;
 using MongoORM4NetCore;
 
@@ -31,25 +35,31 @@ namespace BattleCalculatorDemo.API
         {
             services.AddControllers();
 
+            //MongoDbConnection.InitializeAndStartConnection(
+            //    "mongodb+srv://dbusr:TgFbMteUpmbWuQKv@cluster0.zvps8.mongodb.net/pkmndb?retryWrites=true&w=majority",
+            //    "pkmndb");
+            MongoDbConnection.InitializeAndStartConnection(databaseName: "pkmndb");
             BsonRegister();
-            MongoDbConnection.InitializeAndStartConnection(
-                "mongodb+srv://dbusr:TgFbMteUpmbWuQKv@cluster0.zvps8.mongodb.net/pkmndb?retryWrites=true&w=majority",
-                "pkmndb");
-            services.AddSingleton<Crud<CardAttribute>>();
+            services.AddSingleton<Crud<MonsterCardEntity>>();
+            services.AddSingleton<Crud<CardImageEntity>>();
             services.AddSwaggerGen();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
         }
 
         private static void BsonRegister()
         {
-            BsonClassMap.RegisterClassMap<HardShellCardAttribute>();
-            BsonClassMap.RegisterClassMap<IronWillCardAttribute>();
-            BsonClassMap.RegisterClassMap<SharperCardAttribute>();
-            BsonClassMap.RegisterClassMap<WeightlessCardAttribute>();
-            BsonClassMap.RegisterClassMap<GlassMonsterType>();
-            BsonClassMap.RegisterClassMap<RockMonsterType>();
-            BsonClassMap.RegisterClassMap<PaperMonsterType>();
-            BsonClassMap.RegisterClassMap<SoundMonsterType>();
-            BsonClassMap.RegisterClassMap<ScissorsMonsterType>();
+            var assemblyTypes = Assembly.LoadFrom("bin/Debug/net5.0/BattleCalculatorDemo.Cards.dll").GetTypes();
+            var cards = assemblyTypes.Where(t => !t.IsAbstract && t.IsAssignableTo(typeof(MonsterCard)));
+            var attributes = assemblyTypes.Where(t => t.IsAssignableTo(typeof(ICardAttribute)));
+            var monsterTypes = assemblyTypes.Where(t => t.IsAssignableTo(typeof(IMonsterType)));
+            foreach (var type in cards.Union(attributes).Union(monsterTypes))
+            {
+                var classMapDefinition = typeof(BsonClassMap<>);
+                var classMapType = classMapDefinition.MakeGenericType(type);
+                var classMap = (BsonClassMap)Activator.CreateInstance(classMapType);
+                BsonClassMap.RegisterClassMap(classMap);
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

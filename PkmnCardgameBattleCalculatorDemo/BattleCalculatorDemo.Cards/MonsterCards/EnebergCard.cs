@@ -18,8 +18,8 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
         public override int Hp { get; set; } = 150;
         public override int Atk { get; set; } = 150;
         public override int Def { get; set; } = 25;
-        public sealed override IList<ICardAttribute> Attributes { get; set; }
-        public sealed override IList<IMonsterType> Types { get; set; }
+        public sealed override IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
+        public sealed override IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
         public EnebergCard()
         {
             Attributes.WithShower("Attack a random enemy twice");

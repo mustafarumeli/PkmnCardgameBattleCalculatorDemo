@@ -26,7 +26,8 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
             get => _hitChance;
             set => _hitChance = value > 100 ? (int)100 : value;
         }
-        public abstract IList<ICardAttribute> Attributes { get; set; }
+
+        public abstract IList<ICardAttribute> Attributes { get; set; } 
         public abstract IList<IMonsterType> Types { get; set; }
         public string Description => string.Join(",", CreateCardDescription());
 

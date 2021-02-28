@@ -7,7 +7,7 @@ namespace BattleCalculatorDemo.Cards.MonsterType
     public class SoundMonsterType : DbObject, IMonsterType
     {
         public string Name { get; } = "Sound";
-        public string Icon { get; } = "rock.png";
+        public string Icon { get; } = "icons/sound.png";
         public IList<IMonsterTypeMultiplier> MultiplierAgainstTypes { get; } = new List<IMonsterTypeMultiplier>();
 
 

@@ -15,7 +15,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
         public override int Def { get; set; } = 150;
 
         public sealed override IList<ICardAttribute> Attributes { get; set; } = new List<ICardAttribute>();
-        public sealed override IList<IMonsterType> Types { get; set; }
+        public sealed override IList<IMonsterType> Types { get; set; } = new List<IMonsterType>();
 
         public TheMountainCard()
         {

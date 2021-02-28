@@ -3,9 +3,13 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.Internal;
 using BattleCalculatorDemo.Cards.CardAttributes;
 using BattleCalculatorDemo.Cards.MonsterCards;
+using BattleCalculatorDemo.Models;
 using MongoORM4NetCore;
 
 namespace BattleCalculatorDemo.API.Controllers
@@ -14,40 +18,56 @@ namespace BattleCalculatorDemo.API.Controllers
     [ApiController]
     public class GuiController : ControllerBase
     {
-        private Crud<CardAttribute> _cardAttributeCrud;
+        private readonly Crud<MonsterCardEntity> _monsterCardEntityCrud;
+        private readonly Crud<CardImageEntity> _cardImageEntityCrud;
+        private readonly IMapper _mapper;
 
-        public GuiController( Crud<CardAttribute> cardAttributeCrud)
+        public GuiController(Crud<MonsterCardEntity> monsterCardEntityCrud, IMapper mapper, Crud<CardImageEntity> cardImageEntityCrud)
         {
-            _cardAttributeCrud = cardAttributeCrud;
+            _monsterCardEntityCrud = monsterCardEntityCrud;
+            _mapper = mapper;
+            _cardImageEntityCrud = cardImageEntityCrud;
 
-            if (_cardAttributeCrud.Count == 0)
+            if (monsterCardEntityCrud.CountAll == 0)
             {
-                _cardAttributeCrud.Insert(new IronWillCardAttribute());
-                _cardAttributeCrud.Insert(new SharperCardAttribute());
-                _cardAttributeCrud.Insert(new WeightlessCardAttribute());
-                _cardAttributeCrud.Insert(new HardShellCardAttribute());
+                monsterCardEntityCrud.InsertMany(MonsterCardEntity.GetAllRegisteredCards().ToArray());
+            }
+        }
+        [HttpGet("GetAllCards")]
+        public IEnumerable<MonsterCardModel> GetAllCards()
+        {
+            var all = _cardImageEntityCrud.GetAll();
+            foreach (var monsterCardModel in _monsterCardEntityCrud.GetAll().Select(x => _mapper.Map<MonsterCardModel>(x)))
+            {
+                monsterCardModel.MapImages(all);
+                yield return monsterCardModel;
             }
         }
 
-        [HttpGet("GetCardAttributes")]
-        public IEnumerable<CardAttribute> GetCardAttributes()
+        [HttpPut("ResetAllCards")]
+        public bool ResetAllCards()
         {
-            return _cardAttributeCrud.GetAll();
+            _monsterCardEntityCrud.DropCollection();
+            if (_monsterCardEntityCrud.CountAll == 0)
+            {
+                _monsterCardEntityCrud.InsertMany(MonsterCardEntity.GetAllRegisteredCards().ToArray());
+            }
+            return true;
         }
-        //
-        // [HttpGet("GetCards")]
-        // public IEnumerable<MonsterCard> GetCards()
-        // {
-        //     var t = _crud.GetAll();
-        //     return t;
-        // }
-        //
-        //
-        // [HttpPost("SaveCard")]
-        // public bool SaveCard(MonsterCard card)
-        // {
-        //     _crud.Insert(card);
-        //     return true;
-        // }
+
+        [HttpPost("SaveImage")]
+        public bool SaveImage([FromBody] ImageModel imageModel)
+        {
+            try
+            {
+                var t = _cardImageEntityCrud.Insert(_mapper.Map<CardImageEntity>(imageModel));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            return true;
+        }
     }
 }

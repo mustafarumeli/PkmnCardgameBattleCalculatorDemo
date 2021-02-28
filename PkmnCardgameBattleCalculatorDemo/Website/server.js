@@ -21,17 +21,15 @@ app.use(express.static('public/battle-calculator'));
 app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname + '/public/default.html'));
 });
-app.get('/card-generator', function (req, res) {
+app.get('/card-image-generator', function (req, res) {
 	res.sendFile(path.join(__dirname + '/public/cardgenerator/cardgenerator.html'));
 });
 app.get('/battle-calculator', function (req, res) {
 	res.sendFile(path.join(__dirname + '/public/battle-calculator/battle-calculator.html'));
 });
 
-
-
-const BASEURL = "http://bapi:80";
-
+// const BASEURL = "http://bapi:80";
+const BASEURL = 'https://localhost:5001';
 
 app.get('/cards', function (req, res) {
 	fetch('/').then(data);
@@ -40,54 +38,25 @@ app.get('/cards', function (req, res) {
 app.post('/saveCard', function (req, res) {
 	var data = req.body.card;
 	var card = {
-		Name: data.name,
-		Atk: data.str,
-		Def: data.def,
-		Hp: data.hp,
-		Description: data.desc,
-		Image: data.name + '.png',
-		Attributes: data.attr,
-		Types: data.types,
+		CardId: data.id,
+		CardImage: data.image,
+		Artwork: data.artwork,
 	};
 	var config = {
 		method: 'post',
-		url: BASEURL+'/api/Gui/SaveCard',
+		url: BASEURL + '/api/Gui/SaveImage',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		data: card,
 	};
-	console.log(JSON.stringify(card));
 	axiosFacade(config);
 	res.sendStatus(200);
 });
 
-app.post('/GetCardAttributes', function (req, res) {
-	axiosFacade
-		.get(BASEURL+'/api/Gui/GetCardAttributes')
-		.then((response) => {
-			res.send(response.data);
-		})
-		.catch((err) => {
-			res.send(err);
-		});
-});
-
-app.post('/GetCardTypes', function (req, res) {
-	axiosFacade
-		.get(BASEURL+'/api/Gui/GetCardTypes')
-		.then((response) => {
-			res.send(response.data);
-		})
-		.catch((err) => {
-			res.send(err);
-		});
-});
-
-
 app.post('/GetCards', function (req, res) {
 	axiosFacade
-		.get(BASEURL+'/api/Gui/GetCards')
+		.get(BASEURL + '/api/Gui/GetAllCards')
 		.then((response) => {
 			res.send(response.data);
 		})
@@ -95,7 +64,6 @@ app.post('/GetCards', function (req, res) {
 			res.send(err);
 		});
 });
-
 
 app.listen(3230, function () {
 	console.log('Example app listening on port 3230!');

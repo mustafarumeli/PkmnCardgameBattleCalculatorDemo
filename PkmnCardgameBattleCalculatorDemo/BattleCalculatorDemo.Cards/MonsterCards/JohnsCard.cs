@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using BattleCalculatorDemo.AbstractionLayer;
+using BattleCalculatorDemo.Cards.CardAttributes.Utils;
 using BattleCalculatorDemo.Cards.ItemCards.Evolve;
+using BattleCalculatorDemo.Cards.MonsterType.Utils;
 
 namespace BattleCalculatorDemo.Cards.MonsterCards
 {
@@ -16,7 +18,8 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
 
         public JohnsCard()
         {
-
+            Attributes.WithLoneWolf("Lose 50% of its defense power").WithShattered(25);
+            Types.HasRock();
         }
         public DwayCard Devolve()
         {

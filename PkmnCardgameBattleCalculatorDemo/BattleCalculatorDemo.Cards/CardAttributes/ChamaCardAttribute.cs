@@ -9,6 +9,7 @@ namespace BattleCalculatorDemo.Cards.CardAttributes
     public class ChamaCardAttribute : CardAttribute, ICardAttributeAffectVariable<DoubleCardParameter>,
         IAttributeComparer<ChamaCardAttribute>
     {
+        public override string Name { get; set; } = "Chama";
         public AttributeTriggers TriggerAttributeOn { get; } = AttributeTriggers.BeforeDefense;
 
         public void Affect(DoubleCardParameter parameter)

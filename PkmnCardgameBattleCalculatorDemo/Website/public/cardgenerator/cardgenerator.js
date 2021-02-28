@@ -1,81 +1,44 @@
-$('#btnGenerate').on('click', () => {
-	var name = $('#cname').val();
-	var cardAttack = $('#cardAttack').val();
-	var cardDef = $('#cardDef').val();
-	var cardHp = $('#cardHp').val();
-	var cardDesc = $('#cardDesc').val();
-	var template = $('.template').html();
-	var cardTypes = '';
-	typeIconPaths.forEach((element) => {
-		cardTypes += `<img src='${element}' />`;
+function GetCards() {
+	$.ajax({
+		url: '/GetCards',
+		type: 'POST',
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		error: function (m) {
+			console.log(m.responseText);
+		},
+		success: function (data) {
+			if (data) {
+				data.forEach((element) => {
+					var template = $('.template').html();
+					var cardTypes = `<img src='${element.mainCardType}' />`;
+					if (element.secondaryCardType != null) cardTypes += `<img src='${element.secondaryCardType}' />`;
+					template = template.replaceAll('{card-name}', element.name);
+					template = template.replace('{card-attack}', element.atk);
+					template = template.replace('{card-health}', element.hp);
+					template = template.replace('{card-defence}', element.def);
+					template = template.replace('{card-desc}', element.description);
+					template = template.replace('{card-id}', element.id);
+					if (element.artwork) template = template.replace('{card-image}', element.artwork);
+					template = template.replace('{card-types}', cardTypes);
+					$('#container').append(template);
+				});
+			}
+		},
 	});
-	template = template.replaceAll('{card-name}', name);
-	template = template.replace('{card-attack}', cardAttack);
-	template = template.replace('{card-health}', cardHp);
-	template = template.replace('{card-defence}', cardDef);
-	template = template.replace('{card-desc}', cardDesc);
-	template = template.replace('{card-image}', imgSrc);
-	template = template.replace('{card-types}', cardTypes);
-	$('#container').append(template);
-	sendImage(name);
-
-	card = {
-		name: name,
-		str: cardAttack,
-		def: cardDef,
-		hp: cardHp,
-		desc: cardDesc,
-		attr: attributes,
-		types: types,
-	};
-	attributes = [];
-	typeIconPaths = [];
-	types = [];
-	getCardAttributes();
-	getCardTypes();
-	GetCards();
-});
-let attributes = [];
-$('#btnSaveAttribute').on('click', () => {
-	var text = '';
-	var attributeName = $('#cardAttributes :selected').text();
-	if (attributeName != 'None') {
-		text += attributeName;
-		var AttributeValues = [];
-		$('.variable').each((index, item) => {
-			AttributeValues.push($(item).val());
-			text += $(item).val() + ' ';
-		});
-		attributes.push({
-			attributeName,
-			AttributeValues,
-		});
-		$('#attributeHolder').append(`<li>${text}</li>`);
-		$('#cardAttributes :selected').remove();
-		$('#cardAttributeVariableContainer').html('');
-	}
-});
-let types = [];
-let typeIconPaths = [];
-$('#btnAddCardType').on('click', () => {
-	var type = $('#cardTypes :selected').text();
-	if (type != 'None') {
-		if (type.toLowerCase().indexOf('glass') > -1) typeIconPaths.push('icons/glass.png');
-		if (type.toLowerCase().indexOf('rock') > -1) typeIconPaths.push('icons/rock.png');
-		if (type.toLowerCase().indexOf('paper') > -1) typeIconPaths.push('icons/paper.png');
-		if (type.toLowerCase().indexOf('sound') > -1) typeIconPaths.push('icons/sound.png');
-		if (type.toLowerCase().indexOf('scissors') > -1) typeIconPaths.push('icons/scissors.png');
-
-		types.push({ TypeName: type });
-		$('#typeHolder').append(`<li>${type}</li>`);
-		$('#cardTypes :selected').remove();
-	}
-});
+}
 let card = {};
+function changeArtwork(e, id, name) {
+	card.id = id;
+	card.name = name;
+	card.e = e;
+	$('#cardImage').click();
+}
 function sendImage(name) {
 	html2canvas(document.getElementById(name)).then((canvas) => {
 		var data = canvas.toDataURL('image/png');
 		card.image = data;
+		console.log(card);
 		$.ajax({
 			url: '/saveCard',
 			type: 'POST',
@@ -90,87 +53,14 @@ function sendImage(name) {
 	});
 }
 $().ready(GetCards);
-$().ready(getCardAttributes);
-$().ready(getCardTypes);
 
-function getCardTypes() {
-	$('#cardTypes').html('');
-	$.ajax({
-		url: '/GetCardTypes',
-		type: 'POST',
-		contentType: 'application/json; charset=utf-8',
-		dataType: 'json',
-		error: function (m) {
-			console.log(m.responseText);
-		},
-		success: function (data) {
-			if (data) {
-				var lis = '<option>None</option>';
-				data.forEach((element) => {
-					lis += `<option>${element.name}</option>`;
-				});
-				$('#cardTypes').html(lis);
-			}
-		},
-	});
-}
-
-function getCardAttributes() {
-	$('#cardAttributes').html('');
-	$.ajax({
-		url: '/GetCardAttributes',
-		type: 'POST',
-		contentType: 'application/json; charset=utf-8',
-		dataType: 'json',
-		error: function (m) {
-			console.log(m.responseText);
-		},
-		success: function (data) {
-			if (data) {
-				var lis = '<option variableCount="0">None</option>';
-				data.forEach((element) => {
-					lis += `<option variableCount='${element.variableCount}'>${element.name}</option>`;
-				});
-				$('#cardAttributes').html(lis);
-			}
-		},
-	});
-}
-function createCardVariableInputs() {
-	var count = $('#cardAttributes option:selected').attr('variableCount');
-	var $cardAttributeVariableContainer = $('#cardAttributeVariableContainer');
-	$cardAttributeVariableContainer.html('');
-	for (var i = 0; i < count; i++) {
-		$cardAttributeVariableContainer.append("<input type='number' class='variable' />");
-	}
-}
-
-function GetCards() {
-	$.ajax({
-		url: '/GetCards',
-		type: 'POST',
-		contentType: 'application/json; charset=utf-8',
-		dataType: 'json',
-		error: function (m) {
-			console.log(m.responseText);
-		},
-		success: function (data) {
-			if (data) {
-				data.forEach((element) => {
-					$('#container').append(`<img src='generatedCardImages/${element.image}' />`);
-				});
-			}
-		},
-	});
-}
-let imgSrc = '';
 function onFileSelected(event) {
 	var selectedFile = event.target.files[0];
 	var reader = new FileReader();
-	var imgtag = document.getElementById('cardImage');
 	reader.onload = function (event) {
-		imgSrc = event.target.result;
+		card.artwork = event.target.result;
+		$(card.e).attr('src', card.artwork);
+		sendImage(card.name);
 	};
-
 	reader.readAsDataURL(selectedFile);
 }

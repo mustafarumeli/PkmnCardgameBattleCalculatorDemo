@@ -3,54 +3,20 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Card Generator</title>
+		<title>Card Image Generator</title>
 		<link rel="stylesheet" href="cardgenerator.css" />
 		<link rel="stylesheet" href="/fontawesome/css/fontawesome.css" />
 		<script src="h2c.js"></script>
 	</head>
 	<body>
-		<div class="title">PKMN CARD GAME CARD CREATOR</div>
+		<div class="title">PKMN CARD GAME CARD IMAGE CREATOR</div>
 		<div class="form-container">
-			<form class="card-form">
-				<div>
-					<label for="cname">Card Name:</label>
-					<input type="text" id="cname" name="cname" />
-				</div>
-				<div>
-					<label for="cardAttack">Card Attack:</label>
-					<input type="text" id="cardAttack" name="cardAttack" />
-				</div>
-				<div>
-					<label for="cardDef">Card Defence:</label>
-					<input type="text" id="cardDef" name="cardDef" />
-				</div>
-				<div>
-					<label for="cardHp">Card HP:</label>
-					<input type="text" id="cardHp" name="cardHp" />
-				</div>
-				<div>
-					<label for="cardDesc">Card Desc:</label>
-					<input type="text" id="cardDesc" name="cardDesc" />
-				</div>
+			<form class="card-form" style="display: none">
 				<div>
 					<label for="cardImage">Card Image:</label>
 					<input id="cardImage" type="file" accept="image/*" onchange="onFileSelected(event)" />
 				</div>
-				<div>
-					<label for="cardImage">Card Types:</label>
-					<select id="cardTypes"></select>
-					<button id="btnAddCardType" type="button" role="button">Add Type</button>
-					<ul id="typeHolder"></ul>
-				</div>
-				<div>
-					<label for="cardImage">Card Attributes:</label>
-					<select id="cardAttributes" onchange="createCardVariableInputs()"></select>
-					<button id="btnSaveAttribute" type="button" role="button">Add Attribute</button>
-					<div id="cardAttributeVariableContainer"></div>
-					<ul id="attributeHolder"></ul>
-				</div>
-
-				<input id="btnGenerate" type="button" role="button" value="Generate" />
+				<input id="btnGenerate" type="button" role="button" value="Add Image" />
 			</form>
 			<div id="container"></div>
 		</div>
@@ -62,7 +28,11 @@
 					<div class="card-name">{card-name}</div>
 				</div>
 				<div class="card-image">
-					<img src="{card-image}" />
+					<img
+						onclick="changeArtwork(this,'{card-id}','{card-name}')"
+						alt="change-artwork"
+						src="{card-image}"
+					/>
 				</div>
 				<div class="card-description">{card-desc}</div>
 				<div class="card-lower-info">

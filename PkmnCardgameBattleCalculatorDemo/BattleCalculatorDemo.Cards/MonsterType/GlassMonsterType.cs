@@ -9,7 +9,7 @@ namespace BattleCalculatorDemo.Cards.MonsterType
     public class GlassMonsterType : IMonsterType
     {
         public string Name { get; } = "Glass";
-        public string Icon { get; } = "glass.png";
+        public string Icon { get; } = "icons/glass.png";
         public IList<IMonsterTypeMultiplier> MultiplierAgainstTypes { get; } = new List<IMonsterTypeMultiplier>();
 
         public GlassMonsterType()
