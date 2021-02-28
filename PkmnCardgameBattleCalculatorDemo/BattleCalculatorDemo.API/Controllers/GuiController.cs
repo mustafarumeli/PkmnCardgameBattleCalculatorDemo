@@ -34,6 +34,26 @@ namespace BattleCalculatorDemo.API.Controllers
                 monsterCardEntityCrud.InsertMany(MonsterCardEntity.GetAllRegisteredCards().ToArray());
             }
         }
+
+        [HttpGet("GetRandom")]
+        public IActionResult GetRandom(int cardCount)
+        {
+            var cards = _mapper.Map<IEnumerable<MonsterCardModel>>(_monsterCardEntityCrud.GetAll()).ToList();
+            var response = new List<MonsterCardModel>();
+            var random = new Random();
+            for (int i = 0; i < cardCount; i++)
+            {
+                var picked = cards[random.Next(cards.Count)];
+                response.Add(picked);
+                cards.Remove(picked);
+            }
+
+            return Ok(new
+            {
+                CardCount = cardCount,
+                Cards = response
+            });
+        }
         [HttpGet("GetAllCards")]
         public IEnumerable<MonsterCardModel> GetAllCards()
         {

@@ -2,7 +2,6 @@
 {
     public interface IBoardManager
     {
-        void Write(string text);
-        
+        void SetPlayer2(IPlayerInGame playerInGame);
     }
 }

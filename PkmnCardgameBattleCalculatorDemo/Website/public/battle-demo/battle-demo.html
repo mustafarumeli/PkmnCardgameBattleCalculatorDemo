@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
+    <link rel="stylesheet" href="battle-demo.css" />
+</head>
+<body>
+<div class="room-input-container">
+    <form class="room-input-group" onsubmit="joinRoom(event)">
+        <input id="roomId" type="text" placeholder="Room Id">
+        <button type="submit">Join</button>
+    </form>
+</div>
+<div class="room-id-container">
+    <span id="roomIdField"></span>
+</div>
+<script src="battle-demo.js"></script>
+</body>
+</html>

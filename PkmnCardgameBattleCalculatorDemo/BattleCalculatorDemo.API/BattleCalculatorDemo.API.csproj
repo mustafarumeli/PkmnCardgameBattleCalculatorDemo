@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BattleCalculatorDemo.BoardManager\BattleCalculatorDemo.BoardManager.csproj" />
     <ProjectReference Include="..\BattleCalculatorDemo.Crud\BattleCalculatorDemo.Crud.csproj" />
     <ProjectReference Include="..\BattleCalculatorDemo.Models\BattleCalculatorDemo.Models.csproj" />
   </ItemGroup>

@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+}
+
+.room-input-container {
+    background: red;
+    height: 100vh;
+}
+
+.room-input-group {
+    margin: 0;
+    top : 50%;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.room-id-container{
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    background: rgba(42,42,42,.8);
+    color: white;
+}

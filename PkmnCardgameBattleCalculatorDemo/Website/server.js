@@ -17,6 +17,7 @@ app.use(bodyParser.raw({ limit: '50mb' }));
 app.use(express.static('public'));
 app.use(express.static('public/cardgenerator'));
 app.use(express.static('public/battle-calculator'));
+app.use(express.static('public/battle-demo'));
 //#endregion
 app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname + '/public/default.html'));
@@ -27,7 +28,9 @@ app.get('/card-image-generator', function (req, res) {
 app.get('/battle-calculator', function (req, res) {
 	res.sendFile(path.join(__dirname + '/public/battle-calculator/battle-calculator.html'));
 });
-
+app.get('/battle-demo', function (req, res) {
+	res.sendFile(path.join(__dirname + '/public/battle-demo/battle-demo.html'));
+});
 // const BASEURL = "http://bapi:80";
 const BASEURL = 'https://localhost:5001';
 
