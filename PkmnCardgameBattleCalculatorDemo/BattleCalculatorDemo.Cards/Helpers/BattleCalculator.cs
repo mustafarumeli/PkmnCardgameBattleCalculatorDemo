@@ -10,10 +10,12 @@ namespace BattleCalculatorDemo.Cards.Helpers
 {
     public static class BattleCalculator
     {
-        private const double AttackDefenseRatioMultiplier = 50;
+        private double AttackDefenseRatioMultiplier = 22.5;
 
-        public static CombatResult Attacks(this MonsterCard attacker, MonsterCard defender)
+        public static CombatResult Attacks(this MonsterCard attacker, MonsterCard defender,double attackDefenseRatioMultiplier = 22.5)
         {
+            AttackDefenseRatioMultiplier = attackDefenseRatioMultiplier; // for test purposes
+                
             CalculateBeforeCombatEffects(attacker, defender);
             CombatResult combatResult = CalculateInCombatEffects(attacker, defender);
             CalculateAfterCombatEffects(attacker, defender, combatResult);
