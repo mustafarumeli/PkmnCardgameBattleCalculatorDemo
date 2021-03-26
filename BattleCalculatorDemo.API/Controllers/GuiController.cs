@@ -34,7 +34,7 @@ namespace BattleCalculatorDemo.API.Controllers
                 monsterCardEntityCrud.InsertMany(MonsterCardEntity.GetAllRegisteredCards().ToArray());
             }
         }
-
+     
         [HttpGet("GetRandom")]
         public IActionResult GetRandom(int cardCount)
         {
@@ -54,6 +54,7 @@ namespace BattleCalculatorDemo.API.Controllers
                 Cards = response
             });
         }
+    
         [HttpGet("GetAllCards")]
         public IEnumerable<MonsterCardModel> GetAllCards()
         {
@@ -64,7 +65,7 @@ namespace BattleCalculatorDemo.API.Controllers
                 yield return monsterCardModel;
             }
         }
-
+     
         [HttpPut("ResetAllCards")]
         public bool ResetAllCards()
         {
@@ -75,7 +76,7 @@ namespace BattleCalculatorDemo.API.Controllers
             }
             return true;
         }
-
+     
         [HttpPost("SaveImage")]
         public bool SaveImage([FromBody] ImageModel imageModel)
         {
@@ -90,6 +91,7 @@ namespace BattleCalculatorDemo.API.Controllers
             }
             return true;
         }
+     
         [HttpPost("Battle")]
         public CombatResult Battle([FromBody] BattleModel battleModel)
         {

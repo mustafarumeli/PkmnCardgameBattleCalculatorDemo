@@ -8,6 +8,8 @@ namespace BattleCalculatorDemo.AbstractionLayer
         ICollection<ICard> Deck { get; set; }
         ICollection<ICard> CardsInHand { get; set; }
         PlayerSide Side { get; set; }
+
+
     }
     
     public enum PlayerSide

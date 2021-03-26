@@ -30,9 +30,11 @@ connection.on("GroupId", id => {
     field.innerText = roomId;
 })
 
+
+
 async function joinRoom(event){
     event?.preventDefault();
-    const val = document.getElementById("roomId").valueOf();
+    const val = document.getElementById("roomId").value;
     let roomId = '00000000-0000-0000-0000-000000000000';
     if (val?.length > 0){
         roomId = val;
