@@ -2,15 +2,105 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BattleCalculatorDemo.AbstractionLayer;
+using BattleCalculatorDemo.BoardManager;
+using BattleCalculatorDemo.BoardManager.Entities;
 using BattleCalculatorDemo.Cards.CardAttributes;
 using BattleCalculatorDemo.Cards.Helpers;
 using BattleCalculatorDemo.Cards.ItemCards.Polymorph;
 using BattleCalculatorDemo.Cards.MonsterCards;
 using BattleCalculatorDemo.Cards.MonsterType;
 using NUnit.Framework;
+using static BattleCalculatorDemo.API.Hubs.GameManagerHub;
 
 namespace BattleCalculatorDemo.Test
 {
+    [TestFixture]
+    public class GameTests
+    {
+        RoomManager roomManagerInstance;
+        RoomHub room;
+        Player player1, player2;
+        IBoardManager boardManager;
+
+        [SetUp]
+        public void Setup()
+        {
+            roomManagerInstance = new RoomManager();
+            room = new RoomHub();
+            player1 = new Player
+            {
+                ConnectionId = Guid.NewGuid().ToString(),
+                PlayerInGame = new PlayerInGame()
+                {
+                    Name = Guid.NewGuid().ToString(),
+                    Side = PlayerSide.Blue,
+                    CardsInHand = new List<ICard>(),
+                    Deck = CardHelpers.GetAllTierOneCards()
+                }
+            };
+            player2 = new Player
+            {
+                ConnectionId = Guid.NewGuid().ToString(),
+                PlayerInGame = new PlayerInGame()
+                {
+                    Name = Guid.NewGuid().ToString(),
+                    Side = PlayerSide.Red,
+                    CardsInHand = new List<ICard>(),
+                    Deck = CardHelpers.GetAllTierOneCards()
+                }
+            };
+            room.Player1 = player1;
+            room.Player2 = player2;
+
+            boardManager = BoardManagerObject.CreateBoardManager(player1.PlayerInGame, player2.PlayerInGame);
+
+            room = new RoomHub
+            {
+                BoardManager = boardManager,
+                Player1 = player1,
+                Player2 = player2
+            };
+
+
+        }
+        public void Player1GetsHand()
+        {
+            room.Player1.PlayerInGame.CardsInHand = room.Player1.GetHand(6).Select(x => x as ICard).ToList();
+        }
+        public void Player2GetsHand()
+        {
+            room.Player2.PlayerInGame.CardsInHand = room.Player2.GetHand(5).Select(x => x as ICard).ToList();
+        }
+        public void Player1PlaysCard()
+        {
+            room.BoardManager.Player1PlayCard(room.Player1.PlayerInGame.CardsInHand.First().Id);
+
+        }
+
+        public void Player2PlaysCard()
+        {
+            room.BoardManager.Player2PlayCard(room.Player2.PlayerInGame.CardsInHand.First().Id);
+        }
+
+        public ICombatResult Player1AttacksPlayer2()
+        {
+            var attackerId = room.Player1.PlayerInGame.CardsInHand.First().Id;
+            var defenderId = room.Player2.PlayerInGame.CardsInHand.First().Id;
+            return room.BoardManager.Battle(attackerId, defenderId);
+        }
+        [Test]
+        public void Basic2TurnScenrio()
+        {
+            Player1GetsHand();
+            Player2GetsHand();
+            Player1PlaysCard();
+            Player2PlaysCard();
+            var result = Player1AttacksPlayer2();
+            Assert.IsTrue(result.DidDefenderDie == true);
+        }
+
+    }
     public class BattleTests
     {
         private MonsterCard _attackerMonsterCard;

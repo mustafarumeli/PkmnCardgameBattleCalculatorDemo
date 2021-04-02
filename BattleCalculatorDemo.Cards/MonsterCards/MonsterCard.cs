@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BattleCalculatorDemo.AbstractionLayer;
 using BattleCalculatorDemo.Cards.CardAttributes;
@@ -11,6 +12,7 @@ namespace BattleCalculatorDemo.Cards.MonsterCards
 
         private int _criticalChance = 50;
         private int _hitChance = 75;
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public abstract string Name { get; set; }
         public abstract ICardImages CardImages { get; set; }
         public abstract int Hp { get; set; }

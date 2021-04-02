@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BattleCalculatorDemo.AbstractionLayer;
 using BattleCalculatorDemo.Cards.CardAttributes;
@@ -47,5 +48,5 @@ namespace BattleCalculatorDemo.Cards.ItemCards.Polymorph
         }
 
         public IPolymorphSides PolymorphSides { get; set; } = new PolymorphSides();
-    }
+        public string Id { get; set; } = Guid.NewGuid().ToString(); }
 }

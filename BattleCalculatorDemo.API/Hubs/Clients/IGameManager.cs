@@ -9,7 +9,7 @@ namespace BattleCalculatorDemo.API.Hubs.Clients
 {
     public interface IGameManagerClient
     {
-        Task SendOutHand(IEnumerable<MonsterCard> monsterCardModels);
+        Task SendOutHand(IEnumerable<IMonsterCard> monsterCardModels);
         Task JoinedRoom(string playerName);
         Task GroupId(string id);
     }

@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace BattleCalculatorDemo.Cards.Helpers
 {
-    public class CombatResult
+    public class CombatResult : ICombatResult
     {
         public int DamageDealt { get; set; }
         public bool WasCritical { get; set; } = false;

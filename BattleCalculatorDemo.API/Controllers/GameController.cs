@@ -12,5 +12,8 @@ namespace BattleCalculatorDemo.API.Controllers
         {
             return Ok(GameManagerHub.RoomManagerInstance.GetAllRooms());
         }
+
+
+
     }
 }

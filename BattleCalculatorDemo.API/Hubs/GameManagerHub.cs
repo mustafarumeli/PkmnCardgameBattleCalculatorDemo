@@ -108,7 +108,6 @@ namespace BattleCalculatorDemo.API.Hubs
 
             public IEnumerable<RoomHub> GetAllRooms() => _rooms.Values.AsEnumerable();
         }
-
         public class Player
         {
             public IPlayerInGame PlayerInGame { get; set; }
@@ -126,7 +125,6 @@ namespace BattleCalculatorDemo.API.Hubs
                 }
             }
         }
-
         public class RoomHub
         {
             public Guid Id { get; set; }
