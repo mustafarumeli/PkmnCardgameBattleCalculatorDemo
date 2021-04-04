@@ -1,30 +1,34 @@
 const connection = new signalR.HubConnectionBuilder()
     .withUrl("https://localhost:5001/hub/gameManagerHub")
     .build();
-async function start() {
+async function start(){
     try {
         await connection.start();
         console.log("SignalR Connected")
     }
-    catch (err) {
+    catch (err){
         console.log(err);
-        setTimeout(start, 5000);
+        setTimeout(start,5000);
     }
 }
 
 connection.onclose(start);
 let roomId = null;
 
+
+connection.on("OpenBoard", cards => {
+    console.log(JSON.parse(cards));
+})
+
 connection.on("SendOutHand", cards => {
     console.log(JSON.parse(cards));
 })
 
-connection.on("OpenBoard", cards => {
-    document.location = "/battle-board";
-})
 connection.on("JoinedRoom", playerName => {
     console.log(`${playerName} joined the room`);
 })
+
+
 
 connection.on("GroupId", id => {
     console.log(`Room Name : ${id}`)
@@ -35,11 +39,11 @@ connection.on("GroupId", id => {
 
 
 
-async function joinRoom(event) {
+async function joinRoom(event){
     event?.preventDefault();
     const val = document.getElementById("roomId").value;
     let roomId = '00000000-0000-0000-0000-000000000000';
-    if (val?.length > 0) {
+    if (val?.length > 0){
         roomId = val;
     }
     await connection.invoke("JoinRoom", roomId, `Omer`);

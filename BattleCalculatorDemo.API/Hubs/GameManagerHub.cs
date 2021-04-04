@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BattleCalculatorDemo.AbstractionLayer;
+using BattleCalculatorDemo.AbstractionLayer.Utils;
 using BattleCalculatorDemo.API.Hubs.Clients;
 using BattleCalculatorDemo.BoardManager;
 using BattleCalculatorDemo.BoardManager.Entities;
 using BattleCalculatorDemo.Cards.MonsterCards;
 using Microsoft.AspNetCore.SignalR;
+using MongoDB.Bson.IO;
+using Newtonsoft.Json;
 
 namespace BattleCalculatorDemo.API.Hubs
 {
@@ -52,13 +55,15 @@ namespace BattleCalculatorDemo.API.Hubs
             await Clients.Caller.GroupId(groupName);
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
             await Clients.GroupExcept(groupName, Context.ConnectionId).JoinedRoom(playerName);
-                await Clients.Client(Context.ConnectionId).SendOutHand(roomHub.Player1.GetHand(5));
+                //await Clients.Client(Context.ConnectionId).SendOutHand(roomHub.Player1.GetHand(5));
 
             if (roomHub.Player1 != null && roomHub.Player2 != null)
             {
-                await Clients.Client(roomHub.Player1.ConnectionId).SendOutHand(roomHub.Player1.GetHand(5));
-                await Clients.Client(roomHub.Player2.ConnectionId).SendOutHand(roomHub.Player2.GetHand(6));
 
+                await Clients.Client(roomHub.Player1.ConnectionId).OpenBoard();
+                await Clients.Client(roomHub.Player2.ConnectionId).OpenBoard();
+                await Clients.Client(roomHub.Player1.ConnectionId).SendOutHand(roomHub.Player1.GetHand(5).ToJson());
+                await Clients.Client(roomHub.Player2.ConnectionId).SendOutHand(roomHub.Player2.GetHand(6).ToJson());
             }
         }
     }

@@ -3,7 +3,7 @@ body {
 }
 
 .room-input-container {
-    background: red;
+    background: rgba(42,42,42,.8);
     height: 100vh;
 }
 

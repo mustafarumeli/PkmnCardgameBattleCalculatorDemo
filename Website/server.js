@@ -31,6 +31,11 @@ app.get('/battle-calculator', function (req, res) {
 app.get('/battle-demo', function (req, res) {
 	res.sendFile(path.join(__dirname + '/public/battle-demo/battle-demo.html'));
 });
+
+app.get('/battle-board', function (req, res) {
+	res.sendFile(path.join(__dirname + '/public/battle-board/board.html'));
+});
+
 // const BASEURL = "http://bapi:80";
 const BASEURL = 'https://localhost:5001';
 
