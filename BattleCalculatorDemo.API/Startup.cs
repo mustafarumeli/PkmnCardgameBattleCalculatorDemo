@@ -71,7 +71,7 @@ namespace BattleCalculatorDemo.API
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
 
             app.UseHttpsRedirection();
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://45.146.161.178:3230", "http://localhost:3230").AllowCredentials());
             app.UseOptions();
             app.UseRouting();
 
