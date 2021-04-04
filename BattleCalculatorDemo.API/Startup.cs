@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using BattleCalculatorDemo.AbstractionLayer;
 using BattleCalculatorDemo.API.Hubs;
 using BattleCalculatorDemo.Cards.CardAttributes;
@@ -73,6 +72,7 @@ namespace BattleCalculatorDemo.API
 
             app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
+            app.UseOptions();
             app.UseRouting();
 
             app.UseAuthorization();
