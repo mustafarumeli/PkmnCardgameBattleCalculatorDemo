@@ -36,10 +36,7 @@ namespace BattleCalculatorDemo.API
         {
             services.AddControllers();
 
-            MongoDbConnection.InitializeAndStartConnection(
-                "mongodb+srv://dbusr:TgFbMteUpmbWuQKv@cluster0.zvps8.mongodb.net/pkmndb?retryWrites=true&w=majority",
-                "pkmndb");
-            // MongoDbConnection.InitializeAndStartConnection(databaseName: "pkmndb");
+            MongoDbConnection.InitializeAndStartConnection(databaseName: "pkmndb");
             BsonRegister();
             services.AddSingleton<Crud<MonsterCardEntity>>();
             services.AddSingleton<Crud<CardImageEntity>>();
@@ -75,7 +72,7 @@ namespace BattleCalculatorDemo.API
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
 
             app.UseHttpsRedirection();
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3230").AllowCredentials());
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://0.0.0.0:3230").AllowCredentials());
             app.UseRouting();
 
             app.UseAuthorization();
