@@ -1,5 +1,5 @@
 const connection = new signalR.HubConnectionBuilder()
-    .withUrl("https://localhost:5001/hub/gameManagerHub")
+    .withUrl("https://localhost:4725/hub/gameManagerHub")
     .build();
 async function start(){
     try {

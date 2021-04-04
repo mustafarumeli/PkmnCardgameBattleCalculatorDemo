@@ -2,10 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BattleCalculatorDemo.AbstractionLayer;
 using BattleCalculatorDemo.API.Hubs;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver.Core.Connections;
 
 namespace BattleCalculatorDemo.API.Controllers
 {
